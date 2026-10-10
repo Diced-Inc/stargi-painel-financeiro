@@ -13,14 +13,22 @@ cd painel && python3 -m http.server 8000   # abrir http://localhost:8000
 ```
 Para publicar: suba a pasta `painel/` inteira em qualquer hospedagem estática (Vercel, Netlify...). **Proteja com senha**: são dados financeiros. A pasta não tem dados pessoais de clientes.
 
+## Layout (abas)
+Quatro abas, com o mês escolhido no topo valendo para todas (no celular, barra fixa embaixo; no computador, no topo):
+- **Início**: "Sobrou este mês" = líquido recebido (já sem taxas) − saídas do mês (despesas, custos fixos, etiquetas e retiradas das caixinhas); métricas do mês; alertas de contas vencidas ou vencendo em 7 dias; ponto de equilíbrio em barra ("X de Y vendas para cobrir os custos do mês").
+- **Movimentações**: vendas e saídas do mês numa lista só (filtro todas/entradas/saídas), gráfico entradas x saídas (mês/semana), contas a pagar e a receber.
+- **Caixinhas**: as seis caixinhas, total guardado, botão Retirar em cada uma e detalhe por mês. Retirada = despesa (entra uma vez nas saídas, nunca de novo no lucro).
+- **Produtos**: tabela editável de margem, simulador e configurações (com histórico).
+Versão anterior do layout: tag git `v-layout-antigo`.
+
 ## Editar produtos e configurações (no painel)
-- Seção **Produtos, custos e margem**: no computador é uma tabela editável (como a planilha); no celular, cartões com botão **Editar** (abre uma janela). **＋ Adicionar produto** e 🗑️ **Excluir** (pede confirmação).
-- Valores em R$ têm máscara (digite só números: `4990` → R$ 49,90). Tamanho em branco = não existe.
+- Seção **Produtos, custos e margem**: no computador é uma tabela editável (como a planilha); no celular, cartões com botão **Editar** (abre uma janela). **Adicionar produto** e **Excluir** (ícone de lixeira) (pede confirmação).
+- Valores em R$ têm máscara (digite só números: `4990` -> R$ 49,90). Tamanho em branco = não existe.
 - **Custo = custo da peça SEM embalagem.** A caixa é cobrada por pedido: 1 peça = caixa pequena; a partir de N peças (padrão 2) = caixa grande. Brindes (R$ 0,00) não contam como peça.
 - **Lucro (tabela)** = pedido de 1 peça, pior caso, como na planilha: preço × (1 − 29,95%) − R$ 0,35 − custo − mão de obra (se não estiver inclusa) − caixa pequena.
 - Seção **Configurações**: preço das caixas, a partir de quantas peças usa a caixa grande, cupom, perdas, pró-labore, trocas, taxas do cartão e do Pix.
-- Alterou algo na tabela ou nas configurações → aparece a barra **Salvar**. No modal, “Salvar produto” já salva.
-- **Histórico**: as últimas 30 versões ficam guardadas; em Configurações → *Histórico de alterações* → **Restaurar** (restaurar também vira uma versão nova, então dá para desfazer).
+- Alterou algo na tabela ou nas configurações -> aparece a barra **Salvar**. No modal, “Salvar produto” já salva.
+- **Histórico**: as últimas 30 versões ficam guardadas; em Configurações -> *Histórico de alterações* -> **Restaurar** (restaurar também vira uma versão nova, então dá para desfazer).
 - Duas pessoas editando ao mesmo tempo: quem salvar por último recebe aviso para recarregar (nada é sobrescrito sem querer).
 
 ## API (só com sessão; sem sessão = 401 JSON)
@@ -46,7 +54,7 @@ Escrita exige `Content-Type: application/json` e mesma origem. Código: `lib/ses
 | `assets/logo-stargi.webp` | Logo baixada de stargi.com.br |
 
 ## Rotina semanal
-1. **Vendas**: exportar os pedidos na Nuvemshop (Vendas → Exportar) e rodar
+1. **Vendas**: exportar os pedidos na Nuvemshop (Vendas -> Exportar) e rodar
    `python3 scripts/import_nuvemshop_csv.py ~/Downloads/Vendas-xxxx.csv`
    O script deduplica pelo número do pedido, mantém os campos manuais e não copia dados pessoais.
    (Se a exportação estiver bloqueada pelo plano, lançar o pedido à mão em `vendas.json` no formato abaixo.)
@@ -55,7 +63,7 @@ Escrita exige `Content-Type: application/json` e mesma origem. Código: `lib/ses
 
 ## Esquemas
 
-### vendas.json → `pedidos[]`
+### vendas.json -> `pedidos[]`
 ```json
 {
  "numero": 305, "data": "2026-10-01T14:11:28",
@@ -79,7 +87,7 @@ Escrita exige `Content-Type: application/json` e mesma origem. Código: `lib/ses
 - **Campos manuais** (o script preserva): `custoEtiqueta` (valor real da etiqueta; se ficar `null`, o painel estima igual ao frete cobrado), `caixas` (substitui a regra automática, ex.: `{"grande":1,"pequena":1}`), `observacao`, `verificadoNoPainel`.
 - O painel liga cada item ao custo pelo nome (veja `apelidos` em produtos.json) e pelo tamanho entre parênteses (P/M/G).
 
-### despesas.json → `despesas[]`
+### despesas.json -> `despesas[]`
 ```json
 {"id": "d-2026-10-12-1", "data": "2026-10-12", "descricao": "Tecido tricoline rosa 3m", "categoria": "tecido", "valor": 120.00, "formaPagamento": "Pix", "obs": ""}
 ```
@@ -96,13 +104,13 @@ Todas as despesas entram no **saldo** (caixa). No **lucro** só entram as catego
 Selo vermelho = vencida ou vence hoje; amarelo = vence nos próximos `config.alertas.diasAntesDoVencimento` dias (7).
 Os fixos com `diaVencimento` aparecem sozinhos no mês atual; para tirar da lista, coloque `"<id>:<AAAA-MM>"` em `fixosPagos`.
 
-### caixinhas.json → `movimentos[]`
+### caixinhas.json -> `movimentos[]`
 ```json
 {"data": "2026-10-31", "caixinha": "proLabore", "valor": -50.00, "descricao": "Retirada pró-labore outubro"}
 ```
 `caixinha`: `perdas` | `proLabore` | `trocas`. O que entra é calculado das vendas (% do config sobre `subtotal − desconto`, sem frete) desde `inicioControle`; aqui só vão as retiradas (valor negativo) ou ajustes.
 
-### produtos.json → `produtos[]`
+### produtos.json -> `produtos[]`
 ```json
 {"id": "necessaire-summer", "nome": "Necessaire Summer", "categoria": "necessaire", "cores": "Branco",
  "tamanhos": {"P": {"preco": 49.90, "custo": 26.03}},
@@ -136,7 +144,7 @@ Todas em variáveis CSS no topo do `index.html`, tiradas do tema da loja stargi.
 ## Publicação (Vercel + login)
 - Repositório privado no GitHub; deploy na Vercel (projeto `stargi-painel-financeiro`, time `diced-inc`, plano Hobby, sem Next.js, sem build: `vercel.json` serve a raiz como estático).
 - `middleware.js` (Vercel Routing Middleware, runtime Node) roda **antes de toda requisição**:
-  - Sem sessão: páginas e arquivos → redireciona para `/login` (página própria da Stargi); `*.json` e `/api/*` → `401` em JSON. Só a logo (`/assets/logo-stargi.webp`) é pública, para a tela de login.
+  - Sem sessão: páginas e arquivos -> redireciona para `/login` (página própria da Stargi); `*.json` e `/api/*` -> `401` em JSON. Só a logo (`/assets/logo-stargi.webp`) é pública, para a tela de login.
   - `POST /login` (formulário `usuario`, `senha`, `next`) compara com as variáveis de ambiente em tempo constante. Certo: cookie `__Host-stargi_sessao` (HttpOnly, Secure, SameSite=Lax, 30 dias) assinado com HMAC-SHA256 e redireciona. Errado: espera ~0,8 s e mostra "Usuário ou senha incorretos".
   - `/logout` (link **Sair** no topo do painel) apaga o cookie.
   - A chave do HMAC vem de `SESSION_SECRET` + usuário + senha: trocar a senha ou o segredo derruba todas as sessões.

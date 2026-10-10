@@ -73,7 +73,7 @@ button.entrar:disabled{opacity:.7;cursor:wait}
 <main class="card">
   <img class="logo" src="/assets/logo-stargi.webp" alt="stargi" width="118" height="46">
   <h1>Painel Financeiro</h1>
-  <p class="sub">Entre para ver as finanças da Stargi 💗</p>
+  <p class="sub">Entre para acessar as finanças da Stargi.</p>
   ${bloqueado ? '<div class="erro" role="alert">Painel bloqueado: o acesso ainda não foi configurado.</div>' : ''}
   ${erro ? `<div class="erro" role="alert">${esc(erro)}</div>` : ''}
   <form method="post" action="/login" id="f">
