@@ -1,0 +1,10 @@
+{
+ "_leiame": "Movimentos manuais das caixinhas (o que entra é calculado sozinho pelas vendas a partir do inicioControle). caixinha: perdas | proLabore | trocas. valor negativo = retirada/uso.",
+ "exemplo": {
+  "data": "2026-10-31",
+  "caixinha": "proLabore",
+  "valor": -50.0,
+  "descricao": "Retirada pró-labore outubro"
+ },
+ "movimentos": []
+}

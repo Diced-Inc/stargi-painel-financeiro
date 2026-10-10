@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stargi · Financeiro</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%92%97%3C/text%3E%3C/svg%3E">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<style>
+/* ===== Paleta oficial Stargi (tirada de stargi.com.br, 10/10/2026) — mude só aqui ===== */
+:root{
+  --rosa:#e5ada8;          /* tema da loja: --accent-color */
+  --creme:#efe8d8;         /* tema da loja: --button-background / --label-background / --newsletter-background */
+  --marrom:#a0835b;        /* CSS da loja (.cart-icon-badge); logo ≈ #a2845c */
+  --azul-ref:#00bfff;      /* swatch "Azul claro" da loja; usado só clareado (azul bebê) */
+  --branco:#ffffff;        /* tema da loja: --main-background */
+  --texto:#5e5e5e;         /* tema da loja: --main-foreground */
+  --perigo:#dd7774;        /* tema da loja: --danger */
+  --sucesso:#4bb98c;       /* tema da loja: --success */
+  --aviso:#dc8f38;         /* tema da loja: --warning */
+  /* derivados (misturas das cores acima) */
+  --rosa-claro:color-mix(in srgb,var(--rosa) 22%,var(--branco));
+  --rosa-escuro:color-mix(in srgb,var(--rosa) 70%,#000 12%);
+  --marrom-escuro:color-mix(in srgb,var(--marrom) 70%,#000);
+  --creme-claro:color-mix(in srgb,var(--creme) 45%,var(--branco));
+  --azul-bebe:color-mix(in srgb,var(--azul-ref) 11%,var(--branco));
+  --azul-texto:color-mix(in srgb,var(--azul-ref) 55%,#1d4e63);
+  --fonte:"Poppins",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --raio:18px;
+  --sombra:0 2px 14px rgba(160,131,91,.12);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:120px}
+body{margin:0;font-family:var(--fonte);color:var(--texto);background:var(--creme-claro);font-size:15px;line-height:1.45}
+h1,h2,h3{color:var(--marrom-escuro);margin:0}
+h2{font-size:1.1rem;font-weight:600;display:flex;align-items:center;gap:.4rem}
+small,.muted{color:#8a8a8a}
+header{position:sticky;top:0;z-index:20;background:var(--branco);box-shadow:0 1px 0 var(--creme)}
+.topo{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.6rem 1rem;max-width:1180px;margin:0 auto}
+.topo img{height:34px;width:auto}
+.topo .titulo{font-size:.8rem;color:var(--marrom);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+select,input{font-family:inherit;font-size:.95rem;color:var(--marrom-escuro);background:var(--creme-claro);border:1px solid var(--creme);border-radius:12px;padding:.5rem .7rem}
+select:focus,input:focus{outline:2px solid var(--rosa);outline-offset:1px}
+nav{display:flex;gap:.4rem;overflow-x:auto;padding:.1rem 1rem .6rem;max-width:1180px;margin:0 auto;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;text-decoration:none;color:var(--marrom-escuro);background:var(--creme);padding:.35rem .8rem;border-radius:999px;font-size:.82rem;font-weight:500}
+nav a:hover{background:var(--rosa);color:#fff}
+main>*{min-width:0}
+main{max-width:1180px;margin:0 auto;padding:1rem;display:grid;gap:1rem;grid-template-columns:1fr}
+.card{background:var(--branco);border-radius:var(--raio);box-shadow:var(--sombra);padding:1.1rem}
+.card>h2{margin-bottom:.8rem}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
+.kpi{background:var(--creme-claro);border-radius:14px;padding:.7rem .8rem}
+.kpi .rot{font-size:.74rem;color:var(--marrom);font-weight:500}
+.kpi .val{font-size:1.15rem;font-weight:600;color:var(--marrom-escuro);margin-top:.1rem;word-break:break-word}
+.kpi .det{font-size:.72rem;color:#8a8a8a}
+.kpi.destaque{background:var(--rosa-claro)}
+.kpi.azul{background:var(--azul-bebe)}
+.neg{color:var(--perigo)!important}
+.pos{color:var(--sucesso)!important}
+.aviso{background:var(--creme-claro);border-left:4px solid var(--rosa);border-radius:10px;padding:.6rem .8rem;font-size:.84rem;margin-top:.7rem}
+.aviso.azul{border-color:var(--azul-ref);background:var(--azul-bebe);color:var(--azul-texto)}
+.vazio{text-align:center;padding:1.2rem .5rem;color:#9a9a9a;font-size:.9rem;background:var(--creme-claro);border-radius:12px;border:1px dashed var(--creme)}
+.vazio b{display:block;color:var(--marrom);font-weight:600;margin-bottom:.2rem}
+.badge{display:inline-block;font-size:.68rem;font-weight:600;padding:.12rem .5rem;border-radius:999px;background:var(--creme);color:var(--marrom-escuro);white-space:nowrap}
+.badge.rosa{background:var(--rosa);color:#fff}
+.badge.vermelho{background:var(--perigo);color:#fff}
+.badge.amarelo{background:var(--aviso);color:#fff}
+.badge.verde{background:var(--sucesso);color:#fff}
+.badge.azul{background:var(--azul-bebe);color:var(--azul-texto)}
+.tabs{display:inline-flex;background:var(--creme-claro);border-radius:999px;padding:3px;margin-bottom:.7rem}
+.tabs button{border:0;background:none;font-family:inherit;font-size:.8rem;padding:.35rem .8rem;border-radius:999px;color:var(--marrom-escuro);cursor:pointer}
+.tabs button.on{background:var(--rosa);color:#fff}
+.grafico{position:relative;height:260px}
+.caixinhas{display:grid;grid-template-columns:1fr;gap:.6rem}
+.caixinha{border-radius:16px;padding:.9rem;background:var(--rosa-claro)}
+.caixinha:nth-child(2){background:var(--creme)}
+.caixinha:nth-child(3){background:var(--azul-bebe)}
+.caixinha .nome{font-weight:600;color:var(--marrom-escuro)}
+.caixinha .saldo{font-size:1.35rem;font-weight:700;color:var(--marrom-escuro)}
+.lista{list-style:none;margin:0;padding:0}
+.lista li{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:.6rem 0;border-bottom:1px solid var(--creme)}
+.lista li:last-child{border-bottom:0}
+.lista .desc{font-size:.9rem;color:var(--marrom-escuro)}
+.lista .sub{font-size:.74rem;color:#8a8a8a}
+.lista .valor{font-weight:600;white-space:nowrap;color:var(--marrom-escuro)}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.7rem}
+.tabela{width:100%;border-collapse:collapse;font-size:.82rem}
+.tabela th{text-align:left;font-weight:600;color:var(--marrom);font-size:.72rem;padding:.4rem .35rem;border-bottom:2px solid var(--creme);position:sticky;top:0;background:var(--branco)}
+.tabela td{padding:.45rem .35rem;border-bottom:1px solid var(--creme);vertical-align:top}
+.tabela td.n,.tabela th.n{text-align:right;white-space:nowrap}
+.tabela tr.baixa td{background:color-mix(in srgb,var(--perigo) 10%,var(--branco))}
+.rolar{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.sim{display:grid;gap:.6rem;grid-template-columns:1fr 1fr}
+.sim label{font-size:.75rem;color:var(--marrom);font-weight:500;display:flex;flex-direction:column;gap:.2rem}
+.sim label.cheio{grid-column:1/-1}
+.sim select,.sim input{width:100%}
+.resultado{margin-top:.8rem;background:var(--creme-claro);border-radius:14px;padding:.8rem}
+.resultado .linha{display:flex;justify-content:space-between;font-size:.85rem;padding:.15rem 0}
+.resultado .total{border-top:2px solid var(--creme);margin-top:.35rem;padding-top:.45rem;font-weight:700;font-size:1rem;color:var(--marrom-escuro)}
+.grande{font-size:2rem;font-weight:700;color:var(--marrom-escuro);line-height:1.1}
+details{margin-top:.8rem}
+summary{cursor:pointer;color:var(--marrom);font-weight:500;font-size:.88rem}
+footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
+#erro{display:none;background:var(--perigo);color:#fff;padding:1rem;border-radius:12px;margin:1rem}
+@media (max-width:520px){.hm{display:none}.tabela{font-size:.76rem}}
+@media (min-width:760px){
+  .kpis{grid-template-columns:repeat(4,1fr)}
+  .caixinhas{grid-template-columns:repeat(3,1fr)}
+  main{grid-template-columns:repeat(2,1fr)}
+  .span2{grid-column:1/-1}
+  .grafico{height:300px}
+  .sim{grid-template-columns:repeat(4,1fr)}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="topo">
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <img src="assets/logo-stargi.webp" alt="stargi">
+      <span class="titulo">Financeiro</span>
+    </div>
+    <select id="mes" aria-label="Escolher mês"></select>
+  </div>
+  <nav>
+    <a href="#resumo">Resumo</a><a href="#grafico">Entradas x saídas</a><a href="#caixinhas">Caixinhas</a>
+    <a href="#contas">Contas</a><a href="#despesas">Despesas</a><a href="#margens">Margens</a>
+    <a href="#simulador">Simulador</a><a href="#equilibrio">Equilíbrio</a>
+  </nav>
+</header>
+<div id="erro"></div>
+<main>
+  <section class="card span2" id="resumo">
+    <h2>✨ Resumo de <span id="mesNome"></span></h2>
+    <div class="kpis" id="kpis"></div>
+    <div id="resumoAvisos"></div>
+    <details><summary>Ver pedidos do mês</summary><div class="rolar" id="pedidosMes"></div></details>
+  </section>
+
+  <section class="card span2" id="grafico">
+    <h2>📊 Entradas x saídas</h2>
+    <div class="tabs" id="tabsGrafico">
+      <button data-modo="mes" class="on">Por mês</button><button data-modo="semana">Por semana</button>
+    </div>
+    <div class="grafico"><canvas id="cv"></canvas></div>
+    <div class="aviso" style="font-size:.78rem">Entradas = líquido recebido (já sem taxas). Saídas = despesas lançadas + custos fixos + etiquetas de frete.</div>
+  </section>
+
+  <section class="card span2" id="caixinhas">
+    <h2>🐷 Caixinhas de reserva</h2>
+    <div class="caixinhas" id="cxs"></div>
+    <div id="cxsInfo"></div>
+  </section>
+
+  <section class="card" id="contas">
+    <h2>🗓️ Contas a pagar e a receber</h2>
+    <div id="contasBox"></div>
+  </section>
+
+  <section class="card" id="despesas">
+    <h2>🧾 Despesas de <span class="mesNome2"></span></h2>
+    <div class="chips" id="despChips"></div>
+    <div id="despLista"></div>
+  </section>
+
+  <section class="card span2" id="margens">
+    <h2>💗 Margem por produto</h2>
+    <p class="muted" style="margin:.1rem 0 .7rem;font-size:.82rem">Lucro real de 1 peça vendida sozinha, depois de cupom, taxas, caixinhas, custo, mão de obra e caixa.</p>
+    <div class="rolar"><table class="tabela" id="tabMargens"></table></div>
+    <div id="margensAvisos"></div>
+  </section>
+
+  <section class="card span2" id="simulador">
+    <h2>🧮 Simulador de venda</h2>
+    <div class="sim">
+      <label class="cheio">Produto<select id="sProd"></select></label>
+      <label>Tamanho<select id="sTam"></select></label>
+      <label>Cupom (%)<input id="sCupom" type="number" min="0" max="100" step="1" inputmode="decimal"></label>
+      <label class="cheio">Pagamento<select id="sPag">
+        <option value="cartao3x">Cartão até 3x sem juros</option>
+        <option value="cartao1x">Cartão à vista</option>
+        <option value="pix">Pix (5% de desconto)</option>
+      </select></label>
+    </div>
+    <div class="resultado" id="sRes"></div>
+  </section>
+
+  <section class="card span2" id="equilibrio">
+    <h2>⚖️ Ponto de equilíbrio</h2>
+    <div id="eqBox"></div>
+  </section>
+</main>
+<footer id="rodape"></footer>
+
+<script>
+(async function(){
+const $=s=>document.querySelector(s);
+const brl=v=>v==null||isNaN(v)?'—':v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const pct=(v,d=1)=>v==null||!isFinite(v)?'—':(v*100).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d})+'%';
+const norm=s=>(s||'').normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const MESES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const nomeMes=ym=>{const[a,m]=ym.split('-');return MESES[+m-1]+' de '+a};
+const curtoMes=ym=>{const[a,m]=ym.split('-');return MESES[+m-1].slice(0,3)+'/'+a.slice(2)};
+const vazio=(t,s='')=>`<div class="vazio"><b>${t}</b>${s}</div>`;
+const fmtData=iso=>{const[a,m,d]=iso.slice(0,10).split('-');return `${d}/${m}/${a}`};
+
+async function carregar(n){const r=await fetch('data/'+n+'.json',{cache:'no-store'});if(!r.ok)throw new Error('Não consegui abrir data/'+n+'.json');return r.json()}
+let cfg,prods,vendas,desp,contas,cx;
+try{[cfg,prods,vendas,desp,contas,cx]=await Promise.all(['config','produtos','vendas','despesas','contas','caixinhas'].map(carregar))}
+catch(e){const el=$('#erro');el.style.display='block';el.textContent='Erro ao carregar os dados: '+e.message+' (abra o painel por um servidor, não direto pelo arquivo).';return}
+const P=prods.produtos, pedidos=vendas.pedidos||[], despesas=desp.despesas||[];
+const D=cfg.deducoesPorVenda, PG=cfg.pagamento, CX=cfg.embalagem.caixas;
+const reservaPct=(D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent)/100;
+const fixos=cfg.custosFixosMensais||[], totalFixos=fixos.reduce((s,f)=>s+f.valor,0);
+const ymDe=iso=>(iso||'').slice(0,7);
+const controlado=ym=>ym>=cfg.inicioControle;
+const hoje=new Date(); const ymHoje=hoje.toISOString().slice(0,7);
+
+/* ---------- produtos ---------- */
+function acharProduto(nome){
+  const n=norm(nome); let melhor=null;
+  for(const p of P) for(const a of p.apelidos){const i=n.indexOf(norm(a)); if(i>=0&&(!melhor||i<melhor.i||(i===melhor.i&&a.length>melhor.len)))melhor={p,i,len:a.length}}
+  if(!melhor)return null;
+  const p=melhor.p, tams=Object.keys(p.tamanhos);
+  if(tams.length===1&&tams[0]==='U')return {p,tam:'U'};
+  const m=nome.match(/\(([^)]*)\)/); const toks=m?m[1].split(',').map(t=>t.trim().toUpperCase()):[];
+  const tam=toks.find(t=>tams.includes(t));
+  return tam?{p,tam}:{p,tam:null};
+}
+const moInclusa=p=>p.maoDeObraJaInclusaNoCusto||cfg.maoDeObraInclusaNoCusto||(cfg.categoriasComMaoDeObraNoCusto||[]).includes(p.categoria);
+function custoUnit(p,tam){
+  const t=p.tamanhos[tam]; let custo=t.custo;
+  const emb=cfg.embalagem.inclusaNoCustoDoProduto?CX[p.caixa].custo:0; custo-=emb;
+  const mo=moInclusa(p)?0:(p.maoDeObra||0);
+  return {custo,mo,emb};
+}
+function caixasDoPedido(o){
+  if(o.caixas&&typeof o.caixas==='object')return o.caixas;
+  const grande=o.itens.some(i=>cfg.embalagem.palavrasCaixaGrande.some(w=>norm(i.nome).includes(norm(w))));
+  return grande?{grande:1}:{pequena:1};
+}
+/* ---------- análise de pedido ---------- */
+const semCusto=new Map();
+function analisar(o){
+  const receita=o.subtotal-o.desconto, taxas=(o.taxas||0)+(o.juros||0);
+  const etqEst=o.custoEtiqueta==null; const etiqueta=etqEst?(cfg.frete.estimarEtiquetaIgualAoFreteCobrado?o.frete:0):o.custoEtiqueta;
+  let custo=0,mo=0,faltando=[];
+  for(const it of o.itens){const m=acharProduto(it.nome);
+    if(!m||!m.tam){faltando.push(it.nome);const k=it.nome.replace(/\s*\(.*$/,'').trim();semCusto.set(k,(semCusto.get(k)||0)+it.qtd);continue}
+    const c=custoUnit(m.p,m.tam); custo+=c.custo*it.qtd; mo+=c.mo*it.qtd;}
+  const cxs=caixasDoPedido(o); const emb=Object.entries(cxs).reduce((s,[k,q])=>s+(CX[k]?.custo||0)*q,0);
+  const res={perdas:receita*D.reservaPerdasPercent/100,proLabore:receita*D.proLaborePercent/100,trocas:receita*D.reservaTrocasPercent/100};
+  const lucro=receita+o.frete-etiqueta-taxas-custo-mo-emb-res.perdas-res.proLabore-res.trocas;
+  return {receita,taxas,etiqueta,etqEst,custo,mo,emb,res,lucro,completo:faltando.length===0,faltando};
+}
+const validos=pedidos.filter(o=>!o.cancelado);
+const A=new Map(pedidos.map(o=>[o,analisar(o)]));
+const despDoMes=ym=>despesas.filter(d=>ymDe(d.data)===ym);
+function resumoMes(ym){
+  const ps=validos.filter(o=>ymDe(o.data)===ym);
+  const r={ym,ps,n:ps.length,bruto:0,produtos:0,frete:0,taxas:0,liquido:0,etiquetas:0,etqEst:0,lucroC:0,nC:0,reservas:0,estimadas:0,cancel:pedidos.filter(o=>o.cancelado&&ymDe(o.data)===ym).length};
+  for(const o of ps){const a=A.get(o);r.bruto+=o.total;r.produtos+=a.receita;r.frete+=o.frete;r.taxas+=a.taxas;r.liquido+=o.liquido;r.etiquetas+=a.etiqueta;if(a.etqEst&&o.frete>0)r.etqEst++;
+    r.reservas+=a.res.perdas+a.res.proLabore+a.res.trocas; if(o.taxasFonte!=='nuvemshop')r.estimadas++;
+    if(a.completo){r.lucroC+=a.lucro;r.nC++}}
+  const dl=despDoMes(ym); r.despLanc=dl.reduce((s,d)=>s+d.valor,0);
+  r.fixos=controlado(ym)?totalFixos:0;
+  r.despesas=r.despLanc+r.fixos+r.etiquetas;
+  r.saldo=r.liquido-r.despesas;
+  const despLucro=dl.filter(d=>(cfg.categoriasQueEntramNoLucro||[]).includes(d.categoria)).reduce((s,d)=>s+d.valor,0);
+  r.lucro=r.lucroC-r.fixos-despLucro;
+  r.ticket=r.n?r.bruto/r.n:null;
+  return r;
+}
+/* ---------- meses ---------- */
+const meses=[...new Set([...validos.map(o=>ymDe(o.data)),...despesas.map(d=>ymDe(d.data)),ymHoje])].filter(Boolean).sort();
+const todos=[];{let[a,m]=meses[0].split('-').map(Number);const fim=meses[meses.length-1];while(true){const ym=`${a}-${String(m).padStart(2,'0')}`;todos.push(ym);if(ym>=fim)break;m++;if(m>12){m=1;a++}}}
+const sel=$('#mes'); sel.innerHTML=todos.slice().reverse().map(ym=>`<option value="${ym}">${nomeMes(ym)}</option>`).join('');
+sel.value=todos.includes(ymHoje)?ymHoje:todos[todos.length-1];
+
+/* ---------- resumo ---------- */
+function kpi(rot,val,det='',cls=''){return `<div class="kpi ${cls}"><div class="rot">${rot}</div><div class="val">${val}</div>${det?`<div class="det">${det}</div>`:''}</div>`}
+function renderResumo(ym){
+  const r=resumoMes(ym); $('#mesNome').textContent=nomeMes(ym); document.querySelectorAll('.mesNome2').forEach(e=>e.textContent=nomeMes(ym));
+  const semV=r.n===0;
+  $('#kpis').innerHTML=[
+    kpi('Faturamento bruto',semV?'sem dados ainda':brl(r.bruto),semV?'':`produtos ${brl(r.produtos)} + frete ${brl(r.frete)}`,'destaque'),
+    kpi('Taxas (cartão/Pix)',semV?'sem dados ainda':brl(r.taxas),semV?'':pct(r.taxas/r.bruto)+' do bruto'+(r.estimadas?` · ${r.estimadas} estimada(s)`:'')),
+    kpi('Líquido recebido',semV?'sem dados ainda':brl(r.liquido),'já sem as taxas','azul'),
+    kpi('Despesas',brl(r.despesas),[r.fixos?`fixos ${brl(r.fixos)}`:'',r.etiquetas?`etiquetas ${brl(r.etiquetas)}${r.etqEst?' (est.)':''}`:'',r.despLanc?`lançadas ${brl(r.despLanc)}`:''].filter(Boolean).join(' · ')||(controlado(ym)?'nenhuma lançada':'sem dados ainda')),
+    kpi('Saldo do mês',`<span class="${r.saldo<0?'neg':''}">${brl(r.saldo)}</span>`,'líquido − despesas'),
+    kpi('Lucro estimado',r.nC||r.fixos?`<span class="${r.lucro<0?'neg':'pos'}">${brl(r.lucro)}</span>`:'sem dados ainda',r.n?`${r.nC} de ${r.n} pedidos com custo cadastrado`:'','destaque'),
+    kpi('Nº de pedidos',r.n,r.cancel?`${r.cancel} cancelado(s) fora da conta`:''),
+    kpi('Ticket médio',r.ticket==null?'sem dados ainda':brl(r.ticket),'por pedido, com frete'),
+  ].join('');
+  const av=[];
+  if(!controlado(ym))av.push(`Antes de ${nomeMes(cfg.inicioControle)} só temos as vendas da Nuvemshop: despesas, custos fixos e caixinhas <b>sem dados</b> nesse período.`);
+  if(r.n&&r.nC<r.n)av.push(`O lucro estimado considera só os ${r.nC} pedidos cujos produtos estão na planilha de custo. ${r.n-r.nC} pedido(s) têm produto sem custo cadastrado.`);
+  if(r.etqEst)av.push(`Etiqueta de frete: em ${r.etqEst} pedido(s) não temos o valor real, então usamos o frete cobrado da cliente (estimado).`);
+  $('#resumoAvisos').innerHTML=av.map(t=>`<div class="aviso">${t}</div>`).join('');
+  $('#pedidosMes').innerHTML=(r.ps.length||r.cancel)?`<table class="tabela"><tr><th>Pedido</th><th>Data</th><th>Pagamento</th><th class="n">Total</th><th class="n">Taxas</th><th class="n">Líquido</th><th class="n">Lucro est.</th></tr>`+
+    pedidos.filter(o=>ymDe(o.data)===ym).map(o=>{const a=A.get(o);return `<tr${o.cancelado?' style="opacity:.5"':''}><td>#${o.numero}${o.cancelado?' <span class="badge vermelho">cancelado</span>':''}${o.verificadoNoPainel?' <span class="badge verde">conferido</span>':''}<div class="muted" style="font-size:.7rem">${o.itens.map(i=>esc(i.qtd+'× '+i.nome)).join('<br>')}</div></td><td>${fmtData(o.data)}</td><td>${esc(o.meioPagamento||o.formaPagamento||'—')}${o.parcelas>1?` ${o.parcelas}x`:''}${o.cupom?`<br><span class="badge">${esc(o.cupom)}</span>`:''}</td><td class="n">${brl(o.total)}</td><td class="n">${brl(a.taxas)}${o.taxasFonte!=='nuvemshop'?`<br><span class="badge amarelo">${esc(o.taxasFonte)}</span>`:''}</td><td class="n">${brl(o.liquido)}</td><td class="n">${a.completo?`<span class="${a.lucro<0?'neg':''}">${brl(a.lucro)}</span>`:'<span class="badge">sem custo</span>'}</td></tr>`}).join('')+'</table>':vazio('sem dados ainda','Nenhum pedido neste mês.');
+}
+/* ---------- gráfico ---------- */
+let chart, modo='mes';
+function semanas(ym){const[a,m]=ym.split('-').map(Number);const ult=new Date(a,m,0).getDate();const s=[];for(let i=1;i<=ult;i+=7)s.push([i,Math.min(i+6,ult)]);return s}
+function renderGrafico(ym){
+  let labels=[],ent=[],sai=[];
+  if(modo==='mes'){const i=todos.indexOf(ym);const ms=todos.slice(Math.max(0,i-11),i+1);
+    for(const m of ms){const r=resumoMes(m);labels.push(curtoMes(m));ent.push(+r.liquido.toFixed(2));sai.push(+r.despesas.toFixed(2))}}
+  else{const r=resumoMes(ym);const dia=iso=>+iso.slice(8,10);
+    for(const[i,f]of semanas(ym)){labels.push(`${i}–${f}`);
+      const ps=r.ps.filter(o=>dia(o.data)>=i&&dia(o.data)<=f);
+      const e=ps.reduce((s,o)=>s+o.liquido,0);
+      let s=ps.reduce((s,o)=>s+A.get(o).etiqueta,0)+despDoMes(ym).filter(d=>dia(d.data)>=i&&dia(d.data)<=f).reduce((s,d)=>s+d.valor,0);
+      if(controlado(ym))for(const fx of fixos){const dv=fx.diaVencimento||1;if(dv>=i&&dv<=f)s+=fx.valor}
+      ent.push(+e.toFixed(2));sai.push(+s.toFixed(2))}}
+  const css=getComputedStyle(document.documentElement);
+  const data={labels,datasets:[{label:'Entradas',data:ent,backgroundColor:css.getPropertyValue('--rosa').trim(),borderRadius:8},{label:'Saídas',data:sai,backgroundColor:css.getPropertyValue('--marrom').trim(),borderRadius:8}]};
+  if(typeof Chart==='undefined'){$('#cv').parentElement.innerHTML=vazio('Gráfico indisponível','Sem internet para carregar o Chart.js.');return}
+  if(chart)chart.destroy();
+  chart=new Chart($('#cv'),{type:'bar',data,options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{family:'Poppins'},color:css.getPropertyValue('--texto').trim()}},tooltip:{callbacks:{label:c=>c.dataset.label+': '+brl(c.parsed.y)}}},
+    scales:{y:{ticks:{callback:v=>brl(v).replace(',00',''),font:{family:'Poppins',size:10}},grid:{color:'#f3eee4'}},x:{ticks:{font:{family:'Poppins',size:10}},grid:{display:false}}}}});
+}
+/* ---------- caixinhas ---------- */
+function renderCaixinhas(){
+  const nomes={perdas:['Reserva de perdas',D.reservaPerdasPercent],proLabore:['Pró-labore (seu salário)',D.proLaborePercent],trocas:['Trocas e devoluções',D.reservaTrocasPercent]};
+  const ac={perdas:0,proLabore:0,trocas:0},hist={perdas:0,proLabore:0,trocas:0},mov={perdas:0,proLabore:0,trocas:0};
+  for(const o of validos){const a=A.get(o);for(const k in ac){if(controlado(ymDe(o.data)))ac[k]+=a.res[k];else hist[k]+=a.res[k]}}
+  for(const m of cx.movimentos||[])if(mov[m.caixinha]!=null)mov[m.caixinha]+=m.valor;
+  $('#cxs').innerHTML=Object.entries(nomes).map(([k,[n,p]])=>`<div class="caixinha"><div class="nome">${n} <span class="badge">${String(p).replace('.',',')}%</span></div><div class="saldo">${brl(ac[k]+mov[k])}</div><div class="muted" style="font-size:.74rem">separar ${brl(ac[k])} das vendas${mov[k]?` · movimentos ${brl(mov[k])}`:''}</div></div>`).join('');
+  const h=hist.perdas+hist.proLabore+hist.trocas;
+  $('#cxsInfo').innerHTML=`<div class="aviso">As caixinhas contam desde ${nomeMes(cfg.inicioControle)}, sobre o valor pago pelos produtos (sem frete). Para tirar dinheiro de uma caixinha, lance um movimento negativo em <code>data/caixinhas.json</code>.</div>`+
+    (h?`<div class="aviso azul">Curiosidade: se as caixinhas existissem desde a 1ª venda (${curtoMes(todos[0])} até antes de ${curtoMes(cfg.inicioControle)}), teriam juntado ${brl(h)} (perdas ${brl(hist.perdas)}, pró-labore ${brl(hist.proLabore)}, trocas ${brl(hist.trocas)}).</div>`:'');
+}
+/* ---------- contas ---------- */
+function renderContas(){
+  const dia=864e5, h0=new Date(hoje.getFullYear(),hoje.getMonth(),hoje.getDate());
+  const pagos=new Set(contas.fixosPagos||[]);
+  const ap=(contas.aPagar||[]).filter(c=>!c.pago).map(c=>({...c,tipo:'pagar'}));
+  for(const f of fixos){if(!f.diaVencimento)continue;for(const ym of [ymHoje]){if(!controlado(ym)||pagos.has(f.id+':'+ym))continue;
+    ap.push({descricao:f.nome+' — '+nomeMes(ym),valor:f.valor,vencimento:`${ym}-${String(f.diaVencimento).padStart(2,'0')}`,tipo:'pagar',auto:true})}}
+  const ar=(contas.aReceber||[]).filter(c=>!c.recebido).map(c=>({...c,tipo:'receber'}));
+  const item=c=>{const v=new Date(c.vencimento+'T00:00:00');const d=Math.round((v-h0)/dia);
+    const b=d<0?`<span class="badge vermelho">vencida há ${-d} dia${d===-1?'':'s'}</span>`:d===0?'<span class="badge vermelho">vence hoje</span>':d<=cfg.alertas.diasAntesDoVencimento?`<span class="badge amarelo">vence em ${d} dia${d===1?'':'s'}</span>`:'';
+    return `<li><div><div class="desc">${esc(c.descricao)} ${c.auto?'<span class="badge azul">automático</span>':''}</div><div class="sub">vence ${fmtData(c.vencimento)} ${b}</div></div><div class="valor">${brl(c.valor)}</div></li>`};
+  const ord=a=>a.sort((x,y)=>x.vencimento.localeCompare(y.vencimento));
+  const semVenc=fixos.filter(f=>!f.diaVencimento);
+  $('#contasBox').innerHTML=`<h3 style="font-size:.9rem;margin:.2rem 0 .3rem">A pagar</h3>`+(ap.length?`<ul class="lista">${ord(ap).map(item).join('')}</ul>`:vazio('sem dados ainda','Nenhuma conta a pagar lançada.'))+
+    (semVenc.length?`<div class="aviso">Sem data de vencimento cadastrada: ${semVenc.map(f=>esc(f.nome)+' ('+brl(f.valor)+')').join(', ')}.</div>`:'')+
+    `<h3 style="font-size:.9rem;margin:1rem 0 .3rem">A receber</h3>`+(ar.length?`<ul class="lista">${ord(ar).map(item).join('')}</ul>`:vazio('sem dados ainda','Nenhum valor a receber lançado.'));
+}
+/* ---------- despesas ---------- */
+function renderDespesas(ym){
+  const r=resumoMes(ym); const itens=despDoMes(ym).map(d=>({...d}));
+  if(controlado(ym))for(const f of fixos)itens.push({descricao:f.nome,categoria:'fixo',valor:f.valor,data:`${ym}-${String(f.diaVencimento||1).padStart(2,'0')}`,auto:true,aConfirmar:f.aConfirmar});
+  if(r.etiquetas>0)itens.push({descricao:`Etiquetas de frete (${r.ps.filter(o=>A.get(o).etiqueta>0).length} pedidos)`,categoria:'frete',valor:r.etiquetas,auto:true,estimado:r.etqEst>0});
+  const porCat={};for(const c of cfg.categoriasDespesa)porCat[c]=0;for(const i of itens)porCat[i.categoria]=(porCat[i.categoria]||0)+i.valor;
+  $('#despChips').innerHTML=Object.entries(porCat).map(([c,v])=>`<span class="badge ${v?'rosa':''}">${c} ${v?brl(v):'—'}</span>`).join('');
+  $('#despLista').innerHTML=(itens.length?`<ul class="lista">${itens.sort((a,b)=>(a.data||'').localeCompare(b.data||'')).map(i=>`<li><div><div class="desc">${esc(i.descricao)} ${i.auto?'<span class="badge azul">automático</span>':''} ${i.aConfirmar?'<span class="badge amarelo">a confirmar</span>':''} ${i.estimado?'<span class="badge amarelo">estimado</span>':''}</div><div class="sub">${esc(i.categoria)}${i.data&&!i.estimado&&i.categoria!=='frete'?' · '+fmtData(i.data):''}</div></div><div class="valor">${brl(i.valor)}</div></li>`).join('')}</ul>`:'')+
+    (despDoMes(ym).length?'':vazio('sem dados ainda',controlado(ym)?'Nenhuma compra lançada neste mês (tecido, aviamentos, anúncios...). Me manda as saídas que eu lanço!':'Despesas só são controladas a partir de '+nomeMes(cfg.inicioControle)+'.'));
+}
+/* ---------- simulação de 1 peça ---------- */
+function simular(p,tam,cupom,pag){
+  const preco=p.tamanhos[tam].preco; const aposCupom=preco*(1-cupom/100);
+  let pago=aposCupom,taxa;
+  if(pag==='pix'){pago=aposCupom*(1-PG.pix.descontoClientePercent/100);taxa=pago*PG.pix.taxaPercent/100}
+  else{const c=PG.cartao3x;taxa=pago*((pag==='cartao3x'?c.parcelamentoPercent:0)+c.recebimentoPercent)/100+c.taxaFixa}
+  const res=pago*reservaPct; const c=custoUnit(p,tam); const caixa=CX[p.caixa].custo;
+  const lucro=pago-taxa-res-c.custo-c.mo-caixa;
+  return {preco,desconto:preco-pago,pago,taxa,res,custo:c.custo,mo:c.mo,emb:c.emb,caixa,lucro,margem:lucro/pago};
+}
+const baixo=s=>s.margem*100<cfg.alertas.margemBaixaPercent||s.lucro<cfg.alertas.lucroBaixoReais;
+function renderMargens(){
+  let html=`<tr><th>Produto</th><th>Tam.</th><th class="n hm">Preço</th><th class="n">Lucro pior caso<br><small>cupom ${D.cupomPadraoPercent}% + cartão 3x</small></th><th class="n">Margem</th><th class="n">Lucro melhor caso<br><small>sem cupom + Pix</small></th><th class="n hm">Lucro na planilha</th></tr>`;
+  const baixos=[];
+  for(const p of P)for(const t of Object.keys(p.tamanhos)){const s=simular(p,t,D.cupomPadraoPercent,'cartao3x'),x=simular(p,t,0,'pix');const b=baixo(s);if(b)baixos.push(p.nome+(t!=='U'?' '+t:''));
+    html+=`<tr class="${b?'baixa':''}"><td>${esc(p.nome)}${b?' <span class="badge vermelho">margem baixa</span>':''}${moInclusa(p)?' <span class="badge">MO já inclusa</span>':''}</td><td>${t}</td><td class="n hm">${brl(s.preco)}</td><td class="n ${s.lucro<0?'neg':''}"><b>${brl(s.lucro)}</b></td><td class="n ${s.lucro<0?'neg':''}">${pct(s.margem)}</td><td class="n ${x.lucro<0?'neg':''}">${brl(x.lucro)}</td><td class="n muted hm">${brl(p.tamanhos[t].lucroPlanilha)}</td></tr>`}
+  $('#tabMargens').innerHTML=html;
+  $('#margensAvisos').innerHTML=`<div class="aviso">Em vermelho: margem abaixo de ${cfg.alertas.margemBaixaPercent}% ou lucro abaixo de ${brl(cfg.alertas.lucroBaixoReais)} por peça. ${baixos.length} de ${$('#tabMargens').rows.length-1} linhas.</div>`+
+    `<div class="aviso">Mão de obra: descontada à parte em todos os produtos, menos nas regatas e tops (já está no custo delas).</div>`+
+    `<div class="aviso azul">Diferença para a planilha: aqui a caixa é cobrada por pedido (1 peça = 1 caixa), as taxas e caixinhas são calculadas sobre o valor que a cliente pagou e entra a taxa fixa de ${brl(PG.cartao3x.taxaFixa)} do cartão.</div>`;
+}
+function renderSimulador(){
+  const sp=$('#sProd'),st=$('#sTam');
+  if(!sp.options.length){sp.innerHTML=P.map((p,i)=>`<option value="${i}">${esc(p.nome)}</option>`).join('');$('#sCupom').value=D.cupomPadraoPercent;
+    const kit=P.findIndex(p=>p.id==='kit-maxi-scrunchies');if(kit>=0)sp.value=kit}
+  const p=P[+sp.value]; const tams=Object.keys(p.tamanhos);
+  if([...st.options].map(o=>o.value).join()!==tams.join())st.innerHTML=tams.map(t=>`<option>${t}</option>`).join('');
+  const cupom=Math.max(0,Math.min(100,parseFloat(String($('#sCupom').value).replace(',','.'))||0));
+  const s=simular(p,st.value,cupom,$('#sPag').value);
+  const L=(a,b,cls='')=>`<div class="linha ${cls}"><span>${a}</span><span>${b}</span></div>`;
+  $('#sRes').innerHTML=L('Preço de venda',brl(s.preco))+L('Descontos (cupom'+($('#sPag').value==='pix'?' + Pix':'')+')','− '+brl(s.desconto))+L('<b>Cliente paga</b>','<b>'+brl(s.pago)+'</b>')+
+    L('Taxas Nuvem Pago','− '+brl(s.taxa))+L(`Caixinhas (${(reservaPct*100).toLocaleString('pt-BR')}%)`,'− '+brl(s.res))+
+    L('Custo do produto (sem caixa)','− '+brl(s.custo))+L('Mão de obra',moInclusa(p)?'já no custo':'− '+brl(s.mo))+L('Caixa ('+p.caixa+')','− '+brl(s.caixa))+
+    L('Lucro real',`<span class="${s.lucro<0?'neg':'pos'}">${brl(s.lucro)} · ${pct(s.margem)}</span>`,'total')+
+    (baixo(s)?`<div class="aviso" style="border-color:var(--perigo)">⚠️ Margem baixa nessa venda.</div>`:'');
+}
+/* ---------- equilíbrio ---------- */
+function renderEquilibrio(ym){
+  const n=cfg.lucroMedioMesesParaEquilibrio||6; const i=todos.indexOf(ym); const ms=new Set(todos.slice(Math.max(0,i-n+1),i+1));
+  const ps=validos.filter(o=>ms.has(ymDe(o.data))&&A.get(o).completo);
+  const lm=ps.length?ps.reduce((s,o)=>s+A.get(o).lucro,0)/ps.length:null;
+  const linhas=fixos.map(f=>`${esc(f.nome)} ${brl(f.valor)}${f.aConfirmar?' <span class="badge amarelo">a confirmar</span>':''}`).join(' + ');
+  let corpo;
+  if(lm==null)corpo=vazio('sem dados ainda','Sem pedidos com custo cadastrado nos últimos meses.');
+  else if(lm<=0)corpo=`<div class="grande neg">não fecha</div><p>O lucro médio por pedido nos últimos ${n} meses foi <b class="neg">${brl(lm)}</b>: com os custos atuais, vender mais não cobre os fixos. Vale rever preços (ou confirmar a mão de obra).</p>`;
+  else{const q=Math.ceil(totalFixos/lm);corpo=`<div class="grande">${q} pedido${q>1?'s':''}/mês</div><p>Para pagar ${brl(totalFixos)} de custos fixos, com lucro médio de <b>${brl(lm)}</b> por pedido (média de ${ps.length} pedidos com custo cadastrado, últimos ${n} meses).</p>`}
+  const s=simular(P[+$('#sProd').value],$('#sTam').value,parseFloat($('#sCupom').value)||0,$('#sPag').value);
+  const prod=P[+$('#sProd').value].nome+($('#sTam').value!=='U'?' '+$('#sTam').value:'');
+  $('#eqBox').innerHTML=`<p class="muted" style="margin:.1rem 0 .6rem;font-size:.85rem">Custos fixos do mês: ${linhas} = <b>${brl(totalFixos)}</b></p>`+corpo+
+    `<div class="aviso azul">Só com <b>${esc(prod)}</b> (como no simulador): ${s.lucro>0?`${Math.ceil(totalFixos/s.lucro)} peças/mês`:'não cobre, o lucro por peça é zero ou negativo'}.</div>`;
+}
+function tudo(){const ym=sel.value;renderResumo(ym);renderGrafico(ym);renderDespesas(ym);renderSimulador();renderEquilibrio(ym)}
+sel.addEventListener('change',tudo);
+document.querySelectorAll('#tabsGrafico button').forEach(b=>b.addEventListener('click',()=>{modo=b.dataset.modo;document.querySelectorAll('#tabsGrafico button').forEach(x=>x.classList.toggle('on',x===b));renderGrafico(sel.value)}));
+['#sProd','#sTam','#sCupom','#sPag'].forEach(id=>$(id).addEventListener('input',()=>{renderSimulador();renderEquilibrio(sel.value)}));
+renderCaixinhas();renderContas();renderMargens();tudo();
+const semC=[...semCusto.entries()].sort((a,b)=>b[1]-a[1]);
+if(semC.length)$('#margensAvisos').insertAdjacentHTML('beforeend',`<details><summary>Produtos vendidos sem custo cadastrado (${semC.length})</summary><p style="font-size:.8rem">${semC.map(([n,q])=>esc(n)+' ('+q+')').join(' · ')}</p></details>`);
+$('#rodape').innerHTML=`Vendas atualizadas em ${fmtData(vendas.atualizadoEm)} · ${validos.length} pedidos · custos de ${fmtData(prods.atualizadoEm)}<br>Feito com 💗 para a Stargi`;
+})();
+</script>
+</body>
+</html>

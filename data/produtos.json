@@ -1,0 +1,421 @@
+{
+ "_leiame": "Catálogo com custo (planilha de custo da Gizele, 10/10/2026). 'custo' = valor da planilha (com a caixa embutida). 'apelidos' = trechos do nome do produto na Nuvemshop usados para ligar as vendas ao custo (minúsculo, sem acento). Regatas e tops (categoria 'regata') já têm a mão de obra no custo; nos outros produtos a mão de obra é descontada à parte (confirmado pela Gizele em 10/10/2026).",
+ "atualizadoEm": "2026-10-10",
+ "produtos": [
+  {
+   "id": "necessaire-summer",
+   "nome": "Necessaire Summer",
+   "categoria": "necessaire",
+   "cores": "Branco",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "P": {
+     "preco": 49.9,
+     "custo": 26.03,
+     "lucroPlanilha": 8.92
+    },
+    "M": {
+     "preco": 59.9,
+     "custo": 27.36,
+     "lucroPlanilha": 14.6
+    },
+    "G": {
+     "preco": 69.9,
+     "custo": 29.62,
+     "lucroPlanilha": 19.34
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire summer"
+   ]
+  },
+  {
+   "id": "necessaire-mocha",
+   "nome": "Necessaire Mocha",
+   "categoria": "necessaire",
+   "cores": "Marrom",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "P": {
+     "preco": 49.9,
+     "custo": 26.03,
+     "lucroPlanilha": 8.92
+    },
+    "M": {
+     "preco": 59.9,
+     "custo": 27.36,
+     "lucroPlanilha": 14.6
+    },
+    "G": {
+     "preco": 69.9,
+     "custo": 29.62,
+     "lucroPlanilha": 19.34
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire mocha"
+   ]
+  },
+  {
+   "id": "necessaire-rosie",
+   "nome": "Necessaire Rosie",
+   "categoria": "necessaire",
+   "cores": "Rosa",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "P": {
+     "preco": 54.9,
+     "custo": 29.09,
+     "lucroPlanilha": 9.37
+    },
+    "M": {
+     "preco": 64.9,
+     "custo": 30.36,
+     "lucroPlanilha": 15.1
+    },
+    "G": {
+     "preco": 74.9,
+     "custo": 32.75,
+     "lucroPlanilha": 19.72
+    }
+   },
+   "maoDeObra": 13.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire rosie"
+   ]
+  },
+  {
+   "id": "necessaire-vicky",
+   "nome": "Necessaire Vicky",
+   "categoria": "necessaire",
+   "cores": "Xadrez rosa",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "P": {
+     "preco": 49.9,
+     "custo": 26.83,
+     "lucroPlanilha": 8.12
+    },
+    "M": {
+     "preco": 59.9,
+     "custo": 28.34,
+     "lucroPlanilha": 13.62
+    },
+    "G": {
+     "preco": 69.9,
+     "custo": 31.22,
+     "lucroPlanilha": 17.74
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire vicky"
+   ]
+  },
+  {
+   "id": "necessaire-polka-dots",
+   "nome": "Necessaire Polka Dots",
+   "categoria": "necessaire",
+   "cores": "Rosa, Preto",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "P": {
+     "preco": 54.9,
+     "custo": 26.83,
+     "lucroPlanilha": 11.63
+    },
+    "M": {
+     "preco": 64.9,
+     "custo": 28.34,
+     "lucroPlanilha": 17.12
+    },
+    "G": {
+     "preco": 74.9,
+     "custo": 31.22,
+     "lucroPlanilha": 21.25
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire polka dots"
+   ]
+  },
+  {
+   "id": "necessaire-bordada",
+   "nome": "Necessaire Bordada",
+   "categoria": "necessaire",
+   "cores": "Rosa, Amarelo, Marrom, Branco, Azul, Xadrez rosa",
+   "bordado": "Nome, Inicial",
+   "tamanhos": {
+    "P": {
+     "preco": 59.9,
+     "custo": 30.77,
+     "lucroPlanilha": 6.19
+    },
+    "M": {
+     "preco": 69.9,
+     "custo": 32.08,
+     "lucroPlanilha": 11.88
+    },
+    "G": {
+     "preco": 79.9,
+     "custo": 34.31,
+     "lucroPlanilha": 16.66
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire bordada personalizada"
+   ]
+  },
+  {
+   "id": "necessaire-lemon",
+   "nome": "Necessaire Lemon",
+   "categoria": "necessaire",
+   "cores": "Amarela",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "P": {
+     "preco": 54.9,
+     "custo": 26.83,
+     "lucroPlanilha": 11.63
+    },
+    "M": {
+     "preco": 64.9,
+     "custo": 28.51,
+     "lucroPlanilha": 16.95
+    },
+    "G": {
+     "preco": 74.9,
+     "custo": 31.48,
+     "lucroPlanilha": 20.99
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire lemon"
+   ]
+  },
+  {
+   "id": "cestinho-organizador",
+   "nome": "Cestinho Organizador",
+   "categoria": "acessório",
+   "cores": "Amarelo, Rosa, Marrom",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "U": {
+     "preco": 54.9,
+     "custo": 28.04,
+     "lucroPlanilha": 10.42
+    }
+   },
+   "maoDeObra": 11.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "cestinho organizador"
+   ],
+   "obs": "As vendas do 'Cestinho Organizador polka dots (edição limitada)' usam este custo (a confirmar)."
+  },
+  {
+   "id": "charm-mini-necessaire",
+   "nome": "Charm Mini Necessaire",
+   "categoria": "acessório",
+   "cores": "Amarelo, Marrom",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "U": {
+     "preco": 34.9,
+     "custo": 15.88,
+     "lucroPlanilha": 8.57
+    }
+   },
+   "maoDeObra": 5.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "charm mini necessaire"
+   ],
+   "obs": "Inclui a versão polka dots (edição limitada) e os charms enviados como brinde (R$ 0,00)."
+  },
+  {
+   "id": "kit-maxi-scrunchies",
+   "nome": "Kit Maxi Scrunchies (2 und)",
+   "categoria": "acessório",
+   "cores": "1 poá preto + 1 poá rosa, 2 brancas, 2 rosas xadrez, 1 branca + 1 rosa xadrez",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "U": {
+     "preco": 29.9,
+     "custo": 20.15,
+     "lucroPlanilha": 0.79
+    }
+   },
+   "maoDeObra": 5.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "maxi scrunchies - kit com 2",
+    "kit maxi scrunchies"
+   ]
+  },
+  {
+   "id": "headband",
+   "nome": "Headband",
+   "categoria": "acessório",
+   "cores": "Rosa, Amarela",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "U": {
+     "preco": 29.9,
+     "custo": 14.78,
+     "lucroPlanilha": 6.16
+    }
+   },
+   "maoDeObra": 5.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "headband"
+   ]
+  },
+  {
+   "id": "bag-serena",
+   "nome": "Bag Serena",
+   "categoria": "bag",
+   "cores": "Rosa, Azul, Bege",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "U": {
+     "preco": 129.9,
+     "custo": 67.76,
+     "lucroPlanilha": 23.23
+    }
+   },
+   "maoDeObra": 26.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "grande",
+   "apelidos": [
+    "bag serena"
+   ]
+  },
+  {
+   "id": "necessaire-zoe",
+   "nome": "Necessaire Zoe",
+   "categoria": "necessaire",
+   "cores": "Rosa, Azul",
+   "bordado": "Sem bordado",
+   "tamanhos": {
+    "U": {
+     "preco": 49.9,
+     "custo": 24.18,
+     "lucroPlanilha": 10.77
+    }
+   },
+   "maoDeObra": 9.0,
+   "maoDeObraJaInclusaNoCusto": false,
+   "caixa": "pequena",
+   "apelidos": [
+    "necessaire zoe"
+   ]
+  },
+  {
+   "id": "regata-copa",
+   "nome": "Regata Copa",
+   "categoria": "regata",
+   "cores": "Branca",
+   "bordado": "Nome, Inicial",
+   "tamanhos": {
+    "U": {
+     "preco": 109.9,
+     "custo": 49.99,
+     "lucroPlanilha": 21.99
+    }
+   },
+   "maoDeObra": null,
+   "maoDeObraJaInclusaNoCusto": true,
+   "caixa": "pequena",
+   "apelidos": [
+    "regata copa"
+   ],
+   "obs": "Mesmo preço e custo nos tamanhos P, M e G."
+  },
+  {
+   "id": "top-copa",
+   "nome": "Top Copa",
+   "categoria": "regata",
+   "cores": "Amarela",
+   "bordado": "Nome, Inicial",
+   "tamanhos": {
+    "U": {
+     "preco": 89.9,
+     "custo": 45.73,
+     "lucroPlanilha": 12.24
+    }
+   },
+   "maoDeObra": null,
+   "maoDeObraJaInclusaNoCusto": true,
+   "caixa": "pequena",
+   "apelidos": [
+    "top copa"
+   ],
+   "obs": "Mesmo preço e custo nos tamanhos P, M e G."
+  },
+  {
+   "id": "regata-vickie",
+   "nome": "Regata Vickie",
+   "categoria": "regata",
+   "cores": null,
+   "bordado": null,
+   "tamanhos": {
+    "U": {
+     "preco": 99.9,
+     "custo": 34.38,
+     "lucroPlanilha": 35.6
+    }
+   },
+   "maoDeObra": null,
+   "maoDeObraJaInclusaNoCusto": true,
+   "caixa": "pequena",
+   "apelidos": [
+    "regata vickie"
+   ]
+  },
+  {
+   "id": "tube-top-julia",
+   "nome": "Tube Top Júlia",
+   "categoria": "regata",
+   "cores": null,
+   "bordado": null,
+   "tamanhos": {
+    "U": {
+     "preco": 89.9,
+     "custo": 37.55,
+     "lucroPlanilha": 25.42
+    }
+   },
+   "maoDeObra": null,
+   "maoDeObraJaInclusaNoCusto": true,
+   "caixa": "pequena",
+   "apelidos": [
+    "tube top julia"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "_leiame": "Contas a pagar e a receber com vencimento (AAAA-MM-DD). Marque pago/recebido = true quando quitar. Custos fixos com dia de vencimento no config.json aparecem sozinhos; para marcar um como pago, adicione 'idDoFixo:AAAA-MM' em fixosPagos (ex.: 'das-mei:2026-10').",
+ "exemplo": {
+  "id": "p-1",
+  "descricao": "Fornecedor de tecido - 2ª parcela",
+  "valor": 150.0,
+  "vencimento": "2026-10-20",
+  "categoria": "tecido",
+  "pago": false
+ },
+ "aPagar": [],
+ "aReceber": [],
+ "fixosPagos": []
+}

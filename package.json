@@ -1,0 +1,13 @@
+{
+  "name": "stargi-painel-financeiro",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Painel financeiro da Stargi (site estático + senha via Vercel Routing Middleware)",
+  "scripts": {
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@vercel/functions": "^3.0.0"
+  }
+}

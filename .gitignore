@@ -1,0 +1,10 @@
+# Nunca versionar
+screenshots/
+node_modules/
+.vercel/
+.env*
+*.csv
+**/Vendas-*.csv
+__pycache__/
+*.pyc
+.DS_Store

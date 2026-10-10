@@ -1,0 +1,13 @@
+{
+ "_leiame": "Despesas lançadas (saídas de caixa). Os custos fixos mensais (DAS, Nuvemshop) NÃO precisam ser lançados aqui: vêm do config.json. data = AAAA-MM-DD; categoria: tecido, aviamentos, embalagem, frete, anúncios, fixo, outros.",
+ "exemplo": {
+  "id": "d-2026-10-12-1",
+  "data": "2026-10-12",
+  "descricao": "Tecido tricoline rosa 3m",
+  "categoria": "tecido",
+  "valor": 120.0,
+  "formaPagamento": "Pix",
+  "obs": ""
+ },
+ "despesas": []
+}

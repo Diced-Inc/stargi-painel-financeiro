@@ -1,0 +1,97 @@
+{
+ "_leiame": "Regras do negócio. Percentuais em % (5 = 5%). Valores em reais.",
+ "loja": "Stargi",
+ "cidade": "Fortaleza",
+ "inicioControle": "2026-10",
+ "_inicioControle": "Mês (AAAA-MM) a partir do qual despesas, custos fixos e caixinhas são controlados. Antes disso só existem as vendas da Nuvemshop.",
+ "maoDeObraInclusaNoCusto": false,
+ "maoDeObraPendenteConfirmacao": false,
+ "_maoDeObra": "Confirmado pela Gizele em 10/10/2026: a mão de obra só está dentro do custo nas regatas e tops (categoria 'regata' em produtos.json: Regata Copa, Top Copa, Regata Vickie, Tube Top Júlia e outras regatas/tops). Nos demais produtos ela é descontada à parte. Deixe maoDeObraInclusaNoCusto = false.",
+ "embalagem": {
+  "inclusaNoCustoDoProduto": true,
+  "_inclusaNoCustoDoProduto": "true = o custo da planilha já tem a caixa embutida; o painel tira esse valor do custo e cobra a embalagem por PEDIDO.",
+  "caixas": {
+   "grande": {
+    "custo": 6.74,
+    "descricao": "Caixa grande (tote bag e Bag Serena)"
+   },
+   "pequena": {
+    "custo": 5.69,
+    "descricao": "Caixa pequena (regatas, necessaires e acessórios)"
+   }
+  },
+  "palavrasCaixaGrande": [
+   "tote",
+   "bag serena"
+  ],
+  "_regra": "1 caixa por pedido: grande se o pedido tem algum item com essas palavras, senão pequena. Para mudar num pedido, preencha \"caixas\" no vendas.json, ex.: {\"grande\":1,\"pequena\":1}."
+ },
+ "deducoesPorVenda": {
+  "cupomPadraoPercent": 5,
+  "reservaPerdasPercent": 5,
+  "proLaborePercent": 5,
+  "reservaTrocasPercent": 2,
+  "_obs": "Cupom real vem de cada pedido. Caixinhas são calculadas sobre o valor pago pelos produtos (sem frete)."
+ },
+ "pagamento": {
+  "cartao3x": {
+   "parcelamentoPercent": 7.76,
+   "recebimentoPercent": 5.19,
+   "taxaFixa": 0.35,
+   "prazoRecebimentoDiasUteis": 2,
+   "descricao": "Cartão em até 3x sem juros (Nuvem Pago)"
+  },
+  "pix": {
+   "descontoClientePercent": 5,
+   "taxaPercent": 0.99,
+   "_taxaPercent": "Observado nos pedidos Pix do CSV (a Nuvemshop cobrou 0,99% do total). A confirmar com a Gizele."
+  }
+ },
+ "custosFixosMensais": [
+  {
+   "id": "das-mei",
+   "nome": "DAS MEI",
+   "valor": 85.0,
+   "categoria": "fixo",
+   "diaVencimento": 20,
+   "aConfirmar": false
+  },
+  {
+   "id": "plano-nuvemshop",
+   "nome": "Plano Nuvemshop (Essencial)",
+   "valor": 69.0,
+   "categoria": "fixo",
+   "diaVencimento": null,
+   "aConfirmar": true
+  }
+ ],
+ "frete": {
+  "clientePaga": true,
+  "estimarEtiquetaIgualAoFreteCobrado": true,
+  "_obs": "Frete cobrado é repasse. Quando o pedido não tem custoEtiqueta lançado, o painel estima a etiqueta = frete cobrado (marcado como estimado)."
+ },
+ "alertas": {
+  "diasAntesDoVencimento": 7,
+  "margemBaixaPercent": 10,
+  "lucroBaixoReais": 5
+ },
+ "categoriasDespesa": [
+  "tecido",
+  "aviamentos",
+  "embalagem",
+  "frete",
+  "anúncios",
+  "fixo",
+  "outros"
+ ],
+ "categoriasQueEntramNoLucro": [
+  "anúncios",
+  "fixo",
+  "outros"
+ ],
+ "_categoriasQueEntramNoLucro": "Despesas dessas categorias são descontadas do lucro estimado. Tecido, aviamentos e embalagem já estão no custo de cada peça (produtos.json) e frete já está na etiqueta de cada pedido; por isso só entram no caixa (saldo), não no lucro, para não contar duas vezes.",
+ "lucroMedioMesesParaEquilibrio": 6,
+ "categoriasComMaoDeObraNoCusto": [
+  "regata"
+ ]
+}
