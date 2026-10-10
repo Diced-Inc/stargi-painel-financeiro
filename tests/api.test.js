@@ -94,13 +94,14 @@ test('config semente: pior caso = 29,95%', () => {
   assert.equal(Math.round(t * 100) / 100, 29.95);
   assert.equal(c.embalagem.pecasParaCaixaGrande, 2); assert.equal(c.embalagem.caixas.pequena.custo, 5.69); assert.equal(c.embalagem.caixas.grande.custo, 6.74);
 });
-test('embalagem por produto e retiradas da caixinha Embalagens são salvas e validadas', async () => {
+test('embalagem por produto e retiradas das caixinhas Embalagens/Reinvestimento são salvas e validadas', async () => {
   const b = backendMemoria();
   const d1 = await (await dados(req('/api/dados'), ctx(b))).json();
   assert.deepEqual(d1.movimentos, []);
   assert.ok(d1.produtos.every((p) => p.embalagem === 5.69), 'semente: caixa pequena em todos');
   const prods = structuredClone(d1.produtos); prods[0].embalagem = 3.5;
-  const mov = [{ id: 'r-1', data: '2026-10-15', caixinha: 'embalagens', tipo: 'retirada', valor: 120.5, descricao: 'Caixas + papel de seda' }];
+  const mov = [{ id: 'r-1', data: '2026-10-15', caixinha: 'embalagens', tipo: 'retirada', valor: 120.5, descricao: 'Caixas + papel de seda' },
+    { id: 'r-2', data: '2026-10-16', caixinha: 'reinvestimento', tipo: 'retirada', valor: 300, descricao: 'tecido' }];
   let r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 1, produtos: prods, movimentos: mov } }), ctx(b));
   const d2 = await r.json(); assert.equal(r.status, 200);
   assert.equal(d2.produtos[0].embalagem, 3.5); assert.deepEqual(d2.movimentos, mov);

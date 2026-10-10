@@ -1,5 +1,5 @@
 {
- "_leiame": "Despesas lançadas (saídas de caixa). Os custos fixos mensais (DAS, Nuvemshop) NÃO precisam ser lançados aqui: vêm do config.json. data = AAAA-MM-DD; categoria: tecido, aviamentos, embalagem, frete, anúncios, fixo, outros. Compras de embalagem (caixas, papel de seda) NÃO entram aqui: são retiradas da caixinha Embalagens, registradas no painel.",
+ "_leiame": "Despesas lançadas (saídas de caixa). Os custos fixos mensais (DAS, Nuvemshop) NÃO precisam ser lançados aqui: vêm do config.json. data = AAAA-MM-DD; categoria: tecido, aviamentos, embalagem, frete, anúncios, fixo, outros. Compras de embalagem (caixas, papel de seda) NÃO entram aqui: são retiradas da caixinha Embalagens, registradas no painel. Compras de material/produção (tecido, aviamentos, mão de obra) também NÃO entram aqui: são retiradas da caixinha Reinvestimento (custo).",
  "exemplo": {
   "id": "d-2026-10-12-1",
   "data": "2026-10-12",

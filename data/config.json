@@ -86,6 +86,6 @@
   "fixo",
   "outros"
  ],
- "_categoriasQueEntramNoLucro": "Despesas dessas categorias são descontadas do lucro estimado. Tecido e aviamentos já estão no custo de cada peça, a embalagem sai de cada pedido (caixinha Embalagens) e o frete já está na etiqueta de cada pedido; por isso só entram no caixa (saldo), não no lucro, para não contar duas vezes. Compra de embalagem = retirada da caixinha Embalagens (não lançar também como despesa).",
+ "_categoriasQueEntramNoLucro": "Despesas dessas categorias são descontadas do lucro estimado. Tecido e aviamentos já estão no custo de cada peça, a embalagem sai de cada pedido (caixinha Embalagens) e o frete já está na etiqueta de cada pedido; por isso só entram no caixa (saldo), não no lucro, para não contar duas vezes. Compra de embalagem = retirada da caixinha Embalagens (não lançar também como despesa). Compra de tecido/aviamentos/mão de obra = retirada da caixinha Reinvestimento (custo).",
  "lucroMedioMesesParaEquilibrio": 6
 }
