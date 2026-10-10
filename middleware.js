@@ -73,6 +73,20 @@ const json = (status, obj, extra = {}) =>
   new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...SEGURANCA, ...extra } });
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
 
+// CSRF básico no POST /login: aceita só envio do próprio site.
+function mesmaOrigem(request, url) {
+  const origem = request.headers.get('origin');
+  const sfs = request.headers.get('sec-fetch-site');
+  if (sfs && !['same-origin', 'none'].includes(sfs)) return false;
+  if (!origem) return true; // clientes sem Origin (ex.: curl)
+  if (origem === 'null') return sfs === 'same-origin';
+  let host;
+  try { host = new URL(origem).host; } catch { return false; }
+  const hosts = [url.host, request.headers.get('host'), ...(request.headers.get('x-forwarded-host') || '').split(',')]
+    .map((h) => (h || '').trim()).filter(Boolean);
+  return hosts.includes(host);
+}
+
 /* ---------- página de login ---------- */
 export function paginaLogin({ erro = '', proximo = '/', usuario = '', bloqueado = false } = {}) {
   return `<!doctype html>
@@ -143,6 +157,7 @@ const html = (status, corpo, extra = {}) =>
       'Content-Type': 'text/html; charset=utf-8',
       'Content-Security-Policy': "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",
       ...SEGURANCA,
+      'Referrer-Policy': 'same-origin',
       ...extra,
     },
   });
@@ -170,8 +185,7 @@ export async function tratar(request, env = process.env, opts = {}) {
     }
     if (request.method !== 'POST') return new Response('Método não permitido', { status: 405, headers: { Allow: 'GET, POST', ...SEGURANCA } });
     // CSRF básico: se o navegador mandar Origin, tem que ser o mesmo site
-    const origem = request.headers.get('origin');
-    if (origem && origem !== url.origin) return html(403, paginaLogin({ erro: 'Requisição inválida. Tente de novo.' }));
+    if (!mesmaOrigem(request, url)) return html(403, paginaLogin({ erro: 'Requisição inválida. Tente de novo.' }));
     let usuario = '', senha = '', proximo = '/';
     try {
       const ct = request.headers.get('content-type') || '';

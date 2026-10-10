@@ -88,3 +88,17 @@ test('GET /login já logado vai para o painel', async () => {
   const r = await tratar(get('/login', { cookie: c }), env, opts);
   assert.equal(r.status, 303); assert.equal(r.headers.get('location'), '/');
 });
+
+test('Origin: mesmo host (via Host/x-forwarded-host) passa; null só com Sec-Fetch-Site same-origin', async () => {
+  const ok = { usuario: 'stargi', senha: 's3nh@:forte' };
+  let r = await tratar(post(ok, { origin: 'https://painel.example.com', 'sec-fetch-site': 'same-origin' }), env, opts);
+  assert.equal(r.status, 303);
+  r = await tratar(post(ok, { origin: 'https://stargi.vercel.app', 'x-forwarded-host': 'stargi.vercel.app' }), env, opts);
+  assert.equal(r.status, 303);
+  r = await tratar(post(ok, { origin: 'null', 'sec-fetch-site': 'same-origin' }), env, opts);
+  assert.equal(r.status, 303);
+  r = await tratar(post(ok, { origin: 'null' }), env, opts);
+  assert.equal(r.status, 403);
+  r = await tratar(post(ok, { 'sec-fetch-site': 'cross-site' }), env, opts);
+  assert.equal(r.status, 403);
+});
