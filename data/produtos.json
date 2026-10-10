@@ -26,7 +26,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire summer"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-mocha",
@@ -52,7 +53,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire mocha"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-rosie",
@@ -78,7 +80,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire rosie"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-vicky",
@@ -104,7 +107,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire vicky"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-polka-dots",
@@ -130,7 +134,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire polka dots"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-bordada",
@@ -156,7 +161,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire bordada personalizada"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-lemon",
@@ -182,7 +188,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire lemon"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "cestinho-organizador",
@@ -201,7 +208,8 @@
    "apelidos": [
     "cestinho organizador"
    ],
-   "obs": "As vendas do 'Cestinho Organizador polka dots (edição limitada)' usam este custo (a confirmar)."
+   "obs": "As vendas do 'Cestinho Organizador polka dots (edição limitada)' usam este custo (a confirmar).",
+   "embalagem": 5.69
   },
   {
    "id": "charm-mini-necessaire",
@@ -220,7 +228,8 @@
    "apelidos": [
     "charm mini necessaire"
    ],
-   "obs": "Inclui a versão polka dots (edição limitada) e os charms enviados como brinde (R$ 0,00)."
+   "obs": "Inclui a versão polka dots (edição limitada) e os charms enviados como brinde (R$ 0,00).",
+   "embalagem": 5.69
   },
   {
    "id": "kit-maxi-scrunchies",
@@ -239,7 +248,8 @@
    "apelidos": [
     "maxi scrunchies - kit com 2",
     "kit maxi scrunchies"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "headband",
@@ -257,7 +267,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "headband"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "bag-serena",
@@ -275,7 +286,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "bag serena"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "necessaire-zoe",
@@ -293,7 +305,8 @@
    "maoDeObraJaInclusaNoCusto": false,
    "apelidos": [
     "necessaire zoe"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "regata-copa",
@@ -312,7 +325,8 @@
    "apelidos": [
     "regata copa"
    ],
-   "obs": "Mesmo preço e custo nos tamanhos P, M e G."
+   "obs": "Mesmo preço e custo nos tamanhos P, M e G.",
+   "embalagem": 5.69
   },
   {
    "id": "top-copa",
@@ -331,7 +345,8 @@
    "apelidos": [
     "top copa"
    ],
-   "obs": "Mesmo preço e custo nos tamanhos P, M e G."
+   "obs": "Mesmo preço e custo nos tamanhos P, M e G.",
+   "embalagem": 5.69
   },
   {
    "id": "regata-vickie",
@@ -349,7 +364,8 @@
    "maoDeObraJaInclusaNoCusto": true,
    "apelidos": [
     "regata vickie"
-   ]
+   ],
+   "embalagem": 5.69
   },
   {
    "id": "tube-top-julia",
@@ -367,7 +383,8 @@
    "maoDeObraJaInclusaNoCusto": true,
    "apelidos": [
     "tube top julia"
-   ]
+   ],
+   "embalagem": 5.69
   }
  ]
 }

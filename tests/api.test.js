@@ -94,3 +94,30 @@ test('config semente: pior caso = 29,95%', () => {
   assert.equal(Math.round(t * 100) / 100, 29.95);
   assert.equal(c.embalagem.pecasParaCaixaGrande, 2); assert.equal(c.embalagem.caixas.pequena.custo, 5.69); assert.equal(c.embalagem.caixas.grande.custo, 6.74);
 });
+test('embalagem por produto e retiradas da caixinha Embalagens são salvas e validadas', async () => {
+  const b = backendMemoria();
+  const d1 = await (await dados(req('/api/dados'), ctx(b))).json();
+  assert.deepEqual(d1.movimentos, []);
+  assert.ok(d1.produtos.every((p) => p.embalagem === 5.69), 'semente: caixa pequena em todos');
+  const prods = structuredClone(d1.produtos); prods[0].embalagem = 3.5;
+  const mov = [{ id: 'r-1', data: '2026-10-15', caixinha: 'embalagens', tipo: 'retirada', valor: 120.5, descricao: 'Caixas + papel de seda' }];
+  let r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 1, produtos: prods, movimentos: mov } }), ctx(b));
+  const d2 = await r.json(); assert.equal(r.status, 200);
+  assert.equal(d2.produtos[0].embalagem, 3.5); assert.deepEqual(d2.movimentos, mov);
+  // só config: mantém as retiradas
+  r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 2, config: d1.config } }), ctx(b));
+  assert.deepEqual((await r.json()).movimentos, mov);
+  for (const ruim of [
+    [{ ...mov[0], valor: 0 }], [{ ...mov[0], valor: -5 }], [{ ...mov[0], data: '15/10/2026' }],
+    [{ ...mov[0], caixinha: 'proLabore' }], [{ ...mov[0], tipo: 'deposito' }], 'x',
+  ]) {
+    r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 3, movimentos: ruim } }), ctx(b));
+    assert.equal(r.status, 400, JSON.stringify(ruim));
+  }
+  const p2 = structuredClone(prods); p2[0].embalagem = -1;
+  r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 3, produtos: p2 } }), ctx(b));
+  assert.equal(r.status, 400);
+  // restaurar a versão 1 volta sem retiradas
+  r = await hist(req('/api/historico', { method: 'POST', body: { versao: 1 } }), ctx(b));
+  assert.deepEqual((await r.json()).movimentos, []);
+});
