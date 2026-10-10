@@ -155,6 +155,8 @@ details.cxdet>summary::-webkit-details-marker{display:none}
 details.cxdet>summary svg.i{transition:transform .2s;color:var(--suave)}
 details.cxdet[open]>summary svg.i{transform:rotate(180deg)}
 details.cxdet .corpo{padding:0 1rem 1rem}
+.logl{margin-bottom:.5rem}.logt{display:flex;justify-content:space-between;gap:.5rem;font-size:.84rem;color:var(--marrom-escuro)}.logl .barra{margin:.25rem 0 0;height:8px}
+dialog.janela select{width:100%}
 .cxgrid{display:grid;gap:.75rem;align-items:start}
 /* simulador */
 .sim{display:grid;gap:.6rem;grid-template-columns:1fr 1fr}
@@ -273,6 +275,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
   <symbol id="i-ent" viewBox="0 0 24 24"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></symbol>
   <symbol id="i-sai" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
   <symbol id="i-retirar" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-lapis" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
   <symbol id="i-seta" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
 </svg>
 <header>
@@ -306,12 +309,14 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
     <div class="cab-aba"><h1>Movimentações de <span class="mesNome"></span></h1></div>
     <section class="card" id="movs">
       <div class="card-cab"><h2>Entradas e saídas</h2>
-        <div class="tabs" id="filtroMov"><button data-f="todas" class="on">Todas</button><button data-f="entradas">Entradas</button><button data-f="saidas">Saídas</button></div></div>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center"><button class="btn" id="btnNovaSaida"><svg class="i"><use href="#i-mais"/></svg>Nova saída</button>
+        <div class="tabs" id="filtroMov"><button data-f="todas" class="on">Todas</button><button data-f="entradas">Entradas</button><button data-f="saidas">Saídas</button></div></div></div>
       <div class="resumoMov" id="resumoMov"></div>
       <div class="chips" id="despChips"></div>
       <ul class="lista mov" id="listaMov"></ul>
       <div id="movAvisos"></div>
     </section>
+    <section class="card" id="logBox"></section>
     <div class="aba-grid duas" style="display:grid;gap:1rem">
       <section class="card" id="grafico">
         <div class="card-cab" style="margin-bottom:0"><h2>Entradas x saídas</h2>
@@ -382,6 +387,18 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
     <div class="macoes"><button type="button" class="btn perigo" id="mApagar">Excluir</button><span style="flex:1"></span><button type="submit" class="btn">Salvar produto</button></div>
   </form>
 </dialog>
+<dialog id="modalDesp" class="janela" aria-labelledby="dTitulo">
+  <form id="dForm" method="dialog" novalidate>
+    <div class="mcab"><h3 id="dTitulo">Nova saída</h3><button type="button" class="ico" id="dFechar" aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="m2"><label>Data<input type="date" id="dData" required></label><label>Valor<input class="din" id="dValor" inputmode="numeric" autocomplete="off" placeholder="R$ 0,00" required></label></div>
+    <label>Categoria<select id="dCat"></select></label>
+    <div id="dLog" class="m2"><label>Motivo<select id="dMotivo"><option value="">Escolha…</option><option>Bordado</option><option>Compra de tecido</option><option>Outros</option></select></label><label id="dNotaRot">Nota (opcional)<input id="dNota" maxlength="200" placeholder="Ex.: buscar peças na bordadeira"></label></div>
+    <label>Descrição<input id="dDesc" maxlength="200" placeholder="Ex.: Uber ida e volta"></label>
+    <p class="muted" style="font-size:.74rem;margin:0">Despesa geral do mês. Tecido, aviamentos, embalagem, costura e sua mão de obra entram como retirada da caixinha correspondente (aba Caixinhas).</p>
+    <p class="erro-m" id="dErro" role="alert"></p>
+    <div class="macoes"><button type="button" class="btn perigo" id="dApagar">Excluir</button><span style="flex:1"></span><button type="button" class="btn sec" id="dCancelar">Cancelar</button><button type="submit" class="btn">Salvar saída</button></div>
+  </form>
+</dialog>
 <dialog id="modalRet" class="janela" aria-labelledby="rTitulo">
   <form id="rForm" method="dialog" novalidate>
     <div class="mcab"><h3 id="rTitulo">Retirada</h3><button type="button" class="ico" id="rFechar" aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button></div>
@@ -416,22 +433,22 @@ async function carregarEditaveis(){
     if(r.status!==404&&r.status!==405&&r.status!==501)throw new Error('API respondeu '+r.status);
   }catch(e){if(String(e.message).includes('sessão'))throw e;if(!(e instanceof TypeError)&&!String(e.message).includes('404'))throw e}
   const [p,c]=await Promise.all([carregar('produtos'),carregar('config')]);
-  return {produtos:p.produtos,config:c,movimentos:[],versao:null,api:false};
+  return {produtos:p.produtos,config:c,movimentos:[],despesas:[],versao:null,api:false};
 }
 let cfg,doc,vendas,desp,contas,cx;
 try{[doc,vendas,desp,contas,cx]=await Promise.all([carregarEditaveis(),...['vendas','despesas','contas','caixinhas'].map(carregar)])}
 catch(e){const el=$('#erro');el.style.display='block';el.textContent='Erro ao carregar os dados: '+e.message;return}
 const pedidos=vendas.pedidos||[], despesas=desp.despesas||[];
-let P,M,D,PG,CX,reservaPct,fixos,totalFixos,versao=doc.versao,apiOk=doc.api,atualizadoEm=doc.atualizadoEm;
+let P,M,MD,D,PG,CX,reservaPct,fixos,totalFixos,versao=doc.versao,apiOk=doc.api,atualizadoEm=doc.atualizadoEm;
 function aplicarModelo(d){
-  cfg=structuredClone(d.config); P=structuredClone(d.produtos); M=structuredClone(d.movimentos||[]);
+  cfg=structuredClone(d.config); P=structuredClone(d.produtos); M=structuredClone(d.movimentos||[]); MD=structuredClone(d.despesas||[]);
   D=cfg.deducoesPorVenda; PG=cfg.pagamento; CX=cfg.embalagem.caixas;
   for(const p of P)if(p.embalagem==null)p.embalagem=CX.pequena.custo; // padrão: caixa pequena
   reservaPct=(D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent)/100;
   fixos=cfg.custosFixosMensais||[]; totalFixos=fixos.reduce((s,f)=>s+f.valor,0);
 }
 aplicarModelo(doc);
-let salvo=JSON.stringify({p:P,c:cfg,m:M}); // para saber se há alterações
+let salvo=JSON.stringify({p:P,c:cfg,m:M,d:MD}); // para saber se há alterações
 const ymDe=iso=>(iso||'').slice(0,7);
 const controlado=ym=>ym>=cfg.inicioControle;
 const hoje=new Date(); const ymHoje=hoje.toISOString().slice(0,7);
@@ -476,7 +493,11 @@ const validos=pedidos.filter(o=>!o.cancelado);
 let A;
 function analisarTudo(){semCusto.clear();A=new Map(pedidos.map(o=>[o,analisar(o)]))}
 analisarTudo();
-const despDoMes=ym=>despesas.filter(d=>ymDe(d.data)===ym);
+// despesas: as do arquivo (lançadas por mim) + as lançadas no painel (salvas no Blob, editáveis)
+const LOGI='Logística (Uber)', MOTIVOS=['Bordado','Compra de tecido','Outros'];
+const CATS_FORM=[LOGI,'anúncios','frete','outros'];
+const todasDespesas=()=>[...despesas,...MD.map(d=>({...d,painel:true}))];
+const despDoMes=ym=>todasDespesas().filter(d=>ymDe(d.data)===ym);
 // Caixinhas: cada venda (desde inicioControle) deposita; a retirada É a despesa (entra uma vez nas saídas do mês, nunca de novo no lucro).
 const fmtP=v=>String(v).replace('.',',')+'%';
 const CXR={
@@ -512,13 +533,14 @@ function resumoMes(ym){
   r.retTotal=Object.values(r.retCx).reduce((a,b)=>a+b,0);
   r.despesas=r.despLanc+r.fixos+r.etiquetas+r.retTotal;
   r.saldo=r.liquido-r.despesas;
-  const despLucro=dl.filter(d=>(cfg.categoriasQueEntramNoLucro||[]).includes(d.categoria)).reduce((s,d)=>s+d.valor,0);
+  r.logistica=dl.filter(d=>d.categoria===LOGI).reduce((s,d)=>s+d.valor,0);
+  const despLucro=dl.filter(d=>d.categoria===LOGI||(cfg.categoriasQueEntramNoLucro||[]).includes(d.categoria)).reduce((s,d)=>s+d.valor,0);
   r.lucro=r.lucroC-r.fixos-despLucro;
   r.ticket=r.n?r.bruto/r.n:null;
   return r;
 }
 /* ---------- meses ---------- */
-const meses=[...new Set([...validos.map(o=>ymDe(o.data)),...despesas.map(d=>ymDe(d.data)),...todasRetiradas().map(m=>ymDe(m.data)),ymHoje])].filter(Boolean).sort();
+const meses=[...new Set([...validos.map(o=>ymDe(o.data)),...todasDespesas().map(d=>ymDe(d.data)),...todasRetiradas().map(m=>ymDe(m.data)),ymHoje])].filter(Boolean).sort();
 const todos=[];{let[a,m]=meses[0].split('-').map(Number);const fim=meses[meses.length-1];while(true){const ym=`${a}-${String(m).padStart(2,'0')}`;todos.push(ym);if(ym>=fim)break;m++;if(m>12){m=1;a++}}}
 const sel=$('#mes'); sel.innerHTML=todos.slice().reverse().map(ym=>`<option value="${ym}">${nomeMes(ym)}</option>`).join('');
 sel.value=todos.includes(ymHoje)?ymHoje:todos[todos.length-1];
@@ -543,7 +565,7 @@ function renderInicio(ym){
     metrica('Pedidos',r.n,r.cancel?`${r.cancel} cancelado(s) fora da conta`:''),
     metrica('Ticket médio',r.ticket==null?'—':brl(r.ticket),'por pedido, com frete'),
     metrica('Taxas (cartão e Pix)',semV?'—':brl(r.taxas),semV?'':pct(r.taxas/r.bruto)+' do bruto'+(r.estimadas?` · ${r.estimadas} estimada(s)`:'')),
-    metrica('Separado nas caixinhas',brl(depositosDoMes(ym)),'depósitos das vendas do mês'),
+    metrica('Logística (Uber)',brl(r.logistica),r.logistica?`${despDoMes(ym).filter(d=>d.categoria===LOGI).length} corrida(s) · produção, não entrega`:'nenhuma corrida lançada'),
   ].join('');
   const al=[];
   const {ap}=contasPendentes();
@@ -686,10 +708,49 @@ function renderMov(ym){
         `<div class="itens">${o.itens.map(i=>esc(i.qtd+'× '+i.nome)).join(' · ')}</div></div><div class="valor ${o.cancelado?'':'pos'}">${o.cancelado?'':'+ '}${brl(o.liquido)}</div></li>`}
     const i=x.i;
     return `<li><span class="tipo">${ic('sai')}</span><div class="meio"><div class="desc">${esc(i.descricao)} ${i.auto?'<span class="badge azul">automático</span>':''}${i.aConfirmar?' <span class="badge amarelo">a confirmar</span>':''}${i.estimado?' <span class="badge amarelo">estimado</span>':''}${i.caixinha?' <span class="badge rosa">retirada da caixinha</span>':''}</div>`+
-      `<div class="sub">${i.data&&!i.estimado&&i.categoria!=='frete'?fmtData(i.data)+' · ':'no mês · '}${esc(i.categoria)}</div></div><div class="valor">− ${brl(i.valor)}</div></li>`};
+      `<div class="sub">${i.data&&!i.estimado?fmtData(i.data)+' · ':'no mês · '}${esc(i.categoria)}${i.motivo?' · '+esc(i.motivo)+(i.nota?': '+esc(i.nota):''):''}</div></div>`+
+      `<div class="valor">− ${brl(i.valor)}${i.painel?`<button class="ico" data-edit-desp="${esc(i.id)}" title="Editar saída" aria-label="Editar saída">${ic('lapis')}</button><button class="ico" data-del-desp="${esc(i.id)}" title="Excluir saída" aria-label="Excluir saída">${ic('lixo')}</button>`:''}</div></li>`};
   $('#listaMov').innerHTML=lista.length?lista.map(li).join(''):`<li style="display:block">${vazio('Sem dados ainda',filtroMov==='entradas'?'Nenhuma venda neste mês.':controlado(ym)?'Nenhuma saída lançada neste mês.':'Despesas só são controladas a partir de '+nomeMes(cfg.inicioControle)+'.')}</li>`;
+  renderLogistica(ym);
   $('#movAvisos').innerHTML=`<p class="muted" style="font-size:.74rem;margin:.7rem 0 0">Compras de embalagem, material e produção, o pagamento da sua mão de obra e os usos das reservas são registrados como retirada da caixinha correspondente (aba Caixinhas), não como despesa separada: aparecem aqui e nas saídas do mês uma única vez.</p>`;
 }
+function renderLogistica(ym){
+  const ls=despDoMes(ym).filter(d=>d.categoria===LOGI), tot=ls.reduce((s,d)=>s+d.valor,0);
+  const por=MOTIVOS.map(m=>{const x=ls.filter(d=>(d.motivo||'Outros')===m);return {m,n:x.length,v:x.reduce((s,d)=>s+d.valor,0)}});
+  $('#logBox').innerHTML=`<div class="card-cab" style="margin-bottom:.5rem"><h2>Logística (Uber) por motivo</h2><span class="eqnum" style="font-size:1.05rem">${brl(tot)}</span></div>`+
+    (ls.length?por.map(x=>`<div class="logl"><div class="logt"><span>${x.m}</span><span><b>${brl(x.v)}</b> <span class="muted">· ${x.n} corrida${x.n===1?'':'s'}${tot?' · '+pct(x.v/tot,0):''}</span></span></div><div class="barra"><span style="width:${tot?(x.v/tot*100).toFixed(1):0}%"></span></div></div>`).join(''):vazio('Nenhuma corrida neste mês','Lance as corridas de Uber da produção em “Nova saída”, categoria Logística (Uber).'))+
+    `<p class="muted" style="font-size:.74rem;margin:.5rem 0 0">Corridas para a produção (bordadeira, compra de tecido, outras tarefas), não entrega para clientes. Entram nas saídas e no lucro do mês como despesa geral.</p>`;
+}
+/* ---- nova saída / editar ---- */
+let editDesp=null;
+function abrirDesp(id=null){const d=id?MD.find(x=>x.id===id):null;editDesp=d?d.id:null;
+  $('#dTitulo').textContent=d?'Editar saída':'Nova saída';
+  $('#dCat').innerHTML=[...new Set([...CATS_FORM,...(d?[d.categoria]:[])])].map(c=>`<option>${esc(c)}</option>`).join('');
+  $('#dData').value=d?.data||hoje.toLocaleDateString('sv-SE'); $('#dValor').value=d?fmtDin(d.valor):''; $('#dCat').value=d?.categoria||LOGI;
+  $('#dMotivo').value=d?.motivo||''; $('#dNota').value=d?.nota||''; $('#dDesc').value=d?.descricao||''; $('#dErro').textContent='';
+  $('#dApagar').style.display=d?'':'none'; motivoVisivel(); $('#modalDesp').showModal(); $('#dValor').focus()}
+function motivoVisivel(){const l=$('#dCat').value===LOGI;$('#dLog').style.display=l?'':'none';$('#dMotivo').required=l;
+  $('#dNotaRot').firstChild.textContent=$('#dMotivo').value==='Outros'?'Nota (obrigatória em Outros)':'Nota (opcional)'}
+$('#dCat').addEventListener('change',motivoVisivel);$('#dMotivo').addEventListener('change',motivoVisivel);
+mascaraDin($('#dValor'));
+$('#btnNovaSaida').addEventListener('click',()=>abrirDesp());
+$('#dFechar').addEventListener('click',()=>$('#modalDesp').close());$('#dCancelar').addEventListener('click',()=>$('#modalDesp').close());
+async function apagarDesp(id){const i=MD.findIndex(x=>x.id===id);if(i<0)return false;const d=MD[i];
+  if(!confirm(`Excluir a saída de ${brl(d.valor)} (${fmtData(d.data)}, ${d.categoria})?\n\nDá para desfazer pelo Histórico de alterações.`))return false;
+  const [rm]=MD.splice(i,1);marcarSujo();if(!(await salvar('Saída excluída'))){MD.splice(i,0,rm);marcarSujo();recalcular()}return true}
+$('#dApagar').addEventListener('click',async()=>{const id=editDesp;$('#modalDesp').close();await apagarDesp(id)});
+$('#dForm').addEventListener('submit',async e=>{e.preventDefault();
+  const valor=lerDin($('#dValor').value),data=$('#dData').value,categoria=$('#dCat').value,descricao=$('#dDesc').value.trim();
+  const d={id:editDesp||('d-'+data+'-'+Math.random().toString(36).slice(2,7)),data,valor,categoria,descricao};
+  if(!valor||!/^\d{4}-\d{2}-\d{2}$/.test(data)){$('#dErro').textContent='Preencha a data e o valor.';return}
+  if(categoria===LOGI){d.motivo=$('#dMotivo').value;d.nota=$('#dNota').value.trim();
+    if(!MOTIVOS.includes(d.motivo)){$('#dErro').textContent='Escolha o motivo da corrida.';return}
+    if(d.motivo==='Outros'&&!d.nota){$('#dErro').textContent='Em “Outros”, escreva uma nota com o motivo.';return}}
+  if(!apiOk){$('#dErro').textContent='Modo local: para salvar, use o site publicado.';return}
+  const ant=structuredClone(MD);const i=MD.findIndex(x=>x.id===d.id);if(i>=0)MD[i]=d;else MD.push(d);
+  $('#modalDesp').close();marcarSujo();if(!(await salvar(i>=0?'Saída atualizada':`Saída de ${brl(valor)} lançada`))){MD=ant;marcarSujo();recalcular()}});
+$('#listaMov').addEventListener('click',async e=>{const ed=e.target.closest('[data-edit-desp]');if(ed){abrirDesp(ed.dataset.editDesp);return}
+  const dl=e.target.closest('[data-del-desp]');if(dl)await apagarDesp(dl.dataset.delDesp)});
 $('#filtroMov').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;filtroMov=b.dataset.f;document.querySelectorAll('#filtroMov button').forEach(x=>x.classList.toggle('on',x===b));renderMov(sel.value)});
 /* ---------- lucro de 1 peça (como na planilha: % sobre o preço de venda) ---------- */
 const pctPiorCaso=()=>D.cupomPadraoPercent+D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent+PG.cartao3x.parcelamentoPercent+PG.cartao3x.recebimentoPercent;
@@ -764,7 +825,7 @@ const lerNum=str=>{const t=String(str||'').replace(/[^\d,.-]/g,'').replace(',','
 function mascaraDin(el){el.addEventListener('input',()=>{const v=lerDin(el.value);el.value=v==null?'':fmtDin(v);});}
 const inDin=(attrs,v)=>`<input class="din" inputmode="numeric" autocomplete="off" placeholder="—" ${attrs} value="${fmtDin(v)}">`;
 let sujo=false;
-function marcarSujo(){sujo=JSON.stringify({p:P,c:cfg,m:M})!==salvo;$('#barraSalvar').classList.toggle('on',sujo)}
+function marcarSujo(){sujo=JSON.stringify({p:P,c:cfg,m:M,d:MD})!==salvo;$('#barraSalvar').classList.toggle('on',sujo)}
 let tRecalc; const recalcDepois=()=>{clearTimeout(tRecalc);tRecalc=setTimeout(recalcular,350)};
 function toast(msg,tipo='ok'){const t=$('#toast');t.textContent=msg;t.className='on '+tipo;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3200)}
 const slugId=n=>norm(n).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'produto';
@@ -867,17 +928,17 @@ $('#cfgCampos').addEventListener('input',e=>{const el=e.target,c=el.dataset.cfg;
 async function salvar(msgOk='Salvo!'){
   if(!apiOk){toast('Modo local: para salvar, use o site publicado.','erro');return false}
   $('#btnSalvar').disabled=true;$('#btnSalvar').textContent='Salvando…';
-  try{const r=await fetch('/api/dados',{method:'PUT',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({baseVersao:versao,produtos:P,config:cfg,movimentos:M})});
+  try{const r=await fetch('/api/dados',{method:'PUT',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({baseVersao:versao,produtos:P,config:cfg,movimentos:M,despesas:MD})});
     if(r.status===401){location.href='/login';return false}
     const d=await r.json().catch(()=>({}));
     if(!r.ok){toast(d.mensagem||'Não consegui salvar ('+r.status+').','erro');return false}
-    versao=d.versao;atualizadoEm=d.atualizadoEm;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg,m:M});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();
+    versao=d.versao;atualizadoEm=d.atualizadoEm;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg,m:M,d:MD});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();
     toast(msgOk);carregarHistorico();return true;
   }catch(e){toast('Sem conexão. Tente de novo.','erro');return false}
   finally{$('#btnSalvar').disabled=false;$('#btnSalvar').textContent='Salvar'}
 }
 $('#btnSalvar').addEventListener('click',()=>salvar('Alterações salvas'));
-$('#btnDescartar').addEventListener('click',()=>{const o=JSON.parse(salvo);aplicarModelo({produtos:o.p,config:o.c,movimentos:o.m});marcarSujo();renderProdutos();renderConfig();recalcular();toast('Alterações descartadas')});
+$('#btnDescartar').addEventListener('click',()=>{const o=JSON.parse(salvo);aplicarModelo({produtos:o.p,config:o.c,movimentos:o.m,despesas:o.d});marcarSujo();renderProdutos();renderConfig();recalcular();toast('Alterações descartadas')});
 window.addEventListener('beforeunload',e=>{if(sujo){e.preventDefault();e.returnValue=''}});
 async function carregarHistorico(){
   if(!apiOk){$('#histLista').innerHTML='<p class="muted">Histórico disponível no site publicado.</p>';return}
@@ -890,7 +951,7 @@ $('#histLista').addEventListener('click',async e=>{const b=e.target.closest('[da
   if(!confirm(`Voltar produtos e configurações para a versão ${b.dataset.v}?`))return;
   const r=await fetch('/api/historico',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({versao:+b.dataset.v})});
   const d=await r.json().catch(()=>({}));if(!r.ok){toast(d.mensagem||'Não consegui restaurar.','erro');return}
-  versao=d.versao;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg,m:M});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();toast(`Versão ${b.dataset.v} restaurada`);carregarHistorico()});
+  versao=d.versao;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg,m:M,d:MD});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();toast(`Versão ${b.dataset.v} restaurada`);carregarHistorico()});
 
 function renderRodape(){$('#rodape').innerHTML=`Vendas atualizadas em ${fmtData(vendas.atualizadoEm)} · ${validos.length} pedidos · produtos e configurações ${apiOk?`versão ${versao}, salvos em ${new Date(atualizadoEm).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}`:'(modo local, só leitura)'}<br>Stargi · painel financeiro`}
 renderContas();renderProdutos();renderConfig();tudo();renderSemCusto();renderRodape();carregarHistorico();

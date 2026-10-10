@@ -124,3 +124,30 @@ test('embalagem por produto e retiradas das caixinhas Embalagens/Reinvestimento 
   r = await hist(req('/api/historico', { method: 'POST', body: { versao: 1 } }), ctx(b));
   assert.deepEqual((await r.json()).movimentos, []);
 });
+
+test('despesas do painel: logística exige motivo; salva, edita, apaga e restaura', async () => {
+  const b = backendMemoria();
+  const d1 = await (await dados(req('/api/dados'), ctx(b))).json();
+  assert.deepEqual(d1.despesas, []);
+  const desp = [
+    { id: 'd-1', data: '2026-10-12', valor: 23.9, categoria: 'Logística (Uber)', motivo: 'Bordado', nota: '', descricao: 'Levar peças na bordadeira' },
+    { id: 'd-2', data: '2026-10-13', valor: 40, categoria: 'anúncios', descricao: 'Impulsionar post' },
+  ];
+  let r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 1, despesas: desp } }), ctx(b));
+  const d2 = await r.json(); assert.equal(r.status, 200);
+  assert.equal(d2.despesas.length, 2); assert.equal(d2.despesas[0].motivo, 'Bordado'); assert.equal(d2.despesas[1].motivo, undefined);
+  assert.deepEqual(d2.movimentos, [], 'não mexe nas retiradas');
+  for (const ruim of [
+    [{ ...desp[0], motivo: undefined }], [{ ...desp[0], motivo: 'Passeio' }], [{ ...desp[0], motivo: 'Outros', nota: '' }],
+    [{ ...desp[1], valor: 0 }], [{ ...desp[1], categoria: '' }], [{ ...desp[1], data: '2026-13-40' }], 'x',
+  ]) {
+    r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 2, despesas: ruim } }), ctx(b));
+    assert.equal(r.status, 400, JSON.stringify(ruim));
+  }
+  const ed = structuredClone(d2.despesas); ed[0].valor = 30; ed[0].motivo = 'Outros'; ed[0].nota = 'Correios';
+  r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 2, despesas: ed.slice(0, 1) } }), ctx(b));
+  const d3 = await r.json(); assert.equal(d3.despesas.length, 1); assert.equal(d3.despesas[0].nota, 'Correios');
+  r = await hist(req('/api/historico'), ctx(b)); assert.equal((await r.json()).versoes[0].despesas, 2);
+  r = await hist(req('/api/historico', { method: 'POST', body: { versao: 1 } }), ctx(b));
+  assert.deepEqual((await r.json()).despesas, []);
+});

@@ -21,6 +21,11 @@ Quatro abas, com o mês escolhido no topo valendo para todas (no celular, barra 
 - **Produtos**: tabela editável de margem, simulador e configurações (com histórico).
 Versão anterior do layout: tag git `v-layout-antigo`.
 
+## Saídas lançadas no painel (Movimentações > Nova saída)
+- Data, valor, categoria e descrição; editar (lápis) e excluir (lixeira, com confirmação). Salvas no Blob com histórico (campo `despesas` do documento), junto com as de `data/despesas.json`.
+- Categoria **Logística (Uber)**: corridas para a produção (bordadeira, compra de tecido, outras tarefas), não entrega para clientes. Motivo obrigatório: Bordado, Compra de tecido ou Outros (Outros exige nota). Despesa geral: entra nas saídas e no lucro do mês. Total do mês em Início e quebra por motivo em Movimentações.
+- Tecido, aviamentos, embalagem, costura e mão de obra não são lançados aqui: são retiradas da caixinha correspondente.
+
 ## Editar produtos e configurações (no painel)
 - Seção **Produtos, custos e margem**: no computador é uma tabela editável (como a planilha); no celular, cartões com botão **Editar** (abre uma janela). **Adicionar produto** e **Excluir** (ícone de lixeira) (pede confirmação).
 - Valores em R$ têm máscara (digite só números: `4990` -> R$ 49,90). Tamanho em branco = não existe.

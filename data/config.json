@@ -73,6 +73,7 @@
   "lucroBaixoReais": 5
  },
  "categoriasDespesa": [
+  "Logística (Uber)",
   "tecido",
   "aviamentos",
   "embalagem",
@@ -82,6 +83,7 @@
   "outros"
  ],
  "categoriasQueEntramNoLucro": [
+  "Logística (Uber)",
   "anúncios",
   "fixo",
   "outros"
