@@ -84,6 +84,7 @@ main{max-width:1320px;margin:0 auto;padding:1rem;display:grid;gap:1rem;grid-temp
 .caixinha .nome{font-weight:600;color:var(--marrom-escuro)}
 .caixinha.ret{background:var(--creme-claro);border:1px dashed var(--creme)}
 .caixinha.reinvestimento{background:#eef6ea;border-color:#cfe3c6}
+.caixinha.maoDeObra{background:#f3eefa;border-color:#ddd2ee}
 .lema{font-size:.78rem;font-weight:600;color:#4f7a3f}
 .embGrid{display:grid;gap:1rem}
 .retForm{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin-bottom:.6rem}.retForm label{font-size:.75rem;color:var(--marrom);font-weight:500;display:flex;flex-direction:column;gap:.2rem}.retForm .cheio{grid-column:1/-1}.retForm input{width:100%;min-width:0}
@@ -116,7 +117,7 @@ footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
 @media (max-width:520px){.topo .titulo{display:none}#mes{max-width:48vw;min-width:0;font-size:.85rem;padding:.45rem .5rem}a.sair{padding:.4rem .6rem}.hm{display:none}.tabela{font-size:.76rem}}
 @media (min-width:760px){
   .kpis{grid-template-columns:repeat(4,1fr)}
-  .caixinhas{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+  .caixinhas{grid-template-columns:repeat(3,1fr)}
   .embGrid{grid-template-columns:1fr 1fr}
   main{grid-template-columns:repeat(2,1fr)}
   .span2{grid-column:1/-1}
@@ -226,7 +227,7 @@ dialog#modal::backdrop{background:rgba(74,49,40,.35);backdrop-filter:blur(2px)}
       <button data-modo="mes" class="on">Por mês</button><button data-modo="semana">Por semana</button>
     </div>
     <div class="grafico"><canvas id="cv"></canvas></div>
-    <div class="aviso" style="font-size:.78rem">Entradas = líquido recebido (já sem taxas). Saídas = despesas lançadas + custos fixos + etiquetas de frete + retiradas das caixinhas Embalagens e Reinvestimento.</div>
+    <div class="aviso" style="font-size:.78rem">Entradas = líquido recebido (já sem taxas). Saídas = despesas lançadas + custos fixos + etiquetas de frete + retiradas das caixinhas Embalagens, Reinvestimento e Mão de obra (Gi).</div>
   </section>
 
   <section class="card span2" id="caixinhas">
@@ -389,9 +390,12 @@ const despDoMes=ym=>despesas.filter(d=>ymDe(d.data)===ym);
 const CXR={
   embalagens:{nome:'📦 Embalagens',curto:'Embalagens',badge:'caixa por pedido',cat:'embalagem',deposito:a=>a.emb,ph:'Ex.: 50 caixas pequenas + papel de seda',
     explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita a caixa do pedido: 1 peça = caixa pequena (${brl(CX.pequena.custo)}), ${cfg.embalagem.pecasParaCaixaGrande}+ peças = caixa grande (${brl(CX.grande.custo)}). Quando comprar caixas, papel de seda etc., registre uma <b>retirada</b>: ela é a despesa da compra (não lance de novo em despesas).`},
-  reinvestimento:{nome:'🧵 Reinvestimento (custo)',curto:'Reinvestimento',badge:'custo das peças',cat:'material e produção',deposito:a=>a.custo+a.mo,ph:'Ex.: tecido, aviamentos, mão de obra',
+  reinvestimento:{nome:'🧵 Reinvestimento (custo)',curto:'Reinvestimento',badge:'custo das peças',cat:'material e produção',deposito:a=>a.custo,ph:'Ex.: tecido, aviamentos, costura das regatas',
     lema:'Esse valor é para reinvestir em material e produção',
-    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o custo das peças vendidas (custo da tabela de produtos + mão de obra quando não está inclusa no custo). Produto vendido sem custo cadastrado não deposita nada. Quando comprar tecido, aviamentos ou pagar mão de obra, registre uma <b>retirada</b>: ela é a despesa (não lance de novo em despesas).`},
+    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o custo das peças vendidas, como está na tabela de produtos (materiais; nas regatas e tops, o custo já inclui a costura terceirizada). Sua mão de obra <b>não</b> entra aqui: vai para a caixinha Mão de obra (Gi). Produto vendido sem custo cadastrado não deposita nada. Quando comprar tecido, aviamentos ou pagar a costura terceirizada, registre uma <b>retirada</b>: ela é a despesa (não lance de novo em despesas).`},
+  maoDeObra:{nome:'🪡 Mão de obra (Gi)',curto:'Mão de obra (Gi)',badge:'feito por você',cat:'mão de obra',deposito:a=>a.mo,ph:'Ex.: pagamento da minha mão de obra de outubro',
+    lema:'Esse valor é o pagamento pela sua mão de obra',
+    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita a mão de obra das peças vendidas, só dos produtos que você mesma faz (mão de obra <b>não</b> inclusa no custo: necessaires, bags, acessórios). Regatas e tops (costura terceirizada, já no custo) não depositam aqui. Quando se pagar, registre uma <b>retirada</b>: ela é a despesa (não lance de novo em despesas). O pró-labore continua separado.`},
 };
 const retiradas=k=>[...M.filter(m=>m.caixinha===k).map(m=>({...m,painel:true})),
   ...(cx.movimentos||[]).filter(m=>m.caixinha===k&&m.valor<0).map(m=>({...m,valor:-m.valor,descricao:m.descricao||''}))];
@@ -405,7 +409,7 @@ function resumoMes(ym){
     if(a.completo){r.lucroC+=a.lucro;r.nC++}}
   const dl=despDoMes(ym); r.despLanc=dl.reduce((s,d)=>s+d.valor,0);
   r.fixos=controlado(ym)?totalFixos:0;
-  // retiradas das caixinhas Embalagens/Reinvestimento: saem do caixa, não do lucro (caixa e custo já saem de cada pedido)
+  // retiradas das caixinhas Embalagens/Reinvestimento/Mão de obra: saem do caixa, não do lucro (caixa e custo já saem de cada pedido)
   r.retCx={};for(const m of retDoMes(ym))r.retCx[m.caixinha]=(r.retCx[m.caixinha]||0)+m.valor;
   r.retTotal=Object.values(r.retCx).reduce((a,b)=>a+b,0);
   r.despesas=r.despLanc+r.fixos+r.etiquetas+r.retTotal;
@@ -478,7 +482,7 @@ function renderCaixinhas(){
   $('#cxRet').innerHTML=Object.entries(CXR).map(([k,c])=>blocoRet(k,c,S[k])).join('');
   document.querySelectorAll('#cxRet .din').forEach(mascaraDin);
   const h=hist.perdas+hist.proLabore+hist.trocas;
-  $('#cxsInfo').innerHTML=`<div class="aviso">As caixinhas contam desde ${nomeMes(cfg.inicioControle)}. Perdas, pró-labore e trocas são % do valor pago pelos produtos (sem frete): para tirar dinheiro delas, me avise que eu lanço. <b>Embalagens</b> e <b>Reinvestimento</b> você movimenta aqui embaixo.</div>`+
+  $('#cxsInfo').innerHTML=`<div class="aviso">As caixinhas contam desde ${nomeMes(cfg.inicioControle)}. Perdas, pró-labore e trocas são % do valor pago pelos produtos (sem frete): para tirar dinheiro delas, me avise que eu lanço. <b>Embalagens</b>, <b>Reinvestimento</b> e <b>Mão de obra (Gi)</b> você movimenta aqui embaixo.</div>`+
     (h?`<div class="aviso azul">Curiosidade: se as caixinhas existissem desde a 1ª venda (${curtoMes(todos[0])} até antes de ${curtoMes(cfg.inicioControle)}), teriam juntado ${brl(h)} (perdas ${brl(hist.perdas)}, pró-labore ${brl(hist.proLabore)}, trocas ${brl(hist.trocas)}).</div>`:'');
 }
 /* ---------- caixinhas com retirada (Embalagens, Reinvestimento) ---------- */
@@ -536,7 +540,7 @@ function renderDespesas(ym){
   const porCat={};for(const c of cfg.categoriasDespesa)porCat[c]=0;for(const i of itens)porCat[i.categoria]=(porCat[i.categoria]||0)+i.valor;
   $('#despChips').innerHTML=Object.entries(porCat).map(([c,v])=>`<span class="badge ${v?'rosa':''}">${c} ${v?brl(v):'—'}</span>`).join('');
   $('#despLista').innerHTML=(itens.length?`<ul class="lista">${itens.sort((a,b)=>(a.data||'').localeCompare(b.data||'')).map(i=>`<li><div><div class="desc">${esc(i.descricao)} ${i.auto?'<span class="badge azul">automático</span>':''} ${i.aConfirmar?'<span class="badge amarelo">a confirmar</span>':''} ${i.estimado?'<span class="badge amarelo">estimado</span>':''} ${i.caixinha?'<span class="badge rosa">retirada da caixinha</span>':''}</div><div class="sub">${esc(i.categoria)}${i.data&&!i.estimado&&i.categoria!=='frete'?' · '+fmtData(i.data):''}</div></div><div class="valor">${brl(i.valor)}</div></li>`).join('')}</ul>`:'')+
-    `<div class="aviso" style="font-size:.76rem">📦 Compra de embalagem (caixas, papel de seda...) entra como <b>retirada da caixinha Embalagens</b>, e compra de material/produção (tecido, aviamentos, mão de obra) como <b>retirada da caixinha Reinvestimento</b>, não como despesa separada: aparecem aqui e nas saídas do mês, uma vez só.</div>`+
+    `<div class="aviso" style="font-size:.76rem">📦 Compra de embalagem (caixas, papel de seda...) entra como <b>retirada da caixinha Embalagens</b>, compra de material/produção (tecido, aviamentos, costura terceirizada) como <b>retirada da caixinha Reinvestimento</b> e o seu pagamento de mão de obra como <b>retirada da caixinha Mão de obra (Gi)</b>, não como despesa separada: aparecem aqui e nas saídas do mês, uma vez só.</div>`+
     (despDoMes(ym).length||retDoMes(ym).length?'':vazio('sem dados ainda',controlado(ym)?'Nenhuma compra lançada neste mês (tecido, aviamentos, anúncios...). Me manda as saídas que eu lanço!':'Despesas só são controladas a partir de '+nomeMes(cfg.inicioControle)+'.'));
 }
 /* ---------- lucro de 1 peça (como na planilha: % sobre o preço de venda) ---------- */

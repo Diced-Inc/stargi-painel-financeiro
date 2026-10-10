@@ -101,7 +101,8 @@ test('embalagem por produto e retiradas das caixinhas Embalagens/Reinvestimento 
   assert.ok(d1.produtos.every((p) => p.embalagem === 5.69), 'semente: caixa pequena em todos');
   const prods = structuredClone(d1.produtos); prods[0].embalagem = 3.5;
   const mov = [{ id: 'r-1', data: '2026-10-15', caixinha: 'embalagens', tipo: 'retirada', valor: 120.5, descricao: 'Caixas + papel de seda' },
-    { id: 'r-2', data: '2026-10-16', caixinha: 'reinvestimento', tipo: 'retirada', valor: 300, descricao: 'tecido' }];
+    { id: 'r-2', data: '2026-10-16', caixinha: 'reinvestimento', tipo: 'retirada', valor: 300, descricao: 'tecido' },
+    { id: 'r-3', data: '2026-10-17', caixinha: 'maoDeObra', tipo: 'retirada', valor: 150, descricao: 'meu pagamento' }];
   let r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 1, produtos: prods, movimentos: mov } }), ctx(b));
   const d2 = await r.json(); assert.equal(r.status, 200);
   assert.equal(d2.produtos[0].embalagem, 3.5); assert.deepEqual(d2.movimentos, mov);
@@ -110,7 +111,7 @@ test('embalagem por produto e retiradas das caixinhas Embalagens/Reinvestimento 
   assert.deepEqual((await r.json()).movimentos, mov);
   for (const ruim of [
     [{ ...mov[0], valor: 0 }], [{ ...mov[0], valor: -5 }], [{ ...mov[0], data: '15/10/2026' }],
-    [{ ...mov[0], caixinha: 'proLabore' }], [{ ...mov[0], tipo: 'deposito' }], 'x',
+    [{ ...mov[0], caixinha: 'proLabore' }], [{ ...mov[0], caixinha: 'maodeobra' }], [{ ...mov[0], tipo: 'deposito' }], 'x',
   ]) {
     r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 3, movimentos: ruim } }), ctx(b));
     assert.equal(r.status, 400, JSON.stringify(ruim));
