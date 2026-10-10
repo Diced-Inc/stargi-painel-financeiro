@@ -111,12 +111,17 @@ Produto de tamanho único usa a chave `U`. `custo` é o da planilha (com a caixa
 ## Cores
 Todas em variáveis CSS no topo do `index.html`, tiradas do tema da loja stargi.com.br.
 
-## Publicação (Vercel + senha)
-- Repositório privado no GitHub; deploy na Vercel (plano Hobby, sem Next.js, sem build: `vercel.json` serve a raiz como estático).
-- `middleware.js` (Vercel Routing Middleware, runtime Node) roda **antes de toda requisição** (`/`, `/index.html`, `/data/*.json`, `/assets/*`...) e exige HTTP Basic Auth.
-- Variáveis de ambiente na Vercel (Settings → Environment Variables, em Production e Preview):
-  - `PAINEL_USER`: usuário
-  - `PAINEL_PASSWORD`: senha
-- Sem essas variáveis o painel fica **todo bloqueado** (503), nunca aberto.
-- Teste local da lógica: `npm install && npm test`.
-- `.gitignore` impede subir `screenshots/`, CSVs da Nuvemshop (`*.csv`), `.env*` e `node_modules/`.
+## Publicação (Vercel + login)
+- Repositório privado no GitHub; deploy na Vercel (projeto `stargi-painel-financeiro`, time `diced-inc`, plano Hobby, sem Next.js, sem build: `vercel.json` serve a raiz como estático).
+- `middleware.js` (Vercel Routing Middleware, runtime Node) roda **antes de toda requisição**:
+  - Sem sessão: páginas e arquivos → redireciona para `/login` (página própria da Stargi); `*.json` e `/api/*` → `401` em JSON. Só a logo (`/assets/logo-stargi.webp`) é pública, para a tela de login.
+  - `POST /login` (formulário `usuario`, `senha`, `next`) compara com as variáveis de ambiente em tempo constante. Certo: cookie `__Host-stargi_sessao` (HttpOnly, Secure, SameSite=Lax, 30 dias) assinado com HMAC-SHA256 e redireciona. Errado: espera ~0,8 s e mostra "Usuário ou senha incorretos".
+  - `/logout` (link **Sair** no topo do painel) apaga o cookie.
+  - A chave do HMAC vem de `SESSION_SECRET` + usuário + senha: trocar a senha ou o segredo derruba todas as sessões.
+  - Recusa `POST /login` com `Origin` de outro site e bloqueia redirecionamento para fora (`next` só aceita caminho interno).
+- Variáveis de ambiente na Vercel (Production e Preview):
+  - `PAINEL_USER`, `PAINEL_PASSWORD`: o login
+  - `SESSION_SECRET`: segredo aleatório para assinar a sessão (sensível)
+- Sem `PAINEL_USER`/`PAINEL_PASSWORD` o painel fica **todo bloqueado** (503), nunca aberto.
+- Teste local da lógica: `npm install && npm test`. Deploy: `vercel deploy --prod --yes --scope diced-inc`.
+- `.gitignore` impede subir `screenshots/`, CSVs da Nuvemshop (`*.csv`), `.env*`, `.vercel` e `node_modules/`.

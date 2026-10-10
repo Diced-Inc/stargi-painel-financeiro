@@ -44,6 +44,8 @@ header{position:sticky;top:0;z-index:20;background:var(--branco);box-shadow:0 1p
 .topo .titulo{font-size:.8rem;color:var(--marrom);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 select,input{font-family:inherit;font-size:.95rem;color:var(--marrom-escuro);background:var(--creme-claro);border:1px solid var(--creme);border-radius:12px;padding:.5rem .7rem}
 select:focus,input:focus{outline:2px solid var(--rosa);outline-offset:1px}
+a.sair{flex:none;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--marrom);border:1px solid var(--creme);border-radius:999px;padding:.4rem .75rem}
+a.sair:hover{background:var(--rosa);border-color:var(--rosa);color:#fff}
 nav{display:flex;gap:.4rem;overflow-x:auto;padding:.1rem 1rem .6rem;max-width:1180px;margin:0 auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
 nav a{flex:none;text-decoration:none;color:var(--marrom-escuro);background:var(--creme);padding:.35rem .8rem;border-radius:999px;font-size:.82rem;font-weight:500}
@@ -124,7 +126,10 @@ footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
       <img src="assets/logo-stargi.webp" alt="stargi">
       <span class="titulo">Financeiro</span>
     </div>
-    <select id="mes" aria-label="Escolher mês"></select>
+    <div style="display:flex;align-items:center;gap:.5rem">
+      <select id="mes" aria-label="Escolher mês"></select>
+      <a class="sair" href="/logout" title="Sair do painel">Sair</a>
+    </div>
   </div>
   <nav>
     <a href="#resumo">Resumo</a><a href="#grafico">Entradas x saídas</a><a href="#caixinhas">Caixinhas</a>
@@ -209,7 +214,7 @@ const curtoMes=ym=>{const[a,m]=ym.split('-');return MESES[+m-1].slice(0,3)+'/'+a
 const vazio=(t,s='')=>`<div class="vazio"><b>${t}</b>${s}</div>`;
 const fmtData=iso=>{const[a,m,d]=iso.slice(0,10).split('-');return `${d}/${m}/${a}`};
 
-async function carregar(n){const r=await fetch('data/'+n+'.json',{cache:'no-store'});if(!r.ok)throw new Error('Não consegui abrir data/'+n+'.json');return r.json()}
+async function carregar(n){const r=await fetch('data/'+n+'.json',{cache:'no-store'});if(r.status===401){location.href='/login';throw new Error('sessão expirada')}if(!r.ok)throw new Error('Não consegui abrir data/'+n+'.json');return r.json()}
 let cfg,prods,vendas,desp,contas,cx;
 try{[cfg,prods,vendas,desp,contas,cx]=await Promise.all(['config','produtos','vendas','despesas','contas','caixinhas'].map(carregar))}
 catch(e){const el=$('#erro');el.style.display='block';el.textContent='Erro ao carregar os dados: '+e.message+' (abra o painel por um servidor, não direto pelo arquivo).';return}
