@@ -104,7 +104,7 @@ Os fixos com `diaVencimento` aparecem sozinhos no mês atual; para tirar da list
 
 ### produtos.json → `produtos[]`
 ```json
-{"id": "necessaire-summer", "nome": "Necessaire Summer", "categoria": "necessaire", "cores": "Branco", "bordado": "Sem bordado",
+{"id": "necessaire-summer", "nome": "Necessaire Summer", "categoria": "necessaire", "cores": "Branco",
  "tamanhos": {"P": {"preco": 49.90, "custo": 26.03}},
  "maoDeObra": 11.00, "maoDeObraJaInclusaNoCusto": false,
  "apelidos": ["necessaire summer"]}

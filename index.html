@@ -284,7 +284,7 @@ dialog#modal::backdrop{background:rgba(74,49,40,.35);backdrop-filter:blur(2px)}
   <form id="mForm" method="dialog" novalidate>
     <div class="mcab"><h3 id="mTitulo">Produto</h3><button type="button" class="ico" id="mCancelar" aria-label="Fechar">✕</button></div>
     <label>Produto<input id="mNome" maxlength="120" required placeholder="Ex.: Necessaire Summer"></label>
-    <div class="m2"><label>Cores<input id="mCores" maxlength="200" placeholder="Ex.: Rosa, Azul"></label><label>Bordado<input id="mBordado" maxlength="200" placeholder="Ex.: Sem bordado"></label></div>
+    <label>Cores<input id="mCores" maxlength="200" placeholder="Ex.: Rosa, Azul"></label>
     <div class="mtams" id="mTams"></div>
     <div class="m2 mmo"><label>Mão de obra (por peça)<input id="mMo" class="din" inputmode="numeric" placeholder="—"></label><label class="tog grande"><input type="checkbox" id="mInclusa"> já inclusa no custo</label></div>
     <p class="muted" style="font-size:.74rem;margin:.2rem 0 0">Custo = peça <b>sem embalagem</b>. Lucro = pedido de 1 peça no pior caso (com caixa pequena). Deixe em branco os tamanhos que não existem.</p>
@@ -559,10 +559,10 @@ function renderProdutos(){
   $('#prodNota').innerHTML=`<b>Custo</b> = custo da peça <b>sem embalagem</b> (a caixa agora é cobrada por pedido; ajuste os custos se ainda tiverem a caixa embutida). `+
     `<b>Lucro</b> = pedido de 1 peça no pior caso: ${fmtNum(pp)}% do preço (cupom ${fmtNum(D.cupomPadraoPercent)}% + perdas ${fmtNum(D.reservaPerdasPercent)}% + pró-labore ${fmtNum(D.proLaborePercent)}% + trocas ${fmtNum(D.reservaTrocasPercent)}% + cartão ${fmtNum(PG.cartao3x.parcelamentoPercent)}% + ${fmtNum(PG.cartao3x.recebimentoPercent)}%) + ${brl(PG.cartao3x.taxaFixa)} + caixa pequena ${brl(CX.pequena.custo)} + mão de obra.`;
   // tabela (computador)
-  let h=`<thead><tr><th rowspan="2">Produto</th><th rowspan="2">Cores</th><th rowspan="2">Bordado</th><th colspan="4" class="grp">Valor de venda</th><th colspan="4" class="grp">Custo da peça</th><th rowspan="2">Mão de obra</th><th colspan="4" class="grp">Lucro (1 peça, pior caso)</th><th rowspan="2"></th></tr><tr>${TAMS.map(t=>`<th class="n">${t}</th>`).join('').repeat(2)}${TAMS.map(t=>`<th class="n">${t}</th>`).join('')}</tr></thead><tbody>`;
+  let h=`<thead><tr><th rowspan="2">Produto</th><th rowspan="2">Cores</th><th colspan="4" class="grp">Valor de venda</th><th colspan="4" class="grp">Custo da peça</th><th rowspan="2">Mão de obra</th><th colspan="4" class="grp">Lucro (1 peça, pior caso)</th><th rowspan="2"></th></tr><tr>${TAMS.map(t=>`<th class="n">${t}</th>`).join('').repeat(2)}${TAMS.map(t=>`<th class="n">${t}</th>`).join('')}</tr></thead><tbody>`;
   P.forEach((p,i)=>{
     h+=`<tr data-i="${i}"><td><input class="txt nome" data-c="nome" value="${esc(p.nome)}" aria-label="Produto"></td>`+
-      `<td><input class="txt" data-c="cores" value="${esc(p.cores||'')}" aria-label="Cores"></td><td><input class="txt curto" data-c="bordado" value="${esc(p.bordado||'')}" aria-label="Bordado"></td>`+
+      `<td><input class="txt" data-c="cores" value="${esc(p.cores||'')}" aria-label="Cores"></td>`+
       TAMS.map(t=>`<td>${inDin(`data-c="preco" data-t="${t}" aria-label="Venda ${t}"`,p.tamanhos[t]?.preco)}</td>`).join('')+
       TAMS.map(t=>`<td>${inDin(`data-c="custo" data-t="${t}" aria-label="Custo ${t}"`,p.tamanhos[t]?.custo)}</td>`).join('')+
       `<td class="mo">${inDin(`data-c="maoDeObra" aria-label="Mão de obra" ${moInclusa(p)?'disabled':''}`,moInclusa(p)?null:p.maoDeObra)}<label class="tog"><input type="checkbox" data-c="inclusa" ${p.maoDeObraJaInclusaNoCusto?'checked':''}> já inclusa</label></td>`+
@@ -572,7 +572,7 @@ function renderProdutos(){
   $('#tabProdutos').innerHTML=h+'</tbody>';
   // cartões (celular)
   $('#cardsProdutos').innerHTML=P.map((p,i)=>{const ts=TAMS.filter(t=>p.tamanhos[t]);
-    return `<div class="pcard" data-i="${i}"><div class="pcab"><div><div class="pnome">${esc(p.nome)}</div><div class="muted" style="font-size:.74rem">${esc([p.cores,p.bordado].filter(Boolean).join(' · '))}</div></div><button class="btn sec editar">Editar</button></div>`+
+    return `<div class="pcard" data-i="${i}"><div class="pcab"><div><div class="pnome">${esc(p.nome)}</div><div class="muted" style="font-size:.74rem">${esc(p.cores||'')}</div></div><button class="btn sec editar">Editar</button></div>`+
       `<div class="ptams">${ts.map(t=>{const s=lucroPeca(p,t),tt=p.tamanhos[t];return `<div class="ptam ${baixo(s)?'baixa':''}"><b>${t}</b><span>venda ${fmtDin(tt.preco)||'—'}</span><span>custo ${fmtDin(tt.custo)||'—'}</span><span class="${s&&(s.lucro<0||baixo(s))?'neg':''}">lucro <b>${s?brl(s.lucro):'—'}</b>${s?' · '+pct(s.margem):''}</span></div>`}).join('')||'<span class="muted">sem tamanhos</span>'}</div>`+
       `<div class="muted" style="font-size:.74rem;margin-top:.3rem">Mão de obra: ${moInclusa(p)?'já inclusa no custo':fmtDin(p.maoDeObra)||'—'}</div></div>`}).join('')||vazio('Nenhum produto','Toque em “Adicionar produto”.');
   const nb=P.reduce((n,p)=>n+TAMS.filter(t=>baixo(lucroPeca(p,t))).length,0);
@@ -600,9 +600,9 @@ async function apagarProduto(i){const p=P[i];if(!p)return;
 /* ---- modal ---- */
 let editando=null;
 function abrirModal(i){
-  editando=i; const p=i==null?{nome:'',cores:'',bordado:'',tamanhos:{},maoDeObra:null,maoDeObraJaInclusaNoCusto:false}:P[i];
+  editando=i; const p=i==null?{nome:'',cores:'',tamanhos:{},maoDeObra:null,maoDeObraJaInclusaNoCusto:false}:P[i];
   $('#mTitulo').textContent=i==null?'Novo produto':'Editar produto';
-  $('#mNome').value=p.nome; $('#mCores').value=p.cores||''; $('#mBordado').value=p.bordado||'';
+  $('#mNome').value=p.nome; $('#mCores').value=p.cores||'';
   $('#mMo').value=fmtDin(p.maoDeObra); $('#mInclusa').checked=!!p.maoDeObraJaInclusaNoCusto;
   $('#mTams').innerHTML=`<div class="mt cab"><span></span><span>Venda</span><span>Custo</span><span>Lucro</span></div>`+TAMS.map(t=>`<div class="mt"><b>${t}</b>${inDin(`data-t="${t}" data-c="preco" aria-label="Venda ${t}"`,p.tamanhos[t]?.preco)}${inDin(`data-t="${t}" data-c="custo" aria-label="Custo ${t}"`,p.tamanhos[t]?.custo)}<span class="ml" data-l="${t}"></span></div>`).join('');
   $('#mApagar').style.display=i==null?'none':''; $('#mErro').textContent='';
@@ -610,7 +610,7 @@ function abrirModal(i){
 }
 function lerModal(){
   const base=editando==null?{}:P[editando];
-  const p={...structuredClone(base),nome:$('#mNome').value.trim(),cores:$('#mCores').value.trim(),bordado:$('#mBordado').value.trim(),
+  const p={...structuredClone(base),nome:$('#mNome').value.trim(),cores:$('#mCores').value.trim(),
     maoDeObra:lerDin($('#mMo').value),maoDeObraJaInclusaNoCusto:$('#mInclusa').checked,tamanhos:{}};
   for(const t of TAMS){const pr=lerDin($(`#mTams [data-t="${t}"][data-c="preco"]`).value),cu=lerDin($(`#mTams [data-t="${t}"][data-c="custo"]`).value);if(pr!=null||cu!=null)p.tamanhos[t]={preco:pr,custo:cu}}
   if(editando==null){p.id=slugId(p.nome)+'-'+Math.random().toString(36).slice(2,6);p.apelidos=[norm(p.nome)];p.categoria=''}
