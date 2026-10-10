@@ -1,7 +1,9 @@
 # Painel Financeiro Stargi (v1)
 
-Site estático: `index.html` (HTML + CSS + JS num arquivo só; Chart.js e a fonte Poppins vêm por CDN) e os dados em `data/*.json`.
-Para atualizar números, **edite só os JSON**. O código não muda.
+Site estático (`index.html`: HTML + CSS + JS num arquivo só; Chart.js e Poppins por CDN) + middleware de login + 2 funções `/api`.
+
+- **Produtos (preço, custo, mão de obra) e configurações** (caixas, deduções, taxas) são **editados no próprio painel** e ficam salvos num armazenamento **privado** (Vercel Blob `stargi-painel-financeiro-dados`, ligado só a este projeto). `data/produtos.json` e `data/config.json` são só a **semente** usada se o armazenamento estiver vazio.
+- **Vendas, despesas, contas e caixinhas** continuam em `data/*.json` (editar o JSON, commit e deploy).
 
 ## Como abrir
 O painel lê os JSON com `fetch`, então precisa de um servidor (abrir o `index.html` direto pelo arquivo não funciona):
@@ -11,11 +13,31 @@ cd painel && python3 -m http.server 8000   # abrir http://localhost:8000
 ```
 Para publicar: suba a pasta `painel/` inteira em qualquer hospedagem estática (Vercel, Netlify...). **Proteja com senha**: são dados financeiros. A pasta não tem dados pessoais de clientes.
 
+## Editar produtos e configurações (no painel)
+- Seção **Produtos, custos e margem**: no computador é uma tabela editável (como a planilha); no celular, cartões com botão **Editar** (abre uma janela). **＋ Adicionar produto** e 🗑️ **Excluir** (pede confirmação).
+- Valores em R$ têm máscara (digite só números: `4990` → R$ 49,90). Tamanho em branco = não existe.
+- **Custo = custo da peça SEM embalagem.** A caixa é cobrada por pedido: 1 peça = caixa pequena; a partir de N peças (padrão 2) = caixa grande. Brindes (R$ 0,00) não contam como peça.
+- **Lucro (tabela)** = pedido de 1 peça, pior caso, como na planilha: preço × (1 − 29,95%) − R$ 0,35 − custo − mão de obra (se não estiver inclusa) − caixa pequena.
+- Seção **Configurações**: preço das caixas, a partir de quantas peças usa a caixa grande, cupom, perdas, pró-labore, trocas, taxas do cartão e do Pix.
+- Alterou algo na tabela ou nas configurações → aparece a barra **Salvar**. No modal, “Salvar produto” já salva.
+- **Histórico**: as últimas 30 versões ficam guardadas; em Configurações → *Histórico de alterações* → **Restaurar** (restaurar também vira uma versão nova, então dá para desfazer).
+- Duas pessoas editando ao mesmo tempo: quem salvar por último recebe aviso para recarregar (nada é sobrescrito sem querer).
+
+## API (só com sessão; sem sessão = 401 JSON)
+| Rota | O que faz |
+|---|---|
+| `GET /api/dados` | `{versao, atualizadoEm, produtos, config}` (semeia na 1ª leitura) |
+| `PUT /api/dados` | corpo JSON `{baseVersao, produtos?, config?}`; valida, guarda a versão anterior no histórico, devolve a nova |
+| `GET /api/historico` | últimas versões |
+| `POST /api/historico` | `{versao}` restaura |
+
+Escrita exige `Content-Type: application/json` e mesma origem. Código: `lib/sessao.js` (sessão), `lib/validar.js` (validação), `lib/armazem.js` (Blob + histórico), `lib/api.js` (handlers), `api/*.js` (rotas).
+
 ## Arquivos
 | Arquivo | O que tem |
 |---|---|
-| `data/config.json` | Regras do negócio: percentuais, taxas, caixas, custos fixos, alertas |
-| `data/produtos.json` | Catálogo com preço, custo e mão de obra (planilha de custo da Gizele) |
+| `data/config.json` | **Semente** das regras (o config vivo fica no Blob privado) |
+| `data/produtos.json` | **Semente** do catálogo (o catálogo vivo fica no Blob privado) |
 | `data/vendas.json` | Pedidos (gerado pelo script a partir do CSV da Nuvemshop + lançamentos manuais) |
 | `data/despesas.json` | Saídas lançadas (tecido, aviamentos, anúncios...) |
 | `data/contas.json` | Contas a pagar e a receber com vencimento |
@@ -63,7 +85,7 @@ Para publicar: suba a pasta `painel/` inteira em qualquer hospedagem estática (
 ```
 Categorias: `tecido`, `aviamentos`, `embalagem`, `frete`, `anúncios`, `fixo`, `outros`.
 **Não lance DAS nem o plano da Nuvemshop**: eles vêm sozinhos de `config.custosFixosMensais`, a partir de `config.inicioControle`.
-Todas as despesas entram no **saldo** (caixa). No **lucro** só entram as categorias de `config.categoriasQueEntramNoLucro` (anúncios, fixo, outros), porque tecido, aviamentos e embalagem já estão no custo de cada peça e o frete já está na etiqueta de cada pedido.
+Todas as despesas entram no **saldo** (caixa). No **lucro** só entram as categorias de `config.categoriasQueEntramNoLucro` (anúncios, fixo, outros), porque tecido e aviamentos já estão no custo de cada peça, a embalagem é cobrada por pedido e o frete já está na etiqueta de cada pedido.
 
 ### contas.json
 ```json
@@ -82,17 +104,17 @@ Os fixos com `diaVencimento` aparecem sozinhos no mês atual; para tirar da list
 
 ### produtos.json → `produtos[]`
 ```json
-{"id": "necessaire-summer", "nome": "Necessaire Summer", "categoria": "necessaire",
- "tamanhos": {"P": {"preco": 49.90, "custo": 26.03, "lucroPlanilha": 8.92}},
- "maoDeObra": 11.00, "maoDeObraJaInclusaNoCusto": false, "caixa": "pequena",
+{"id": "necessaire-summer", "nome": "Necessaire Summer", "categoria": "necessaire", "cores": "Branco", "bordado": "Sem bordado",
+ "tamanhos": {"P": {"preco": 49.90, "custo": 26.03}},
+ "maoDeObra": 11.00, "maoDeObraJaInclusaNoCusto": false,
  "apelidos": ["necessaire summer"]}
 ```
-Produto de tamanho único usa a chave `U`. `custo` é o da planilha (com a caixa embutida); se `config.embalagem.inclusaNoCustoDoProduto` = true, o painel tira o valor da caixa (`caixa`: grande/pequena) do custo e cobra a caixa **por pedido**.
+Produto de tamanho único usa a chave `U`. `custo` = custo da peça **sem embalagem**. `maoDeObraJaInclusaNoCusto` = true nas regatas e tops.
 
 ### config.json (principais campos)
 - `inicioControle` ("2026-10"): mês a partir do qual despesas, fixos e caixinhas são controlados.
 - `maoDeObraInclusaNoCusto` (false) + `categoriasComMaoDeObraNoCusto` (["regata"]): confirmado pela Gizele em 10/10/2026. A mão de obra só está no custo das regatas e tops; nos outros produtos é descontada à parte. Produto novo de regata/top: use `"categoria": "regata"`.
-- `embalagem.caixas.grande/pequena.custo` (6,74 / 5,69), `palavrasCaixaGrande` (["tote","bag serena"]).
+- `embalagem.caixas.pequena/grande.custo` (5,69 / 6,74), `embalagem.pecasParaCaixaGrande` (2): 1 caixa por pedido, grande a partir de 2 peças pagas.
 - `deducoesPorVenda`: cupom padrão 5, perdas 5, pró-labore 5, trocas 2 (%).
 - `pagamento.cartao3x`: parcelamento 7,76% + recebimento 5,19% + R$ 0,35; `pagamento.pix`: desconto 5% + taxa 0,99% (observada no CSV).
 - `custosFixosMensais`: DAS MEI 85 (vence dia 20), Plano Nuvemshop 69 (a confirmar).
@@ -102,9 +124,9 @@ Produto de tamanho único usa a chave `U`. `custo` é o da planilha (com a caixa
 ## Como o painel calcula
 - **Faturamento bruto** = Σ total pago (produtos + frete). **Líquido** = Σ `liquido`. **Ticket médio** = bruto / nº de pedidos.
 - **Despesas** = lançadas + fixos (se o mês ≥ inicioControle) + etiquetas. **Saldo** = líquido − despesas.
-- **Lucro de um pedido** = (subtotal − desconto) + frete − etiqueta − taxas − custo das peças (sem caixa) − mão de obra − caixa(s) − caixinhas (12%).
+- **Lucro de um pedido** = (subtotal − desconto) + frete − etiqueta − taxas reais − custo das peças − mão de obra − caixa (pequena ou grande pelo nº de peças) − caixinhas (12%).
 - **Lucro estimado do mês** = Σ lucro dos pedidos cujos produtos têm custo cadastrado − fixos − despesas de anúncios/fixo/outros. O painel mostra quantos pedidos entraram na conta.
-- **Margem por produto/simulador**: 1 peça num pedido sozinho. Cartão: (7,76% se parcelado) + 5,19% + R$ 0,35 sobre o valor pago. Pix: preço × (1 − cupom) × 0,95, taxa 0,99%.
+- **Tabela de produtos/simulador**: 1 peça num pedido sozinho (caixa pequena), todas as % sobre o preço de venda, como na planilha. Cartão 3x: cupom + 12% caixinhas + 7,76% + 5,19% + R$ 0,35. Cartão à vista: sem os 7,76%. Pix: cupom + 12% + 5% desconto + 0,99% taxa.
 - **Ponto de equilíbrio** = fixos ÷ lucro médio por pedido (pedidos com custo, últimos 6 meses).
 - Pedidos cancelados ficam listados, mas não somam.
 
@@ -123,5 +145,6 @@ Todas em variáveis CSS no topo do `index.html`, tiradas do tema da loja stargi.
   - `PAINEL_USER`, `PAINEL_PASSWORD`: o login
   - `SESSION_SECRET`: segredo aleatório para assinar a sessão (sensível)
 - Sem `PAINEL_USER`/`PAINEL_PASSWORD` o painel fica **todo bloqueado** (503), nunca aberto.
-- Teste local da lógica: `npm install && npm test`. Deploy: `vercel deploy --prod --yes --scope diced-inc`.
+- Teste local: `npm install && npm test`; painel completo com API em memória: `PAINEL_USER=stargi PAINEL_PASSWORD=teste SESSION_SECRET=x node tests/servidor-local.mjs 8811`.
+- Armazenamento: Vercel Blob **privado** `stargi-painel-financeiro-dados` (gru1), conectado só a este projeto (env `BLOB_READ_WRITE_TOKEN`, Production + Preview). Arquivos: `painel/dados.json` e `painel/historico/*.json`. Deploy: `vercel deploy --prod --yes --scope diced-inc`.
 - `.gitignore` impede subir `screenshots/`, CSVs da Nuvemshop (`*.csv`), `.env*`, `.vercel` e `node_modules/`.

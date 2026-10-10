@@ -1,5 +1,5 @@
 {
- "_leiame": "Catálogo com custo (planilha de custo da Gizele, 10/10/2026). 'custo' = valor da planilha (com a caixa embutida). 'apelidos' = trechos do nome do produto na Nuvemshop usados para ligar as vendas ao custo (minúsculo, sem acento). Regatas e tops (categoria 'regata') já têm a mão de obra no custo; nos outros produtos a mão de obra é descontada à parte (confirmado pela Gizele em 10/10/2026).",
+ "_leiame": "SEMENTE do catálogo. Depois do primeiro acesso, o catálogo vive no armazenamento privado (Vercel Blob) e é editado pelo próprio painel; este arquivo só é usado se o armazenamento estiver vazio. 'custo' = custo da peça SEM embalagem (a embalagem é cobrada por pedido). 'apelidos' = trechos do nome na Nuvemshop usados para ligar vendas ao custo.",
  "atualizadoEm": "2026-10-10",
  "produtos": [
   {
@@ -11,23 +11,19 @@
    "tamanhos": {
     "P": {
      "preco": 49.9,
-     "custo": 26.03,
-     "lucroPlanilha": 8.92
+     "custo": 26.03
     },
     "M": {
      "preco": 59.9,
-     "custo": 27.36,
-     "lucroPlanilha": 14.6
+     "custo": 27.36
     },
     "G": {
      "preco": 69.9,
-     "custo": 29.62,
-     "lucroPlanilha": 19.34
+     "custo": 29.62
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire summer"
    ]
@@ -41,23 +37,19 @@
    "tamanhos": {
     "P": {
      "preco": 49.9,
-     "custo": 26.03,
-     "lucroPlanilha": 8.92
+     "custo": 26.03
     },
     "M": {
      "preco": 59.9,
-     "custo": 27.36,
-     "lucroPlanilha": 14.6
+     "custo": 27.36
     },
     "G": {
      "preco": 69.9,
-     "custo": 29.62,
-     "lucroPlanilha": 19.34
+     "custo": 29.62
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire mocha"
    ]
@@ -71,23 +63,19 @@
    "tamanhos": {
     "P": {
      "preco": 54.9,
-     "custo": 29.09,
-     "lucroPlanilha": 9.37
+     "custo": 29.09
     },
     "M": {
      "preco": 64.9,
-     "custo": 30.36,
-     "lucroPlanilha": 15.1
+     "custo": 30.36
     },
     "G": {
      "preco": 74.9,
-     "custo": 32.75,
-     "lucroPlanilha": 19.72
+     "custo": 32.75
     }
    },
    "maoDeObra": 13.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire rosie"
    ]
@@ -101,23 +89,19 @@
    "tamanhos": {
     "P": {
      "preco": 49.9,
-     "custo": 26.83,
-     "lucroPlanilha": 8.12
+     "custo": 26.83
     },
     "M": {
      "preco": 59.9,
-     "custo": 28.34,
-     "lucroPlanilha": 13.62
+     "custo": 28.34
     },
     "G": {
      "preco": 69.9,
-     "custo": 31.22,
-     "lucroPlanilha": 17.74
+     "custo": 31.22
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire vicky"
    ]
@@ -131,23 +115,19 @@
    "tamanhos": {
     "P": {
      "preco": 54.9,
-     "custo": 26.83,
-     "lucroPlanilha": 11.63
+     "custo": 26.83
     },
     "M": {
      "preco": 64.9,
-     "custo": 28.34,
-     "lucroPlanilha": 17.12
+     "custo": 28.34
     },
     "G": {
      "preco": 74.9,
-     "custo": 31.22,
-     "lucroPlanilha": 21.25
+     "custo": 31.22
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire polka dots"
    ]
@@ -161,23 +141,19 @@
    "tamanhos": {
     "P": {
      "preco": 59.9,
-     "custo": 30.77,
-     "lucroPlanilha": 6.19
+     "custo": 30.77
     },
     "M": {
      "preco": 69.9,
-     "custo": 32.08,
-     "lucroPlanilha": 11.88
+     "custo": 32.08
     },
     "G": {
      "preco": 79.9,
-     "custo": 34.31,
-     "lucroPlanilha": 16.66
+     "custo": 34.31
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire bordada personalizada"
    ]
@@ -191,23 +167,19 @@
    "tamanhos": {
     "P": {
      "preco": 54.9,
-     "custo": 26.83,
-     "lucroPlanilha": 11.63
+     "custo": 26.83
     },
     "M": {
      "preco": 64.9,
-     "custo": 28.51,
-     "lucroPlanilha": 16.95
+     "custo": 28.51
     },
     "G": {
      "preco": 74.9,
-     "custo": 31.48,
-     "lucroPlanilha": 20.99
+     "custo": 31.48
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire lemon"
    ]
@@ -221,13 +193,11 @@
    "tamanhos": {
     "U": {
      "preco": 54.9,
-     "custo": 28.04,
-     "lucroPlanilha": 10.42
+     "custo": 28.04
     }
    },
    "maoDeObra": 11.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "cestinho organizador"
    ],
@@ -242,13 +212,11 @@
    "tamanhos": {
     "U": {
      "preco": 34.9,
-     "custo": 15.88,
-     "lucroPlanilha": 8.57
+     "custo": 15.88
     }
    },
    "maoDeObra": 5.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "charm mini necessaire"
    ],
@@ -263,13 +231,11 @@
    "tamanhos": {
     "U": {
      "preco": 29.9,
-     "custo": 20.15,
-     "lucroPlanilha": 0.79
+     "custo": 20.15
     }
    },
    "maoDeObra": 5.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "maxi scrunchies - kit com 2",
     "kit maxi scrunchies"
@@ -284,13 +250,11 @@
    "tamanhos": {
     "U": {
      "preco": 29.9,
-     "custo": 14.78,
-     "lucroPlanilha": 6.16
+     "custo": 14.78
     }
    },
    "maoDeObra": 5.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "headband"
    ]
@@ -304,13 +268,11 @@
    "tamanhos": {
     "U": {
      "preco": 129.9,
-     "custo": 67.76,
-     "lucroPlanilha": 23.23
+     "custo": 67.76
     }
    },
    "maoDeObra": 26.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "grande",
    "apelidos": [
     "bag serena"
    ]
@@ -324,13 +286,11 @@
    "tamanhos": {
     "U": {
      "preco": 49.9,
-     "custo": 24.18,
-     "lucroPlanilha": 10.77
+     "custo": 24.18
     }
    },
    "maoDeObra": 9.0,
    "maoDeObraJaInclusaNoCusto": false,
-   "caixa": "pequena",
    "apelidos": [
     "necessaire zoe"
    ]
@@ -344,13 +304,11 @@
    "tamanhos": {
     "U": {
      "preco": 109.9,
-     "custo": 49.99,
-     "lucroPlanilha": 21.99
+     "custo": 49.99
     }
    },
    "maoDeObra": null,
    "maoDeObraJaInclusaNoCusto": true,
-   "caixa": "pequena",
    "apelidos": [
     "regata copa"
    ],
@@ -365,13 +323,11 @@
    "tamanhos": {
     "U": {
      "preco": 89.9,
-     "custo": 45.73,
-     "lucroPlanilha": 12.24
+     "custo": 45.73
     }
    },
    "maoDeObra": null,
    "maoDeObraJaInclusaNoCusto": true,
-   "caixa": "pequena",
    "apelidos": [
     "top copa"
    ],
@@ -381,18 +337,16 @@
    "id": "regata-vickie",
    "nome": "Regata Vickie",
    "categoria": "regata",
-   "cores": null,
-   "bordado": null,
+   "cores": "",
+   "bordado": "",
    "tamanhos": {
     "U": {
      "preco": 99.9,
-     "custo": 34.38,
-     "lucroPlanilha": 35.6
+     "custo": 34.38
     }
    },
    "maoDeObra": null,
    "maoDeObraJaInclusaNoCusto": true,
-   "caixa": "pequena",
    "apelidos": [
     "regata vickie"
    ]
@@ -401,18 +355,16 @@
    "id": "tube-top-julia",
    "nome": "Tube Top Júlia",
    "categoria": "regata",
-   "cores": null,
-   "bordado": null,
+   "cores": "",
+   "bordado": "",
    "tamanhos": {
     "U": {
      "preco": 89.9,
-     "custo": 37.55,
-     "lucroPlanilha": 25.42
+     "custo": 37.55
     }
    },
    "maoDeObra": null,
    "maoDeObraJaInclusaNoCusto": true,
-   "caixa": "pequena",
    "apelidos": [
     "tube top julia"
    ]

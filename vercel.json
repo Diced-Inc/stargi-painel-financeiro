@@ -24,5 +24,11 @@
         }
       ]
     }
-  ]
+  ],
+  "functions": {
+    "api/*.js": {
+      "includeFiles": "data/{produtos,config}.json",
+      "maxDuration": 10
+    }
+  }
 }

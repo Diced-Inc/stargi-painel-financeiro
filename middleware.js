@@ -2,55 +2,17 @@
 // Env obrigatórias: PAINEL_USER, PAINEL_PASSWORD. Opcional (recomendado): SESSION_SECRET.
 // Sem PAINEL_USER/PAINEL_PASSWORD tudo fica bloqueado (fail closed).
 import { next } from '@vercel/functions';
-import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
 export const config = {
   runtime: 'nodejs',
   matcher: ['/', '/(.*)'],
 };
 
-export const COOKIE = '__Host-stargi_sessao';
-const DURACAO_S = 30 * 24 * 60 * 60; // 30 dias
+import { COOKIE, DURACAO_S, igual, configurado as estaConfigurado, criarToken, tokenValido, lerCookie, mesmaOrigem } from './lib/sessao.js';
+export { COOKIE, criarToken, tokenValido };
+
 const PUBLICOS = new Set(['/assets/logo-stargi.webp', '/favicon.ico']);
 const ATRASO_FALHA_MS = 800;
-
-/* ---------- utilidades ---------- */
-const sha = (s) => createHash('sha256').update(String(s)).digest();
-const igual = (a, b) => timingSafeEqual(sha(a), sha(b));
-const b64u = (buf) => Buffer.from(buf).toString('base64url');
-
-function chave(env) {
-  // A senha entra na chave: trocar a senha derruba todas as sessões.
-  return createHmac('sha256', env.SESSION_SECRET || 'stargi-sem-session-secret')
-    .update(`stargi-sessao-v1|${env.PAINEL_USER}|${env.PAINEL_PASSWORD}`)
-    .digest();
-}
-export function criarToken(env, agora = Date.now()) {
-  const payload = b64u(JSON.stringify({ u: env.PAINEL_USER, exp: Math.floor(agora / 1000) + DURACAO_S }));
-  const sig = b64u(createHmac('sha256', chave(env)).update(payload).digest());
-  return `${payload}.${sig}`;
-}
-export function tokenValido(token, env, agora = Date.now()) {
-  if (!token || typeof token !== 'string') return false;
-  const [payload, sig, extra] = token.split('.');
-  if (!payload || !sig || extra !== undefined) return false;
-  const esperado = b64u(createHmac('sha256', chave(env)).update(payload).digest());
-  if (!igual(sig, esperado)) return false;
-  try {
-    const d = JSON.parse(Buffer.from(payload, 'base64url').toString('utf8'));
-    return d.u === env.PAINEL_USER && typeof d.exp === 'number' && d.exp * 1000 > agora;
-  } catch {
-    return false;
-  }
-}
-function lerCookie(request, nome) {
-  const h = request.headers.get('cookie') || '';
-  for (const parte of h.split(';')) {
-    const i = parte.indexOf('=');
-    if (i > 0 && parte.slice(0, i).trim() === nome) return parte.slice(i + 1).trim();
-  }
-  return null;
-}
 const cookieSessao = (token) => `${COOKIE}=${token}; Path=/; Max-Age=${DURACAO_S}; HttpOnly; Secure; SameSite=Lax`;
 const cookieApagar = () => `${COOKIE}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax`;
 
@@ -72,20 +34,6 @@ const querJson = (request, path) =>
 const json = (status, obj, extra = {}) =>
   new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json; charset=utf-8', ...SEGURANCA, ...extra } });
 const dormir = (ms) => new Promise((r) => setTimeout(r, ms));
-
-// CSRF básico no POST /login: aceita só envio do próprio site.
-function mesmaOrigem(request, url) {
-  const origem = request.headers.get('origin');
-  const sfs = request.headers.get('sec-fetch-site');
-  if (sfs && !['same-origin', 'none'].includes(sfs)) return false;
-  if (!origem) return true; // clientes sem Origin (ex.: curl)
-  if (origem === 'null') return sfs === 'same-origin';
-  let host;
-  try { host = new URL(origem).host; } catch { return false; }
-  const hosts = [url.host, request.headers.get('host'), ...(request.headers.get('x-forwarded-host') || '').split(',')]
-    .map((h) => (h || '').trim()).filter(Boolean);
-  return hosts.includes(host);
-}
 
 /* ---------- página de login ---------- */
 export function paginaLogin({ erro = '', proximo = '/', usuario = '', bloqueado = false } = {}) {
@@ -167,7 +115,7 @@ export async function tratar(request, env = process.env, opts = {}) {
   const atraso = opts.atrasoFalhaMs ?? ATRASO_FALHA_MS;
   const url = new URL(request.url);
   const path = url.pathname;
-  const configurado = Boolean(env.PAINEL_USER && env.PAINEL_PASSWORD);
+  const configurado = estaConfigurado(env);
 
   if (PUBLICOS.has(path) && request.method === 'GET') return null; // logo da tela de login
 
@@ -178,7 +126,7 @@ export async function tratar(request, env = process.env, opts = {}) {
   if (path === '/login') {
     if (!configurado) return html(503, paginaLogin({ bloqueado: true }));
     if (request.method === 'GET' || request.method === 'HEAD') {
-      if (tokenValido(lerCookie(request, COOKIE), env)) {
+      if (tokenValido(lerCookie(request), env)) {
         return new Response(null, { status: 303, headers: { Location: destinoSeguro(url.searchParams.get('next')), ...SEGURANCA } });
       }
       return html(200, paginaLogin({ proximo: destinoSeguro(url.searchParams.get('next')) }));
@@ -209,7 +157,7 @@ export async function tratar(request, env = process.env, opts = {}) {
   if (!configurado) {
     return querJson(request, path) ? json(503, { erro: 'painel_bloqueado' }) : html(503, paginaLogin({ bloqueado: true }));
   }
-  if (tokenValido(lerCookie(request, COOKIE), env)) return null; // autorizado
+  if (tokenValido(lerCookie(request), env)) return null; // autorizado
 
   if (querJson(request, path)) return json(401, { erro: 'nao_autenticado', login: '/login' });
   const destino = destinoSeguro(path + url.search);

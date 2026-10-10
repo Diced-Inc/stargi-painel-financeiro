@@ -6,32 +6,29 @@
  "_inicioControle": "Mês (AAAA-MM) a partir do qual despesas, custos fixos e caixinhas são controlados. Antes disso só existem as vendas da Nuvemshop.",
  "maoDeObraInclusaNoCusto": false,
  "maoDeObraPendenteConfirmacao": false,
- "_maoDeObra": "Confirmado pela Gizele em 10/10/2026: a mão de obra só está dentro do custo nas regatas e tops (categoria 'regata' em produtos.json: Regata Copa, Top Copa, Regata Vickie, Tube Top Júlia e outras regatas/tops). Nos demais produtos ela é descontada à parte. Deixe maoDeObraInclusaNoCusto = false.",
+ "_maoDeObra": "Cada produto tem 'maoDeObraJaInclusaNoCusto' (ligado nas regatas e tops). maoDeObraInclusaNoCusto = true ignoraria a mão de obra de todos (deixe false).",
  "embalagem": {
-  "inclusaNoCustoDoProduto": true,
-  "_inclusaNoCustoDoProduto": "true = o custo da planilha já tem a caixa embutida; o painel tira esse valor do custo e cobra a embalagem por PEDIDO.",
+  "inclusaNoCustoDoProduto": false,
+  "_inclusaNoCustoDoProduto": "Desde 10/10/2026 o custo de cada peça NÃO inclui embalagem. A embalagem é cobrada por pedido.",
   "caixas": {
-   "grande": {
-    "custo": 6.74,
-    "descricao": "Caixa grande (tote bag e Bag Serena)"
-   },
    "pequena": {
     "custo": 5.69,
-    "descricao": "Caixa pequena (regatas, necessaires e acessórios)"
+    "descricao": "Caixa pequena (pedido com 1 peça)"
+   },
+   "grande": {
+    "custo": 6.74,
+    "descricao": "Caixa grande (pedido com 2 ou mais peças)"
    }
   },
-  "palavrasCaixaGrande": [
-   "tote",
-   "bag serena"
-  ],
-  "_regra": "1 caixa por pedido: grande se o pedido tem algum item com essas palavras, senão pequena. Para mudar num pedido, preencha \"caixas\" no vendas.json, ex.: {\"grande\":1,\"pequena\":1}."
+  "pecasParaCaixaGrande": 2,
+  "_regra": "1 caixa por pedido: grande se o pedido tem pecasParaCaixaGrande peças pagas ou mais, senão pequena. Brindes (R$ 0,00) não contam. Para mudar num pedido, preencha \"caixas\" no vendas.json, ex.: {\"grande\":1,\"pequena\":1}."
  },
  "deducoesPorVenda": {
   "cupomPadraoPercent": 5,
   "reservaPerdasPercent": 5,
   "proLaborePercent": 5,
   "reservaTrocasPercent": 2,
-  "_obs": "Cupom real vem de cada pedido. Caixinhas são calculadas sobre o valor pago pelos produtos (sem frete)."
+  "_obs": "Pior caso padrão = cupom 5 + perdas 5 + pró-labore 5 + trocas 2 + parcelamento 7,76 + recebimento 5,19 = 29,95% do preço de venda, + R$ 0,35 fixo do cartão. Na tabela de produtos tudo é calculado sobre o preço de venda (como na planilha)."
  },
  "pagamento": {
   "cartao3x": {
@@ -90,8 +87,5 @@
   "outros"
  ],
  "_categoriasQueEntramNoLucro": "Despesas dessas categorias são descontadas do lucro estimado. Tecido, aviamentos e embalagem já estão no custo de cada peça (produtos.json) e frete já está na etiqueta de cada pedido; por isso só entram no caixa (saldo), não no lucro, para não contar duas vezes.",
- "lucroMedioMesesParaEquilibrio": 6,
- "categoriasComMaoDeObraNoCusto": [
-  "regata"
- ]
+ "lucroMedioMesesParaEquilibrio": 6
 }

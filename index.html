@@ -39,19 +39,19 @@ h1,h2,h3{color:var(--marrom-escuro);margin:0}
 h2{font-size:1.1rem;font-weight:600;display:flex;align-items:center;gap:.4rem}
 small,.muted{color:#8a8a8a}
 header{position:sticky;top:0;z-index:20;background:var(--branco);box-shadow:0 1px 0 var(--creme)}
-.topo{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.6rem 1rem;max-width:1180px;margin:0 auto}
+.topo{display:flex;align-items:center;justify-content:space-between;gap:.75rem;padding:.6rem 1rem;max-width:1320px;margin:0 auto}
 .topo img{height:34px;width:auto}
 .topo .titulo{font-size:.8rem;color:var(--marrom);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
 select,input{font-family:inherit;font-size:.95rem;color:var(--marrom-escuro);background:var(--creme-claro);border:1px solid var(--creme);border-radius:12px;padding:.5rem .7rem}
 select:focus,input:focus{outline:2px solid var(--rosa);outline-offset:1px}
 a.sair{flex:none;text-decoration:none;font-size:.82rem;font-weight:500;color:var(--marrom);border:1px solid var(--creme);border-radius:999px;padding:.4rem .75rem}
 a.sair:hover{background:var(--rosa);border-color:var(--rosa);color:#fff}
-nav{display:flex;gap:.4rem;overflow-x:auto;padding:.1rem 1rem .6rem;max-width:1180px;margin:0 auto;scrollbar-width:none}
+nav{display:flex;gap:.4rem;overflow-x:auto;padding:.1rem 1rem .6rem;max-width:1320px;margin:0 auto;scrollbar-width:none}
 nav::-webkit-scrollbar{display:none}
 nav a{flex:none;text-decoration:none;color:var(--marrom-escuro);background:var(--creme);padding:.35rem .8rem;border-radius:999px;font-size:.82rem;font-weight:500}
 nav a:hover{background:var(--rosa);color:#fff}
 main>*{min-width:0}
-main{max-width:1180px;margin:0 auto;padding:1rem;display:grid;gap:1rem;grid-template-columns:1fr}
+main{max-width:1320px;margin:0 auto;padding:1rem;display:grid;gap:1rem;grid-template-columns:1fr}
 .card{background:var(--branco);border-radius:var(--raio);box-shadow:var(--sombra);padding:1.1rem}
 .card>h2{margin-bottom:.8rem}
 .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:.6rem}
@@ -117,6 +117,74 @@ footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
   .grafico{height:300px}
   .sim{grid-template-columns:repeat(4,1fr)}
 }
+
+/* ===== editor ===== */
+.sec-cab{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.8rem;flex-wrap:wrap}
+.sec-cab h2{margin:0}
+.btn{font-family:inherit;font-size:.88rem;font-weight:600;border:0;border-radius:12px;padding:.6rem 1rem;background:var(--marrom);color:#fff;cursor:pointer}
+.btn:hover{filter:brightness(1.07)}.btn:disabled{opacity:.6;cursor:wait}
+.btn.sec{background:var(--creme);color:var(--marrom-escuro)}
+.btn.perigo{background:transparent;color:var(--perigo);border:1px solid color-mix(in srgb,var(--perigo) 45%,var(--branco))}
+.ico{border:0;background:transparent;cursor:pointer;font-size:1rem;padding:.35rem;border-radius:8px}
+.ico:hover{background:var(--creme)}
+.so-mob{display:grid;gap:.6rem}.so-desk{display:none}
+table.editavel{font-size:.74rem;width:100%;min-width:1100px}
+table.editavel th.grp{text-align:center;border-bottom:1px solid var(--creme);background:var(--creme-claro)}
+table.editavel td{padding:.25rem .2rem;vertical-align:middle}
+table.editavel input{width:100%;font-size:.74rem;padding:.32rem .3rem;border-radius:8px;background:var(--branco);border:1px solid var(--creme)}
+table.editavel input:hover{border-color:var(--rosa)}
+table.editavel input.nome{min-width:150px;font-weight:600}
+table.editavel input.txt{min-width:70px}
+table.editavel input.curto{min-width:62px}
+table.editavel input.din{width:64px;text-align:right}
+table.editavel input:disabled{background:var(--creme-claro);color:#aaa}
+table.editavel td.lucro{min-width:58px;line-height:1.15;font-size:.72rem}
+table.editavel td.mo{min-width:96px}
+table.editavel td{padding:.22rem .14rem}
+.tog{display:flex;align-items:center;gap:.25rem;font-size:.64rem;color:var(--marrom);margin-top:.2rem;cursor:pointer;white-space:nowrap}
+.tog input{width:auto!important;accent-color:var(--rosa)}
+.tog.grande{font-size:.85rem;margin-top:1.3rem}
+.pcard{border:1px solid var(--creme);border-radius:16px;padding:.8rem}
+.pcab{display:flex;justify-content:space-between;align-items:flex-start;gap:.5rem}
+.pnome{font-weight:600;color:var(--marrom-escuro)}
+.ptams{display:grid;gap:.35rem;margin-top:.55rem}
+.ptam{display:grid;grid-template-columns:1.6rem 1fr 1fr;gap:.1rem .5rem;font-size:.76rem;background:var(--creme-claro);border-radius:10px;padding:.4rem .55rem}
+.ptam b:first-child{grid-row:span 2;align-self:center;color:var(--marrom-escuro);font-size:.95rem}
+.ptam span:last-child{grid-column:2/-1}
+.ptam.baixa{background:color-mix(in srgb,var(--perigo) 10%,var(--branco))}
+.cfg{display:grid;gap:.7rem}
+.cfg fieldset{border:1px solid var(--creme);border-radius:14px;padding:.6rem .8rem .8rem;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+.cfg legend{font-size:.78rem;font-weight:600;color:var(--marrom-escuro);padding:0 .3rem}
+.cfg label{font-size:.72rem;color:var(--marrom);font-weight:500;display:flex;flex-direction:column;gap:.2rem}
+.cfg input{width:100%}
+.sufixo{position:relative;display:block}
+.sufixo[data-suf]:not([data-suf=""])::after{content:attr(data-suf);position:absolute;right:.7rem;top:50%;transform:translateY(-50%);font-size:.78rem;color:#9a9a9a;pointer-events:none}
+.sufixo[data-suf="%"] input{padding-right:1.8rem}.sufixo[data-suf="peças"] input{padding-right:3.4rem}
+#barraSalvar{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translate(-50%,160%);transition:transform .25s;z-index:40;display:flex;align-items:center;gap:.8rem;background:var(--marrom-escuro);color:#fff;border-radius:18px;padding:.55rem .55rem .55rem 1rem;box-shadow:0 8px 30px rgba(0,0,0,.2);font-size:.85rem;width:max-content;max-width:calc(100% - 24px)}
+#barraSalvar{visibility:hidden;opacity:0}#barraSalvar.on{transform:translate(-50%,0);visibility:visible;opacity:1}
+#barraSalvar div{display:flex;gap:.4rem}
+#barraSalvar .btn{background:var(--rosa)}#barraSalvar .btn.sec{background:rgba(255,255,255,.15);color:#fff}
+#toast{position:fixed;left:50%;top:14px;transform:translate(-50%,-150%);transition:transform .25s;z-index:60;background:var(--sucesso);color:#fff;font-weight:600;border-radius:999px;padding:.6rem 1.1rem;font-size:.88rem;box-shadow:0 6px 24px rgba(0,0,0,.15);max-width:calc(100% - 24px);text-align:center}
+#toast{visibility:hidden;opacity:0}#toast.on{transform:translate(-50%,0);visibility:visible;opacity:1}#toast.erro{background:var(--perigo)}
+dialog#modal{border:0;border-radius:22px;padding:0;width:min(560px,calc(100% - 20px));max-height:calc(100dvh - 20px);box-shadow:0 20px 60px rgba(0,0,0,.25);color:var(--texto)}
+dialog#modal::backdrop{background:rgba(74,49,40,.35);backdrop-filter:blur(2px)}
+#mForm{padding:1rem 1.1rem 1.1rem;display:grid;gap:.6rem}
+.mcab{display:flex;justify-content:space-between;align-items:center}
+.mcab h3{font-size:1.05rem}
+#mForm label{font-size:.75rem;color:var(--marrom);font-weight:500;display:flex;flex-direction:column;gap:.2rem}
+#mForm input:not([type=checkbox]){width:100%}
+.m2{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.mtams{display:grid;gap:.35rem;background:var(--creme-claro);border-radius:14px;padding:.6rem}
+.mt{display:grid;grid-template-columns:1.3rem minmax(0,1fr) minmax(0,1fr) 4.3rem;gap:.4rem;align-items:center}
+.mt.cab span{font-size:.7rem;color:var(--marrom);font-weight:600}
+.mt b{color:var(--marrom-escuro)}
+.mt input{background:var(--branco)!important;text-align:right;padding:.5rem .45rem;font-size:.9rem;min-width:0}
+#mForm label.tog{flex-direction:row;align-items:center;font-size:.85rem}
+.ml{font-size:.78rem;text-align:right;line-height:1.1}
+.erro-m{color:var(--perigo);font-size:.82rem;margin:0;min-height:1em}
+.macoes{display:flex;gap:.5rem;align-items:center}
+@media (min-width:900px){.so-mob{display:none}.so-desk{display:block}.cfg{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:420px){.m2{grid-template-columns:1fr}.tog.grande{margin-top:0}.mmo{gap:.3rem}}
 </style>
 </head>
 <body>
@@ -133,8 +201,8 @@ footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
   </div>
   <nav>
     <a href="#resumo">Resumo</a><a href="#grafico">Entradas x saídas</a><a href="#caixinhas">Caixinhas</a>
-    <a href="#contas">Contas</a><a href="#despesas">Despesas</a><a href="#margens">Margens</a>
-    <a href="#simulador">Simulador</a><a href="#equilibrio">Equilíbrio</a>
+    <a href="#contas">Contas</a><a href="#despesas">Despesas</a><a href="#produtos">Produtos</a>
+    <a href="#simulador">Simulador</a><a href="#equilibrio">Equilíbrio</a><a href="#config">Configurações</a>
   </nav>
 </header>
 <div id="erro"></div>
@@ -172,11 +240,13 @@ footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
     <div id="despLista"></div>
   </section>
 
-  <section class="card span2" id="margens">
-    <h2>💗 Margem por produto</h2>
-    <p class="muted" style="margin:.1rem 0 .7rem;font-size:.82rem">Lucro real de 1 peça vendida sozinha, depois de cupom, taxas, caixinhas, custo, mão de obra e caixa.</p>
-    <div class="rolar"><table class="tabela" id="tabMargens"></table></div>
-    <div id="margensAvisos"></div>
+  <section class="card span2" id="produtos">
+    <div class="sec-cab"><h2>💗 Produtos, custos e margem</h2><button class="btn" id="btnAdd">＋ Adicionar produto</button></div>
+    <div class="aviso" id="prodNota" style="margin:0 0 .7rem"></div>
+    <p class="muted" id="prodResumo" style="font-size:.8rem;margin:.2rem 0 .6rem"></p>
+    <div class="rolar so-desk"><table class="tabela editavel" id="tabProdutos"></table></div>
+    <div class="so-mob" id="cardsProdutos"></div>
+    <div id="semCusto"></div>
   </section>
 
   <section class="card span2" id="simulador">
@@ -198,8 +268,30 @@ footer{text-align:center;font-size:.75rem;color:#9a9a9a;padding:1rem 1rem 2rem}
     <h2>⚖️ Ponto de equilíbrio</h2>
     <div id="eqBox"></div>
   </section>
+
+  <section class="card span2" id="config">
+    <h2>⚙️ Configurações</h2>
+    <p class="muted" style="font-size:.82rem;margin:.1rem 0 .7rem">Valores usados em todo o painel. Mudou? Toque em <b>Salvar</b>.</p>
+    <div id="cfgCampos" class="cfg"></div>
+    <div class="aviso azul" id="cfgTotal"></div>
+    <details id="hist"><summary>Histórico de alterações (desfazer)</summary><div id="histLista"></div></details>
+  </section>
 </main>
 <footer id="rodape"></footer>
+<div id="barraSalvar" role="region" aria-label="Alterações não salvas"><span>Alterações não salvas</span><div><button class="btn sec" id="btnDescartar">Descartar</button><button class="btn" id="btnSalvar">Salvar</button></div></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="modal" aria-labelledby="mTitulo">
+  <form id="mForm" method="dialog" novalidate>
+    <div class="mcab"><h3 id="mTitulo">Produto</h3><button type="button" class="ico" id="mCancelar" aria-label="Fechar">✕</button></div>
+    <label>Produto<input id="mNome" maxlength="120" required placeholder="Ex.: Necessaire Summer"></label>
+    <div class="m2"><label>Cores<input id="mCores" maxlength="200" placeholder="Ex.: Rosa, Azul"></label><label>Bordado<input id="mBordado" maxlength="200" placeholder="Ex.: Sem bordado"></label></div>
+    <div class="mtams" id="mTams"></div>
+    <div class="m2 mmo"><label>Mão de obra (por peça)<input id="mMo" class="din" inputmode="numeric" placeholder="—"></label><label class="tog grande"><input type="checkbox" id="mInclusa"> já inclusa no custo</label></div>
+    <p class="muted" style="font-size:.74rem;margin:.2rem 0 0">Custo = peça <b>sem embalagem</b>. Lucro = pedido de 1 peça no pior caso (com caixa pequena). Deixe em branco os tamanhos que não existem.</p>
+    <p class="erro-m" id="mErro" role="alert"></p>
+    <div class="macoes"><button type="button" class="btn perigo" id="mApagar">Excluir</button><span style="flex:1"></span><button type="submit" class="btn">Salvar produto</button></div>
+  </form>
+</dialog>
 
 <script>
 (async function(){
@@ -215,13 +307,29 @@ const vazio=(t,s='')=>`<div class="vazio"><b>${t}</b>${s}</div>`;
 const fmtData=iso=>{const[a,m,d]=iso.slice(0,10).split('-');return `${d}/${m}/${a}`};
 
 async function carregar(n){const r=await fetch('data/'+n+'.json',{cache:'no-store'});if(r.status===401){location.href='/login';throw new Error('sessão expirada')}if(!r.ok)throw new Error('Não consegui abrir data/'+n+'.json');return r.json()}
-let cfg,prods,vendas,desp,contas,cx;
-try{[cfg,prods,vendas,desp,contas,cx]=await Promise.all(['config','produtos','vendas','despesas','contas','caixinhas'].map(carregar))}
-catch(e){const el=$('#erro');el.style.display='block';el.textContent='Erro ao carregar os dados: '+e.message+' (abra o painel por um servidor, não direto pelo arquivo).';return}
-const P=prods.produtos, pedidos=vendas.pedidos||[], despesas=desp.despesas||[];
-const D=cfg.deducoesPorVenda, PG=cfg.pagamento, CX=cfg.embalagem.caixas;
-const reservaPct=(D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent)/100;
-const fixos=cfg.custosFixosMensais||[], totalFixos=fixos.reduce((s,f)=>s+f.valor,0);
+// Produtos + config vêm da API (armazenamento privado); sem API (teste local com servidor estático) usa data/*.json só para leitura.
+async function carregarEditaveis(){
+  try{const r=await fetch('/api/dados',{cache:'no-store',headers:{accept:'application/json'}});
+    if(r.status===401){location.href='/login';throw new Error('sessão expirada')}
+    if(r.ok)return {...(await r.json()),api:true};
+    if(r.status!==404&&r.status!==405&&r.status!==501)throw new Error('API respondeu '+r.status);
+  }catch(e){if(String(e.message).includes('sessão'))throw e;if(!(e instanceof TypeError)&&!String(e.message).includes('404'))throw e}
+  const [p,c]=await Promise.all([carregar('produtos'),carregar('config')]);
+  return {produtos:p.produtos,config:c,versao:null,api:false};
+}
+let cfg,doc,vendas,desp,contas,cx;
+try{[doc,vendas,desp,contas,cx]=await Promise.all([carregarEditaveis(),...['vendas','despesas','contas','caixinhas'].map(carregar)])}
+catch(e){const el=$('#erro');el.style.display='block';el.textContent='Erro ao carregar os dados: '+e.message;return}
+const pedidos=vendas.pedidos||[], despesas=desp.despesas||[];
+let P,D,PG,CX,reservaPct,fixos,totalFixos,versao=doc.versao,apiOk=doc.api,atualizadoEm=doc.atualizadoEm;
+function aplicarModelo(d){
+  cfg=structuredClone(d.config); P=structuredClone(d.produtos);
+  D=cfg.deducoesPorVenda; PG=cfg.pagamento; CX=cfg.embalagem.caixas;
+  reservaPct=(D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent)/100;
+  fixos=cfg.custosFixosMensais||[]; totalFixos=fixos.reduce((s,f)=>s+f.valor,0);
+}
+aplicarModelo(doc);
+let salvo=JSON.stringify({p:P,c:cfg}); // para saber se há alterações
 const ymDe=iso=>(iso||'').slice(0,7);
 const controlado=ym=>ym>=cfg.inicioControle;
 const hoje=new Date(); const ymHoje=hoje.toISOString().slice(0,7);
@@ -232,22 +340,21 @@ function acharProduto(nome){
   for(const p of P) for(const a of p.apelidos){const i=n.indexOf(norm(a)); if(i>=0&&(!melhor||i<melhor.i||(i===melhor.i&&a.length>melhor.len)))melhor={p,i,len:a.length}}
   if(!melhor)return null;
   const p=melhor.p, tams=Object.keys(p.tamanhos);
-  if(tams.length===1&&tams[0]==='U')return {p,tam:'U'};
+  if(tams.length===1)return {p,tam:tams[0]};
   const m=nome.match(/\(([^)]*)\)/); const toks=m?m[1].split(',').map(t=>t.trim().toUpperCase()):[];
   const tam=toks.find(t=>tams.includes(t));
   return tam?{p,tam}:{p,tam:null};
 }
-const moInclusa=p=>p.maoDeObraJaInclusaNoCusto||cfg.maoDeObraInclusaNoCusto||(cfg.categoriasComMaoDeObraNoCusto||[]).includes(p.categoria);
+const moInclusa=p=>Boolean(p.maoDeObraJaInclusaNoCusto||cfg.maoDeObraInclusaNoCusto);
+// custo da peça (SEM embalagem) + mão de obra
 function custoUnit(p,tam){
-  const t=p.tamanhos[tam]; let custo=t.custo;
-  const emb=cfg.embalagem.inclusaNoCustoDoProduto?CX[p.caixa].custo:0; custo-=emb;
-  const mo=moInclusa(p)?0:(p.maoDeObra||0);
-  return {custo,mo,emb};
+  const t=p.tamanhos[tam]||{}; const mo=moInclusa(p)?0:(p.maoDeObra||0);
+  return {custo:t.custo,mo};
 }
+const pecasPagas=o=>{const n=o.itens.filter(i=>i.preco>0).reduce((s,i)=>s+i.qtd,0);return n||o.itens.reduce((s,i)=>s+i.qtd,0)};
 function caixasDoPedido(o){
   if(o.caixas&&typeof o.caixas==='object')return o.caixas;
-  const grande=o.itens.some(i=>cfg.embalagem.palavrasCaixaGrande.some(w=>norm(i.nome).includes(norm(w))));
-  return grande?{grande:1}:{pequena:1};
+  return pecasPagas(o)>=cfg.embalagem.pecasParaCaixaGrande?{grande:1}:{pequena:1};
 }
 /* ---------- análise de pedido ---------- */
 const semCusto=new Map();
@@ -256,7 +363,7 @@ function analisar(o){
   const etqEst=o.custoEtiqueta==null; const etiqueta=etqEst?(cfg.frete.estimarEtiquetaIgualAoFreteCobrado?o.frete:0):o.custoEtiqueta;
   let custo=0,mo=0,faltando=[];
   for(const it of o.itens){const m=acharProduto(it.nome);
-    if(!m||!m.tam){faltando.push(it.nome);const k=it.nome.replace(/\s*\(.*$/,'').trim();semCusto.set(k,(semCusto.get(k)||0)+it.qtd);continue}
+    if(!m||!m.tam||m.p.tamanhos[m.tam]?.custo==null){faltando.push(it.nome);const k=it.nome.replace(/\s*\(.*$/,'').trim();semCusto.set(k,(semCusto.get(k)||0)+it.qtd);continue}
     const c=custoUnit(m.p,m.tam); custo+=c.custo*it.qtd; mo+=c.mo*it.qtd;}
   const cxs=caixasDoPedido(o); const emb=Object.entries(cxs).reduce((s,[k,q])=>s+(CX[k]?.custo||0)*q,0);
   const res={perdas:receita*D.reservaPerdasPercent/100,proLabore:receita*D.proLaborePercent/100,trocas:receita*D.reservaTrocasPercent/100};
@@ -264,7 +371,9 @@ function analisar(o){
   return {receita,taxas,etiqueta,etqEst,custo,mo,emb,res,lucro,completo:faltando.length===0,faltando};
 }
 const validos=pedidos.filter(o=>!o.cancelado);
-const A=new Map(pedidos.map(o=>[o,analisar(o)]));
+let A;
+function analisarTudo(){semCusto.clear();A=new Map(pedidos.map(o=>[o,analisar(o)]))}
+analisarTudo();
 const despDoMes=ym=>despesas.filter(d=>ymDe(d.data)===ym);
 function resumoMes(ym){
   const ps=validos.filter(o=>ymDe(o.data)===ym);
@@ -370,39 +479,39 @@ function renderDespesas(ym){
   $('#despLista').innerHTML=(itens.length?`<ul class="lista">${itens.sort((a,b)=>(a.data||'').localeCompare(b.data||'')).map(i=>`<li><div><div class="desc">${esc(i.descricao)} ${i.auto?'<span class="badge azul">automático</span>':''} ${i.aConfirmar?'<span class="badge amarelo">a confirmar</span>':''} ${i.estimado?'<span class="badge amarelo">estimado</span>':''}</div><div class="sub">${esc(i.categoria)}${i.data&&!i.estimado&&i.categoria!=='frete'?' · '+fmtData(i.data):''}</div></div><div class="valor">${brl(i.valor)}</div></li>`).join('')}</ul>`:'')+
     (despDoMes(ym).length?'':vazio('sem dados ainda',controlado(ym)?'Nenhuma compra lançada neste mês (tecido, aviamentos, anúncios...). Me manda as saídas que eu lanço!':'Despesas só são controladas a partir de '+nomeMes(cfg.inicioControle)+'.'));
 }
-/* ---------- simulação de 1 peça ---------- */
-function simular(p,tam,cupom,pag){
-  const preco=p.tamanhos[tam].preco; const aposCupom=preco*(1-cupom/100);
-  let pago=aposCupom,taxa;
-  if(pag==='pix'){pago=aposCupom*(1-PG.pix.descontoClientePercent/100);taxa=pago*PG.pix.taxaPercent/100}
-  else{const c=PG.cartao3x;taxa=pago*((pag==='cartao3x'?c.parcelamentoPercent:0)+c.recebimentoPercent)/100+c.taxaFixa}
-  const res=pago*reservaPct; const c=custoUnit(p,tam); const caixa=CX[p.caixa].custo;
-  const lucro=pago-taxa-res-c.custo-c.mo-caixa;
-  return {preco,desconto:preco-pago,pago,taxa,res,custo:c.custo,mo:c.mo,emb:c.emb,caixa,lucro,margem:lucro/pago};
+/* ---------- lucro de 1 peça (como na planilha: % sobre o preço de venda) ---------- */
+const pctPiorCaso=()=>D.cupomPadraoPercent+D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent+PG.cartao3x.parcelamentoPercent+PG.cartao3x.recebimentoPercent;
+function lucroPeca(p,tam,{cupom=D.cupomPadraoPercent,pag='cartao3x'}={}){
+  const t=p.tamanhos[tam]; if(!t||t.preco==null||t.custo==null)return null;
+  const preco=t.preco, c=PG.cartao3x;
+  const taxaPct=pag==='pix'?PG.pix.descontoClientePercent+PG.pix.taxaPercent:(pag==='cartao3x'?c.parcelamentoPercent:0)+c.recebimentoPercent;
+  const fixo=pag==='pix'?0:c.taxaFixa;
+  const resPct=D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent;
+  const cupomV=preco*cupom/100, taxa=preco*taxaPct/100+fixo, res=preco*resPct/100;
+  const u=custoUnit(p,tam), caixa=CX.pequena.custo;
+  const lucro=preco-cupomV-taxa-res-u.custo-u.mo-caixa;
+  return {preco,cupomV,taxa,taxaPct,fixo,res,resPct,custo:u.custo,mo:u.mo,caixa,lucro,margem:lucro/preco,totalPct:cupom+taxaPct+resPct};
 }
-const baixo=s=>s.margem*100<cfg.alertas.margemBaixaPercent||s.lucro<cfg.alertas.lucroBaixoReais;
-function renderMargens(){
-  let html=`<tr><th>Produto</th><th>Tam.</th><th class="n hm">Preço</th><th class="n">Lucro pior caso<br><small>cupom ${D.cupomPadraoPercent}% + cartão 3x</small></th><th class="n">Margem</th><th class="n">Lucro melhor caso<br><small>sem cupom + Pix</small></th><th class="n hm">Lucro na planilha</th></tr>`;
-  const baixos=[];
-  for(const p of P)for(const t of Object.keys(p.tamanhos)){const s=simular(p,t,D.cupomPadraoPercent,'cartao3x'),x=simular(p,t,0,'pix');const b=baixo(s);if(b)baixos.push(p.nome+(t!=='U'?' '+t:''));
-    html+=`<tr class="${b?'baixa':''}"><td>${esc(p.nome)}${b?' <span class="badge vermelho">margem baixa</span>':''}${moInclusa(p)?' <span class="badge">MO já inclusa</span>':''}</td><td>${t}</td><td class="n hm">${brl(s.preco)}</td><td class="n ${s.lucro<0?'neg':''}"><b>${brl(s.lucro)}</b></td><td class="n ${s.lucro<0?'neg':''}">${pct(s.margem)}</td><td class="n ${x.lucro<0?'neg':''}">${brl(x.lucro)}</td><td class="n muted hm">${brl(p.tamanhos[t].lucroPlanilha)}</td></tr>`}
-  $('#tabMargens').innerHTML=html;
-  $('#margensAvisos').innerHTML=`<div class="aviso">Em vermelho: margem abaixo de ${cfg.alertas.margemBaixaPercent}% ou lucro abaixo de ${brl(cfg.alertas.lucroBaixoReais)} por peça. ${baixos.length} de ${$('#tabMargens').rows.length-1} linhas.</div>`+
-    `<div class="aviso">Mão de obra: descontada à parte em todos os produtos, menos nas regatas e tops (já está no custo delas).</div>`+
-    `<div class="aviso azul">Diferença para a planilha: aqui a caixa é cobrada por pedido (1 peça = 1 caixa), as taxas e caixinhas são calculadas sobre o valor que a cliente pagou e entra a taxa fixa de ${brl(PG.cartao3x.taxaFixa)} do cartão.</div>`;
-}
+const baixo=s=>s&&(s.margem*100<cfg.alertas.margemBaixaPercent||s.lucro<cfg.alertas.lucroBaixoReais);
 function renderSimulador(){
   const sp=$('#sProd'),st=$('#sTam');
-  if(!sp.options.length){sp.innerHTML=P.map((p,i)=>`<option value="${i}">${esc(p.nome)}</option>`).join('');$('#sCupom').value=D.cupomPadraoPercent;
-    const kit=P.findIndex(p=>p.id==='kit-maxi-scrunchies');if(kit>=0)sp.value=kit}
-  const p=P[+sp.value]; const tams=Object.keys(p.tamanhos);
+  const ant=sp.value&&P[+sp.value]?P[+sp.value].id:null;
+  sp.innerHTML=P.map((p,i)=>`<option value="${i}">${esc(p.nome)}</option>`).join('');
+  let idx=P.findIndex(p=>p.id===ant); if(idx<0)idx=Math.max(0,P.findIndex(p=>p.id==='kit-maxi-scrunchies'));
+  sp.value=String(idx);
+  if($('#sCupom').value==='')$('#sCupom').value=String(D.cupomPadraoPercent).replace('.',',');
+  const p=P[+sp.value]; if(!p){$('#sRes').innerHTML=vazio('sem produtos');return}
+  const tams=Object.keys(p.tamanhos);
   if([...st.options].map(o=>o.value).join()!==tams.join())st.innerHTML=tams.map(t=>`<option>${t}</option>`).join('');
   const cupom=Math.max(0,Math.min(100,parseFloat(String($('#sCupom').value).replace(',','.'))||0));
-  const s=simular(p,st.value,cupom,$('#sPag').value);
+  const pag=$('#sPag').value, s=lucroPeca(p,st.value,{cupom,pag});
+  if(!s){$('#sRes').innerHTML=vazio('Falta preço ou custo','Preencha o valor de venda e o custo desse tamanho na tabela.');return}
   const L=(a,b,cls='')=>`<div class="linha ${cls}"><span>${a}</span><span>${b}</span></div>`;
-  $('#sRes').innerHTML=L('Preço de venda',brl(s.preco))+L('Descontos (cupom'+($('#sPag').value==='pix'?' + Pix':'')+')','− '+brl(s.desconto))+L('<b>Cliente paga</b>','<b>'+brl(s.pago)+'</b>')+
-    L('Taxas Nuvem Pago','− '+brl(s.taxa))+L(`Caixinhas (${(reservaPct*100).toLocaleString('pt-BR')}%)`,'− '+brl(s.res))+
-    L('Custo do produto (sem caixa)','− '+brl(s.custo))+L('Mão de obra',moInclusa(p)?'já no custo':'− '+brl(s.mo))+L('Caixa ('+p.caixa+')','− '+brl(s.caixa))+
+  const f=v=>v.toLocaleString('pt-BR',{maximumFractionDigits:2});
+  $('#sRes').innerHTML=L('Preço de venda',brl(s.preco))+L(`Cupom (${f(cupom)}%)`,'− '+brl(s.cupomV))+
+    L(pag==='pix'?`Pix: desconto + taxa (${f(s.taxaPct)}%)`:`Taxas do cartão (${f(s.taxaPct)}% + ${brl(s.fixo)})`,'− '+brl(s.taxa))+
+    L(`Caixinhas (${f(s.resPct)}%)`,'− '+brl(s.res))+
+    L('Custo da peça','− '+brl(s.custo))+L('Mão de obra',moInclusa(p)?'já no custo':'− '+brl(s.mo))+L('Caixa pequena (1 peça)','− '+brl(s.caixa))+
     L('Lucro real',`<span class="${s.lucro<0?'neg':'pos'}">${brl(s.lucro)} · ${pct(s.margem)}</span>`,'total')+
     (baixo(s)?`<div class="aviso" style="border-color:var(--perigo)">⚠️ Margem baixa nessa venda.</div>`:'');
 }
@@ -414,21 +523,159 @@ function renderEquilibrio(ym){
   const linhas=fixos.map(f=>`${esc(f.nome)} ${brl(f.valor)}${f.aConfirmar?' <span class="badge amarelo">a confirmar</span>':''}`).join(' + ');
   let corpo;
   if(lm==null)corpo=vazio('sem dados ainda','Sem pedidos com custo cadastrado nos últimos meses.');
-  else if(lm<=0)corpo=`<div class="grande neg">não fecha</div><p>O lucro médio por pedido nos últimos ${n} meses foi <b class="neg">${brl(lm)}</b>: com os custos atuais, vender mais não cobre os fixos. Vale rever preços (ou confirmar a mão de obra).</p>`;
+  else if(lm<=0)corpo=`<div class="grande neg">não fecha</div><p>O lucro médio por pedido nos últimos ${n} meses foi <b class="neg">${brl(lm)}</b>: com os custos atuais, vender mais não cobre os fixos. Vale rever preços ou custos.</p>`;
   else{const q=Math.ceil(totalFixos/lm);corpo=`<div class="grande">${q} pedido${q>1?'s':''}/mês</div><p>Para pagar ${brl(totalFixos)} de custos fixos, com lucro médio de <b>${brl(lm)}</b> por pedido (média de ${ps.length} pedidos com custo cadastrado, últimos ${n} meses).</p>`}
-  const s=simular(P[+$('#sProd').value],$('#sTam').value,parseFloat($('#sCupom').value)||0,$('#sPag').value);
-  const prod=P[+$('#sProd').value].nome+($('#sTam').value!=='U'?' '+$('#sTam').value:'');
+  const pS=P[+$('#sProd').value]; const s=pS?lucroPeca(pS,$('#sTam').value,{cupom:parseFloat(String($('#sCupom').value).replace(',','.'))||0,pag:$('#sPag').value}):null;
+  const prod=pS?pS.nome+($('#sTam').value!=='U'?' '+$('#sTam').value:''):'—';
   $('#eqBox').innerHTML=`<p class="muted" style="margin:.1rem 0 .6rem;font-size:.85rem">Custos fixos do mês: ${linhas} = <b>${brl(totalFixos)}</b></p>`+corpo+
-    `<div class="aviso azul">Só com <b>${esc(prod)}</b> (como no simulador): ${s.lucro>0?`${Math.ceil(totalFixos/s.lucro)} peças/mês`:'não cobre, o lucro por peça é zero ou negativo'}.</div>`;
+    `<div class="aviso azul">Só com <b>${esc(prod)}</b> (como no simulador): ${s&&s.lucro>0?`${Math.ceil(totalFixos/s.lucro)} peças/mês`:'não cobre, o lucro por peça é zero, negativo ou sem custo'}.</div>`;
 }
 function tudo(){const ym=sel.value;renderResumo(ym);renderGrafico(ym);renderDespesas(ym);renderSimulador();renderEquilibrio(ym)}
+function recalcular(){analisarTudo();renderCaixinhas();tudo();renderSemCusto()}
+function renderSemCusto(){const semC=[...semCusto.entries()].sort((a,b)=>b[1]-a[1]);
+  $('#semCusto').innerHTML=semC.length?`<details><summary>Produtos vendidos sem custo cadastrado (${semC.length})</summary><p style="font-size:.8rem">${semC.map(([n,q])=>esc(n)+' ('+q+')').join(' · ')}</p><p class="muted" style="font-size:.75rem">Para ligar uma venda a um produto, o nome do produto aqui precisa aparecer no nome da Nuvemshop.</p></details>`:''}
 sel.addEventListener('change',tudo);
 document.querySelectorAll('#tabsGrafico button').forEach(b=>b.addEventListener('click',()=>{modo=b.dataset.modo;document.querySelectorAll('#tabsGrafico button').forEach(x=>x.classList.toggle('on',x===b));renderGrafico(sel.value)}));
 ['#sProd','#sTam','#sCupom','#sPag'].forEach(id=>$(id).addEventListener('input',()=>{renderSimulador();renderEquilibrio(sel.value)}));
-renderCaixinhas();renderContas();renderMargens();tudo();
-const semC=[...semCusto.entries()].sort((a,b)=>b[1]-a[1]);
-if(semC.length)$('#margensAvisos').insertAdjacentHTML('beforeend',`<details><summary>Produtos vendidos sem custo cadastrado (${semC.length})</summary><p style="font-size:.8rem">${semC.map(([n,q])=>esc(n)+' ('+q+')').join(' · ')}</p></details>`);
-$('#rodape').innerHTML=`Vendas atualizadas em ${fmtData(vendas.atualizadoEm)} · ${validos.length} pedidos · custos de ${fmtData(prods.atualizadoEm)}<br>Feito com 💗 para a Stargi`;
+
+/* =================== EDITOR: produtos + configurações =================== */
+const TAMS=['P','M','G','U'];
+const fmtNum=v=>v==null?'':Number(v).toLocaleString('pt-BR',{maximumFractionDigits:2});
+const fmtDin=v=>v==null||v===''?'':brl(Number(v));
+const lerDin=str=>{const d=String(str||'').replace(/\D/g,'');return d?Number(d)/100:null};
+const lerNum=str=>{const t=String(str||'').replace(/[^\d,.-]/g,'').replace(',','.');if(t==='')return null;const n=Number(t);return Number.isFinite(n)?n:null};
+function mascaraDin(el){el.addEventListener('input',()=>{const v=lerDin(el.value);el.value=v==null?'':fmtDin(v);});}
+const inDin=(attrs,v)=>`<input class="din" inputmode="numeric" autocomplete="off" placeholder="—" ${attrs} value="${fmtDin(v)}">`;
+let sujo=false;
+function marcarSujo(){sujo=JSON.stringify({p:P,c:cfg})!==salvo;$('#barraSalvar').classList.toggle('on',sujo)}
+let tRecalc; const recalcDepois=()=>{clearTimeout(tRecalc);tRecalc=setTimeout(recalcular,350)};
+function toast(msg,tipo='ok'){const t=$('#toast');t.textContent=msg;t.className='on '+tipo;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3200)}
+const slugId=n=>norm(n).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'produto';
+
+function celLucro(p,t){const s=lucroPeca(p,t);if(!s)return '<span class="muted">—</span>';
+  return `<span class="${s.lucro<0||baixo(s)?'neg':''}"><b>${brl(s.lucro)}</b></span><br><small class="${baixo(s)?'neg':'muted'}">${pct(s.margem)}</small>`}
+function renderProdutos(){
+  const pp=pctPiorCaso();
+  $('#prodNota').innerHTML=`<b>Custo</b> = custo da peça <b>sem embalagem</b> (a caixa agora é cobrada por pedido; ajuste os custos se ainda tiverem a caixa embutida). `+
+    `<b>Lucro</b> = pedido de 1 peça no pior caso: ${fmtNum(pp)}% do preço (cupom ${fmtNum(D.cupomPadraoPercent)}% + perdas ${fmtNum(D.reservaPerdasPercent)}% + pró-labore ${fmtNum(D.proLaborePercent)}% + trocas ${fmtNum(D.reservaTrocasPercent)}% + cartão ${fmtNum(PG.cartao3x.parcelamentoPercent)}% + ${fmtNum(PG.cartao3x.recebimentoPercent)}%) + ${brl(PG.cartao3x.taxaFixa)} + caixa pequena ${brl(CX.pequena.custo)} + mão de obra.`;
+  // tabela (computador)
+  let h=`<thead><tr><th rowspan="2">Produto</th><th rowspan="2">Cores</th><th rowspan="2">Bordado</th><th colspan="4" class="grp">Valor de venda</th><th colspan="4" class="grp">Custo da peça</th><th rowspan="2">Mão de obra</th><th colspan="4" class="grp">Lucro (1 peça, pior caso)</th><th rowspan="2"></th></tr><tr>${TAMS.map(t=>`<th class="n">${t}</th>`).join('').repeat(2)}${TAMS.map(t=>`<th class="n">${t}</th>`).join('')}</tr></thead><tbody>`;
+  P.forEach((p,i)=>{
+    h+=`<tr data-i="${i}"><td><input class="txt nome" data-c="nome" value="${esc(p.nome)}" aria-label="Produto"></td>`+
+      `<td><input class="txt" data-c="cores" value="${esc(p.cores||'')}" aria-label="Cores"></td><td><input class="txt curto" data-c="bordado" value="${esc(p.bordado||'')}" aria-label="Bordado"></td>`+
+      TAMS.map(t=>`<td>${inDin(`data-c="preco" data-t="${t}" aria-label="Venda ${t}"`,p.tamanhos[t]?.preco)}</td>`).join('')+
+      TAMS.map(t=>`<td>${inDin(`data-c="custo" data-t="${t}" aria-label="Custo ${t}"`,p.tamanhos[t]?.custo)}</td>`).join('')+
+      `<td class="mo">${inDin(`data-c="maoDeObra" aria-label="Mão de obra" ${moInclusa(p)?'disabled':''}`,moInclusa(p)?null:p.maoDeObra)}<label class="tog"><input type="checkbox" data-c="inclusa" ${p.maoDeObraJaInclusaNoCusto?'checked':''}> já inclusa</label></td>`+
+      TAMS.map(t=>`<td class="n lucro" data-l="${t}">${celLucro(p,t)}</td>`).join('')+
+      `<td><button class="ico apagar" title="Excluir ${esc(p.nome)}" aria-label="Excluir ${esc(p.nome)}">🗑️</button></td></tr>`;
+  });
+  $('#tabProdutos').innerHTML=h+'</tbody>';
+  // cartões (celular)
+  $('#cardsProdutos').innerHTML=P.map((p,i)=>{const ts=TAMS.filter(t=>p.tamanhos[t]);
+    return `<div class="pcard" data-i="${i}"><div class="pcab"><div><div class="pnome">${esc(p.nome)}</div><div class="muted" style="font-size:.74rem">${esc([p.cores,p.bordado].filter(Boolean).join(' · '))}</div></div><button class="btn sec editar">Editar</button></div>`+
+      `<div class="ptams">${ts.map(t=>{const s=lucroPeca(p,t),tt=p.tamanhos[t];return `<div class="ptam ${baixo(s)?'baixa':''}"><b>${t}</b><span>venda ${fmtDin(tt.preco)||'—'}</span><span>custo ${fmtDin(tt.custo)||'—'}</span><span class="${s&&(s.lucro<0||baixo(s))?'neg':''}">lucro <b>${s?brl(s.lucro):'—'}</b>${s?' · '+pct(s.margem):''}</span></div>`}).join('')||'<span class="muted">sem tamanhos</span>'}</div>`+
+      `<div class="muted" style="font-size:.74rem;margin-top:.3rem">Mão de obra: ${moInclusa(p)?'já inclusa no custo':fmtDin(p.maoDeObra)||'—'}</div></div>`}).join('')||vazio('Nenhum produto','Toque em “Adicionar produto”.');
+  const nb=P.reduce((n,p)=>n+TAMS.filter(t=>baixo(lucroPeca(p,t))).length,0);
+  $('#prodResumo').innerHTML=`${P.length} produtos · <span class="${nb?'neg':''}">${nb} tamanho(s) com margem abaixo de ${cfg.alertas.margemBaixaPercent}% ou lucro abaixo de ${brl(cfg.alertas.lucroBaixoReais)}</span>`;
+}
+function atualizarLinha(i){const tr=$(`#tabProdutos tr[data-i="${i}"]`);if(!tr)return;const p=P[i];
+  TAMS.forEach(t=>{tr.querySelector(`[data-l="${t}"]`).innerHTML=celLucro(p,t)});
+  const mo=tr.querySelector('[data-c="maoDeObra"]');mo.disabled=moInclusa(p);if(moInclusa(p))mo.value='';else if(!mo.value&&p.maoDeObra!=null)mo.value=fmtDin(p.maoDeObra)}
+function setTam(p,t,campo,v){p.tamanhos[t]=p.tamanhos[t]||{preco:null,custo:null};p.tamanhos[t][campo]=v;if(p.tamanhos[t].preco==null&&p.tamanhos[t].custo==null)delete p.tamanhos[t]}
+$('#tabProdutos').addEventListener('input',e=>{const el=e.target,tr=el.closest('tr[data-i]');if(!tr)return;const i=+tr.dataset.i,p=P[i],c=el.dataset.c;
+  if(el.classList.contains('din')){const v=lerDin(el.value);el.value=v==null?'':fmtDin(v);
+    if(c==='preco'||c==='custo')setTam(p,el.dataset.t,c,v);else if(c==='maoDeObra')p.maoDeObra=v;}
+  else if(c==='inclusa')p.maoDeObraJaInclusaNoCusto=el.checked;
+  else if(c){p[c]=el.value}
+  if(c==='nome'&&!p.apelidos?.length)p.apelidos=[norm(el.value)];
+  atualizarLinha(i);marcarSujo();recalcDepois();});
+$('#tabProdutos').addEventListener('click',e=>{const b=e.target.closest('.apagar');if(!b)return;apagarProduto(+b.closest('tr').dataset.i)});
+$('#cardsProdutos').addEventListener('click',e=>{const b=e.target.closest('.editar');if(b)abrirModal(+b.closest('.pcard').dataset.i)});
+$('#btnAdd').addEventListener('click',()=>abrirModal(null));
+
+async function apagarProduto(i){const p=P[i];if(!p)return;
+  if(!confirm(`Excluir o produto “${p.nome}”?\n\nDá para desfazer depois pelo Histórico de alterações.`))return;
+  P.splice(i,1);renderProdutos();marcarSujo();recalcular();await salvar(`“${p.nome}” excluído`)}
+
+/* ---- modal ---- */
+let editando=null;
+function abrirModal(i){
+  editando=i; const p=i==null?{nome:'',cores:'',bordado:'',tamanhos:{},maoDeObra:null,maoDeObraJaInclusaNoCusto:false}:P[i];
+  $('#mTitulo').textContent=i==null?'Novo produto':'Editar produto';
+  $('#mNome').value=p.nome; $('#mCores').value=p.cores||''; $('#mBordado').value=p.bordado||'';
+  $('#mMo').value=fmtDin(p.maoDeObra); $('#mInclusa').checked=!!p.maoDeObraJaInclusaNoCusto;
+  $('#mTams').innerHTML=`<div class="mt cab"><span></span><span>Venda</span><span>Custo</span><span>Lucro</span></div>`+TAMS.map(t=>`<div class="mt"><b>${t}</b>${inDin(`data-t="${t}" data-c="preco" aria-label="Venda ${t}"`,p.tamanhos[t]?.preco)}${inDin(`data-t="${t}" data-c="custo" aria-label="Custo ${t}"`,p.tamanhos[t]?.custo)}<span class="ml" data-l="${t}"></span></div>`).join('');
+  $('#mApagar').style.display=i==null?'none':''; $('#mErro').textContent='';
+  previewModal(); $('#modal').showModal(); if(i==null)$('#mNome').focus();
+}
+function lerModal(){
+  const base=editando==null?{}:P[editando];
+  const p={...structuredClone(base),nome:$('#mNome').value.trim(),cores:$('#mCores').value.trim(),bordado:$('#mBordado').value.trim(),
+    maoDeObra:lerDin($('#mMo').value),maoDeObraJaInclusaNoCusto:$('#mInclusa').checked,tamanhos:{}};
+  for(const t of TAMS){const pr=lerDin($(`#mTams [data-t="${t}"][data-c="preco"]`).value),cu=lerDin($(`#mTams [data-t="${t}"][data-c="custo"]`).value);if(pr!=null||cu!=null)p.tamanhos[t]={preco:pr,custo:cu}}
+  if(editando==null){p.id=slugId(p.nome)+'-'+Math.random().toString(36).slice(2,6);p.apelidos=[norm(p.nome)];p.categoria=''}
+  return p;
+}
+function previewModal(){const p=lerModal();$('#mMo').disabled=p.maoDeObraJaInclusaNoCusto;
+  TAMS.forEach(t=>{const s=lucroPeca(p,t);$(`#mTams [data-l="${t}"]`).innerHTML=s?`<span class="${s.lucro<0||baixo(s)?'neg':''}">${brl(s.lucro)}<br><small>${pct(s.margem)}</small></span>`:'<span class="muted">—</span>'})}
+$('#modal').addEventListener('input',e=>{if(e.target.classList.contains('din')){const v=lerDin(e.target.value);e.target.value=v==null?'':fmtDin(v)}previewModal()});
+$('#mCancelar').addEventListener('click',()=>$('#modal').close());
+$('#mApagar').addEventListener('click',()=>{const i=editando;$('#modal').close();apagarProduto(i)});
+$('#mForm').addEventListener('submit',async e=>{e.preventDefault();const p=lerModal();
+  if(!p.nome){$('#mErro').textContent='Dê um nome ao produto.';return}
+  if(!Object.keys(p.tamanhos).length){$('#mErro').textContent='Preencha o valor de venda de pelo menos um tamanho (P, M, G ou U).';return}
+  if(editando==null)P.push(p);else P[editando]=p;
+  $('#modal').close();renderProdutos();marcarSujo();recalcular();await salvar(editando==null?`“${p.nome}” adicionado`:`“${p.nome}” salvo`)});
+
+/* ---- configurações ---- */
+const CAMPOS=[
+  ['Embalagem',[['embalagem.caixas.pequena.custo','Caixa pequena','din'],['embalagem.caixas.grande.custo','Caixa grande','din'],['embalagem.pecasParaCaixaGrande','Caixa grande a partir de (peças)','int']]],
+  ['Deduções por venda (% do preço)',[['deducoesPorVenda.cupomPadraoPercent','Cupom (pior caso)','pct'],['deducoesPorVenda.reservaPerdasPercent','Reserva de perdas','pct'],['deducoesPorVenda.proLaborePercent','Pró-labore','pct'],['deducoesPorVenda.reservaTrocasPercent','Trocas e devoluções','pct']]],
+  ['Cartão (Nuvem Pago)',[['pagamento.cartao3x.parcelamentoPercent','Parcelamento até 3x','pct'],['pagamento.cartao3x.recebimentoPercent','Recebimento em 2 dias','pct'],['pagamento.cartao3x.taxaFixa','Taxa fixa por venda','din']]],
+  ['Pix',[['pagamento.pix.descontoClientePercent','Desconto para a cliente','pct'],['pagamento.pix.taxaPercent','Taxa do Pix','pct']]],
+];
+const pegar=(o,c)=>c.split('.').reduce((a,k)=>a?.[k],o);
+const por=(o,c,v)=>{const ks=c.split('.');let a=o;for(const k of ks.slice(0,-1))a=a[k];a[ks.at(-1)]=v};
+function renderConfig(){
+  $('#cfgCampos').innerHTML=CAMPOS.map(([g,cs])=>`<fieldset><legend>${g}</legend>${cs.map(([c,l,t])=>`<label>${l}<span class="sufixo" data-suf="${t==='pct'?'%':t==='int'?'peças':''}">${t==='din'?inDin(`data-cfg="${c}" data-tipo="din"`,pegar(cfg,c)):`<input class="num" inputmode="decimal" data-cfg="${c}" data-tipo="${t}" value="${fmtNum(pegar(cfg,c))}">`}</span></label>`).join('')}</fieldset>`).join('');
+  totalCfg();
+}
+function totalCfg(){$('#cfgTotal').innerHTML=`Pior caso por venda: <b>${fmtNum(pctPiorCaso())}%</b> do preço + ${brl(PG.cartao3x.taxaFixa)} · embalagem: 1 peça = ${brl(CX.pequena.custo)}, ${cfg.embalagem.pecasParaCaixaGrande}+ peças = ${brl(CX.grande.custo)} por pedido`}
+$('#cfgCampos').addEventListener('input',e=>{const el=e.target,c=el.dataset.cfg;if(!c)return;let v;
+  if(el.dataset.tipo==='din'){v=lerDin(el.value);el.value=v==null?'':fmtDin(v)}else{v=lerNum(el.value);if(el.dataset.tipo==='int'&&v!=null)v=Math.max(1,Math.round(v))}
+  if(v==null)return; por(cfg,c,v); aplicarModelo({config:cfg,produtos:P}); totalCfg(); renderProdutos(); marcarSujo(); recalcDepois();});
+
+/* ---- salvar / histórico ---- */
+async function salvar(msgOk='Salvo!'){
+  if(!apiOk){toast('Modo local: para salvar, use o site publicado.','erro');return false}
+  $('#btnSalvar').disabled=true;$('#btnSalvar').textContent='Salvando…';
+  try{const r=await fetch('/api/dados',{method:'PUT',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({baseVersao:versao,produtos:P,config:cfg})});
+    if(r.status===401){location.href='/login';return false}
+    const d=await r.json().catch(()=>({}));
+    if(!r.ok){toast(d.mensagem||'Não consegui salvar ('+r.status+').','erro');return false}
+    versao=d.versao;atualizadoEm=d.atualizadoEm;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();
+    toast('✓ '+msgOk);carregarHistorico();return true;
+  }catch(e){toast('Sem conexão. Tente de novo.','erro');return false}
+  finally{$('#btnSalvar').disabled=false;$('#btnSalvar').textContent='Salvar'}
+}
+$('#btnSalvar').addEventListener('click',()=>salvar('Alterações salvas'));
+$('#btnDescartar').addEventListener('click',()=>{const o=JSON.parse(salvo);aplicarModelo({produtos:o.p,config:o.c});marcarSujo();renderProdutos();renderConfig();recalcular();toast('Alterações descartadas')});
+window.addEventListener('beforeunload',e=>{if(sujo){e.preventDefault();e.returnValue=''}});
+async function carregarHistorico(){
+  if(!apiOk){$('#histLista').innerHTML='<p class="muted">Histórico disponível no site publicado.</p>';return}
+  try{const r=await fetch('/api/historico',{cache:'no-store',headers:{accept:'application/json'}});const d=await r.json();
+    $('#histLista').innerHTML=d.versoes?.length?`<ul class="lista">${d.versoes.slice(0,15).map(v=>`<li><div><div class="desc">Versão ${v.versao} · ${new Date(v.atualizadoEm).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}</div><div class="sub">${esc(v.origem||'')} · ${v.produtos} produtos</div></div><button class="btn sec" data-v="${v.versao}">Restaurar</button></li>`).join('')}</ul>`:'<p class="muted">Nenhuma alteração ainda.</p>'}
+  catch{$('#histLista').innerHTML='<p class="muted">Não consegui carregar o histórico.</p>'}
+}
+$('#histLista').addEventListener('click',async e=>{const b=e.target.closest('[data-v]');if(!b)return;
+  if(sujo&&!confirm('Você tem alterações não salvas que serão perdidas. Continuar?'))return;
+  if(!confirm(`Voltar produtos e configurações para a versão ${b.dataset.v}?`))return;
+  const r=await fetch('/api/historico',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({versao:+b.dataset.v})});
+  const d=await r.json().catch(()=>({}));if(!r.ok){toast(d.mensagem||'Não consegui restaurar.','erro');return}
+  versao=d.versao;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();toast(`✓ Versão ${b.dataset.v} restaurada`);carregarHistorico()});
+
+function renderRodape(){$('#rodape').innerHTML=`Vendas atualizadas em ${fmtData(vendas.atualizadoEm)} · ${validos.length} pedidos · produtos e configurações ${apiOk?`versão ${versao}, salvos em ${new Date(atualizadoEm).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}`:'(modo local, só leitura)'}<br>Feito com 💗 para a Stargi`}
+renderCaixinhas();renderContas();renderProdutos();renderConfig();tudo();renderSemCusto();renderRodape();carregarHistorico();
 })();
 </script>
 </body>
