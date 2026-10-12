@@ -27,7 +27,8 @@
    "apelidos": [
     "necessaire summer"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-mocha",
@@ -54,7 +55,8 @@
    "apelidos": [
     "necessaire mocha"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-rosie",
@@ -81,7 +83,8 @@
    "apelidos": [
     "necessaire rosie"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-vicky",
@@ -108,7 +111,8 @@
    "apelidos": [
     "necessaire vicky"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-polka-dots",
@@ -135,7 +139,8 @@
    "apelidos": [
     "necessaire polka dots"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-bordada",
@@ -162,7 +167,8 @@
    "apelidos": [
     "necessaire bordada personalizada"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-lemon",
@@ -189,7 +195,8 @@
    "apelidos": [
     "necessaire lemon"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "cestinho-organizador",
@@ -209,7 +216,8 @@
     "cestinho organizador"
    ],
    "obs": "As vendas do 'Cestinho Organizador polka dots (edição limitada)' usam este custo (a confirmar).",
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "charm-mini-necessaire",
@@ -229,7 +237,8 @@
     "charm mini necessaire"
    ],
    "obs": "Inclui a versão polka dots (edição limitada) e os charms enviados como brinde (R$ 0,00).",
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "kit-maxi-scrunchies",
@@ -249,7 +258,8 @@
     "maxi scrunchies - kit com 2",
     "kit maxi scrunchies"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "headband",
@@ -268,7 +278,8 @@
    "apelidos": [
     "headband"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "bag-serena",
@@ -287,7 +298,8 @@
    "apelidos": [
     "bag serena"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "necessaire-zoe",
@@ -306,7 +318,8 @@
    "apelidos": [
     "necessaire zoe"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "acessorios"
   },
   {
    "id": "regata-copa",
@@ -326,7 +339,8 @@
     "regata copa"
    ],
    "obs": "Mesmo preço e custo nos tamanhos P, M e G.",
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "roupas"
   },
   {
    "id": "top-copa",
@@ -346,7 +360,8 @@
     "top copa"
    ],
    "obs": "Mesmo preço e custo nos tamanhos P, M e G.",
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "roupas"
   },
   {
    "id": "regata-vickie",
@@ -365,7 +380,8 @@
    "apelidos": [
     "regata vickie"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "roupas"
   },
   {
    "id": "tube-top-julia",
@@ -384,7 +400,8 @@
    "apelidos": [
     "tube top julia"
    ],
-   "embalagem": 5.69
+   "embalagem": 5.69,
+   "grupo": "roupas"
   }
  ]
 }

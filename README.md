@@ -13,8 +13,16 @@ cd painel && python3 -m http.server 8000   # abrir http://localhost:8000
 ```
 Para publicar: suba a pasta `painel/` inteira em qualquer hospedagem estática (Vercel, Netlify...). **Proteja com senha**: são dados financeiros. A pasta não tem dados pessoais de clientes.
 
+## Três partes: Acessórios, Roupas e Atacado (desde 12/10/2026)
+- Cada produto tem o campo **Parte** (`grupo`: `acessorios` ou `roupas`), editável na aba Produtos. Sem valor, é inferido pelo nome (regata/top/cropped/blusa... = Roupas; o resto = Acessórios). Item vendido que não casa com nenhum produto também é classificado pelo nome.
+- Pedido misto: receita, taxas, frete, etiqueta, embalagem e caixinhas compartilhadas são divididos proporcionalmente ao valor de cada item; custo e mão de obra são exatos por item.
+- Início: cartão **Por parte** (faturamento, taxas, líquido, lucro e margem de Acessórios, Roupas e Atacado; despesas gerais = custos fixos + Uber + categorias que entram no lucro, subtraídas uma vez no total). Movimentações: filtro **Todas as partes / Acessórios / Roupas / Atacado** e etiqueta de parte em cada pedido.
+- Caixinhas: **Lucro** e **Reinvestimento** separadas por parte (retirada salva com `caixinha` + `grupo`). Perdas, pró-labore, trocas, embalagens e mão de obra (Gi) continuam compartilhadas. Retiradas antigas do Reinvestimento sem parte ficam em Acessórios.
+- Aba **Atacado**: pedidos lançados à mão (data, cliente, produtos + quantidade, valor recebido, materiais, observações), salvos no Blob no campo `atacado` do documento (com histórico e conflito). Lucro = recebido − materiais; sem caixinhas e sem taxas. Entra no lucro do mês e no "Sobrou este mês" (recebido entra, materiais saem).
+- Estado anterior: tag git `v-antes-categorias`.
+
 ## Layout (abas)
-Quatro abas, com o mês escolhido no topo valendo para todas (no celular, barra fixa embaixo; no computador, no topo):
+Cinco abas (Início, Movimentações, Caixinhas, Atacado, Produtos), com o mês escolhido no topo valendo para todas (no celular, barra fixa embaixo; no computador, no topo):
 - **Início**: "Sobrou este mês" = líquido recebido (já sem taxas) − saídas do mês (despesas, custos fixos, etiquetas e retiradas das caixinhas); métricas do mês; alertas de contas vencidas ou vencendo em 7 dias; ponto de equilíbrio em barra ("X de Y vendas para cobrir os custos do mês").
 - **Movimentações**: vendas e saídas do mês numa lista só (filtro todas/entradas/saídas), gráfico entradas x saídas (mês/semana), contas a pagar e a receber.
 - **Caixinhas**: as seis caixinhas, total guardado, botão Retirar em cada uma e detalhe por mês. Retirada = despesa (entra uma vez nas saídas, nunca de novo no lucro).

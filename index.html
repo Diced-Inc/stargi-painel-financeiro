@@ -56,7 +56,7 @@ a.sair{display:flex;align-items:center;gap:.35rem;text-decoration:none;font-size
 a.sair svg.i{width:17px;height:17px}
 a.sair:hover{border-color:var(--marrom)}
 /* abas */
-nav.abas{position:fixed;left:0;right:0;bottom:0;z-index:35;display:grid;grid-template-columns:repeat(4,1fr);background:var(--branco);border-top:1px solid var(--linha);padding-bottom:env(safe-area-inset-bottom);height:calc(var(--tabbar) + env(safe-area-inset-bottom))}
+nav.abas{position:fixed;left:0;right:0;bottom:0;z-index:35;display:grid;grid-template-columns:repeat(5,1fr);background:var(--branco);border-top:1px solid var(--linha);padding-bottom:env(safe-area-inset-bottom);height:calc(var(--tabbar) + env(safe-area-inset-bottom))}
 nav.abas a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.18rem;text-decoration:none;color:var(--suave);font-size:.68rem;font-weight:500;letter-spacing:.01em}
 nav.abas a.on{color:var(--marrom-escuro)}
 nav.abas a.on svg.i{stroke:var(--marrom)}
@@ -148,7 +148,23 @@ main{max-width:1280px;margin:0 auto;padding:1rem}
 .caixinha .det{font-size:.74rem;color:var(--suave)}
 .caixinha .rodape-cx{display:flex;justify-content:space-between;align-items:center;margin-top:.55rem;gap:.5rem}
 .caixinha.perdas{--cor:#c9a39f}.caixinha.proLabore{--cor:var(--marrom)}.caixinha.trocas{--cor:#8fb4c4}
-.caixinha.embalagens{--cor:#c8b48a}.caixinha.reinvestimento{--cor:#8fae86}.caixinha.maoDeObra{--cor:#a99bc0}
+.caixinha.embalagens{--cor:#c8b48a}.caixinha.reinvAcessorios,.caixinha.reinvRoupas{--cor:#8fae86}.caixinha.maoDeObra{--cor:#a99bc0}
+.caixinha.lucroAcessorios,.caixinha.lucroRoupas{--cor:var(--rosa)}
+/* partes (acessórios / roupas / atacado) */
+.partes{display:grid;grid-template-columns:1fr;gap:.75rem}
+.parte{border:1px solid var(--linha);border-top:3px solid var(--cor);border-radius:12px;padding:.8rem .9rem;background:var(--branco)}
+.parte.acessorios{--cor:var(--rosa)}.parte.roupas{--cor:#8fb4c4}.parte.atacado{--cor:var(--marrom)}
+.parte .pt{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}.parte .pt b{color:var(--marrom-escuro);font-size:.92rem}
+.parte .lv{font-size:1.35rem;font-weight:600;color:var(--marrom-escuro);margin:.15rem 0 .35rem}
+.parte .ln{display:flex;justify-content:space-between;font-size:.8rem;padding:.12rem 0;border-top:1px solid var(--linha)}.parte .ln span:first-child{color:var(--suave)}
+.gerais{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.4rem 1rem;margin-top:.8rem;padding-top:.7rem;border-top:1px solid var(--linha);font-size:.84rem}
+.badge.p-acessorios{background:var(--rosa-claro);border-color:color-mix(in srgb,var(--rosa) 50%,var(--branco))}.badge.p-roupas{background:var(--azul-bebe);border-color:color-mix(in srgb,var(--azul-ref) 25%,var(--branco));color:var(--azul-texto)}.badge.p-atacado{background:var(--creme-claro)}
+.grupo-cx{grid-column:1/-1;font-size:.74rem;letter-spacing:.06em;text-transform:uppercase;color:var(--suave);font-weight:600;margin:.4rem 0 -.2rem}
+.aitens{display:grid;gap:.4rem;background:var(--creme-claro);border:1px solid var(--linha);border-radius:12px;padding:.6rem}
+.ait{display:grid;grid-template-columns:minmax(0,1fr) 5rem auto;gap:.4rem;align-items:center}.ait input{background:var(--branco)!important}
+.atl .valor{flex-direction:column;align-items:flex-end;gap:0}.atl .acoes{display:flex}
+select.parte-sel{font-size:.74rem;padding:.3rem .3rem;border-radius:7px;min-width:96px}
+
 details.cxdet{border:1px solid var(--linha);border-radius:var(--raio);background:var(--branco);margin:0}
 details.cxdet>summary{list-style:none;padding:.8rem 1rem;display:flex;justify-content:space-between;align-items:center;gap:.5rem;cursor:pointer;font-weight:600;color:var(--marrom-escuro);font-size:.9rem}
 details.cxdet>summary::-webkit-details-marker{display:none}
@@ -170,10 +186,11 @@ details{margin-top:.8rem}
 summary{cursor:pointer;color:var(--marrom-escuro);font-weight:500;font-size:.86rem}
 footer{text-align:center;font-size:.72rem;color:var(--suave);padding:1rem 1rem 1.5rem}
 #erro{display:none;background:var(--perigo);color:#fff;padding:1rem;border-radius:12px;margin:1rem}
-@media (max-width:520px){.marca .titulo{display:none}#mes{max-width:42vw;min-width:0;font-size:.85rem;padding:.45rem .5rem}a.sair{padding:.45rem .55rem}.hm{display:none}.tabela{font-size:.76rem}.hero .num{font-size:2.1rem}}
+@media (max-width:520px){nav.abas a{font-size:.6rem}.marca .titulo{display:none}#mes{max-width:42vw;min-width:0;font-size:.85rem;padding:.45rem .5rem}a.sair{padding:.45rem .55rem}.hm{display:none}.tabela{font-size:.76rem}.hero .num{font-size:2.1rem}}
 @media (min-width:760px){
   .metricas{grid-template-columns:repeat(4,1fr)}
   .caixinhas{grid-template-columns:repeat(3,1fr)}
+  .partes{grid-template-columns:repeat(3,1fr)}
   .cxgrid{grid-template-columns:1fr 1fr}
   .duas{grid-template-columns:1fr 1fr}
   .span2{grid-column:1/-1}
@@ -276,6 +293,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
   <symbol id="i-sai" viewBox="0 0 24 24"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></symbol>
   <symbol id="i-retirar" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
   <symbol id="i-lapis" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+  <symbol id="i-atacado" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8l9 5 9-5z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></symbol>
   <symbol id="i-seta" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
 </svg>
 <header>
@@ -285,6 +303,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
       <a href="#inicio" data-aba="inicio"><svg class="i"><use href="#i-inicio"/></svg>Início</a>
       <a href="#movimentacoes" data-aba="movimentacoes"><svg class="i"><use href="#i-mov"/></svg>Movimentações</a>
       <a href="#caixinhas" data-aba="caixinhas"><svg class="i"><use href="#i-cx"/></svg>Caixinhas</a>
+      <a href="#atacado" data-aba="atacado"><svg class="i"><use href="#i-atacado"/></svg>Atacado</a>
       <a href="#produtos" data-aba="produtos"><svg class="i"><use href="#i-prod"/></svg>Produtos</a>
     </nav>
     <div class="acoes-topo">
@@ -299,6 +318,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
   <section class="aba" id="aba-inicio">
     <div class="cab-aba"><h1>Resumo de <span class="mesNome"></span></h1><span class="muted" id="inicioSub"></span></div>
     <div class="card hero" id="hero"></div>
+    <section class="card" id="porParte"></section>
     <div class="metricas" id="kpis"></div>
     <div class="alertas" id="alertas"></div>
     <section class="card" id="equilibrio"><h2>Ponto de equilíbrio</h2><div id="eqBox"></div></section>
@@ -310,7 +330,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
     <section class="card" id="movs">
       <div class="card-cab"><h2>Entradas e saídas</h2>
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center"><button class="btn" id="btnNovaSaida"><svg class="i"><use href="#i-mais"/></svg>Nova saída</button>
-        <div class="tabs" id="filtroMov"><button data-f="todas" class="on">Todas</button><button data-f="entradas">Entradas</button><button data-f="saidas">Saídas</button></div></div></div>
+        <div class="tabs" id="filtroMov"><button data-f="todas" class="on">Todas</button><button data-f="entradas">Entradas</button><button data-f="saidas">Saídas</button></div><div class="tabs" id="filtroParte"><button data-p="todas" class="on">Todas as partes</button><button data-p="acessorios">Acessórios</button><button data-p="roupas">Roupas</button><button data-p="atacado">Atacado</button></div></div></div>
       <div class="resumoMov" id="resumoMov"></div>
       <div class="chips" id="despChips"></div>
       <ul class="lista mov" id="listaMov"></ul>
@@ -322,7 +342,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
         <div class="card-cab" style="margin-bottom:0"><h2>Entradas x saídas</h2>
           <div class="tabs" id="tabsGrafico"><button data-modo="mes" class="on">Por mês</button><button data-modo="semana">Por semana</button></div></div>
         <div class="grafico"><canvas id="cv"></canvas></div>
-        <p class="muted" style="font-size:.74rem;margin:.6rem 0 0">Entradas = líquido recebido (já sem taxas). Saídas = despesas lançadas, custos fixos, etiquetas de frete e retiradas das caixinhas.</p>
+        <p class="muted" style="font-size:.74rem;margin:.6rem 0 0">Entradas = líquido recebido do site (já sem taxas) + atacado. Saídas = despesas lançadas, custos fixos, etiquetas de frete, materiais do atacado e retiradas das caixinhas.</p>
       </section>
       <section class="card" id="contas"><h2>Contas a pagar e a receber</h2><div id="contasBox"></div></section>
     </div>
@@ -335,6 +355,17 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
     <div id="cxsInfo"></div>
     <h2 style="margin-top:.4rem">Detalhe por mês</h2>
     <div class="cxgrid" id="cxRet"></div>
+  </section>
+
+  <!-- ===== ATACADO ===== -->
+  <section class="aba" id="aba-atacado">
+    <div class="cab-aba"><h1>Atacado em <span class="mesNome"></span></h1><span class="muted">Lançado à mão (não vem do site). Sem caixinhas: lucro = valor recebido − materiais.</span></div>
+    <section class="card" id="atResumo"></section>
+    <section class="card">
+      <div class="card-cab"><h2>Pedidos de atacado</h2><button class="btn" id="btnNovoAt"><svg class="i"><use href="#i-mais"/></svg>Novo pedido de atacado</button></div>
+      <ul class="lista mov atl" id="listaAt"></ul>
+    </section>
+    <section class="card" id="atMeses"></section>
   </section>
 
   <!-- ===== PRODUTOS ===== -->
@@ -378,7 +409,7 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
   <form id="mForm" method="dialog" novalidate>
     <div class="mcab"><h3 id="mTitulo">Produto</h3><button type="button" class="ico" id="mCancelar" aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button></div>
     <label>Produto<input id="mNome" maxlength="120" required placeholder="Ex.: Necessaire Summer"></label>
-    <label>Cores<input id="mCores" maxlength="200" placeholder="Ex.: Rosa, Azul"></label>
+    <div class="m2"><label>Parte<select id="mGrupo"><option value="acessorios">Acessórios</option><option value="roupas">Roupas</option></select></label><label>Cores<input id="mCores" maxlength="200" placeholder="Ex.: Rosa, Azul"></label></div>
     <div class="mtams" id="mTams"></div>
     <div class="m2 mmo"><label>Mão de obra (por peça)<input id="mMo" class="din" inputmode="numeric" placeholder="—"></label><label class="tog grande"><input type="checkbox" id="mInclusa"> já inclusa no custo</label></div>
     <label>Embalagem (por peça vendida sozinha)<input id="mEmb" class="din" inputmode="numeric" placeholder="R$ 5,69"></label>
@@ -404,10 +435,26 @@ dialog.janela label.tog{flex-direction:row;align-items:center;font-size:.85rem}
     <div class="mcab"><h3 id="rTitulo">Retirada</h3><button type="button" class="ico" id="rFechar" aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button></div>
     <p class="muted" id="rSaldo" style="font-size:.8rem;margin:0"></p>
     <div class="m2"><label>Data<input type="date" id="rData" required></label><label>Valor<input class="din" id="rValor" inputmode="numeric" autocomplete="off" placeholder="R$ 0,00" required></label></div>
+    <label id="rGrupoRot">Parte<select id="rGrupo"><option value="acessorios">Acessórios</option><option value="roupas">Roupas</option></select></label>
     <label>Descrição<input id="rDesc" maxlength="200"></label>
     <p class="muted" style="font-size:.74rem;margin:0">A retirada entra uma vez nas saídas do mês (como despesa) e não é descontada de novo do lucro.</p>
     <p class="erro-m" id="rErro" role="alert"></p>
     <div class="macoes"><span style="flex:1"></span><button type="button" class="btn sec" id="rCancelar">Cancelar</button><button type="submit" class="btn">Registrar retirada</button></div>
+  </form>
+</dialog>
+<dialog id="modalAt" class="janela" aria-labelledby="aTitulo">
+  <form id="aForm" method="dialog" novalidate>
+    <div class="mcab"><h3 id="aTitulo">Novo pedido de atacado</h3><button type="button" class="ico" id="aFechar" aria-label="Fechar"><svg class="i"><use href="#i-x"/></svg></button></div>
+    <div class="m2"><label>Data<input type="date" id="aData" required></label><label>Cliente<input id="aCliente" maxlength="120" placeholder="Ex.: Loja Flor de Lis" required></label></div>
+    <div class="aitens" id="aItens"></div>
+    <div><button type="button" class="btn sec peq" id="aAddItem"><svg class="i"><use href="#i-mais"/></svg>Adicionar produto</button></div>
+    <datalist id="aSugestoes"></datalist>
+    <div class="m2"><label>Valor recebido<input class="din" id="aRecebido" inputmode="numeric" autocomplete="off" placeholder="R$ 0,00" required></label><label>Valor dos materiais<input class="din" id="aMateriais" inputmode="numeric" autocomplete="off" placeholder="R$ 0,00"></label></div>
+    <div class="resultado" id="aPrev" style="margin-top:0"></div>
+    <label>Observações (opcional)<input id="aObs" maxlength="500" placeholder="Ex.: tecido escolhido pela cliente, prazo de entrega"></label>
+    <p class="muted" style="font-size:.74rem;margin:0">Materiais = o que a cliente pagou para os materiais pedidos por ela. O atacado não deposita em nenhuma caixinha.</p>
+    <p class="erro-m" id="aErro" role="alert"></p>
+    <div class="macoes"><button type="button" class="btn perigo" id="aApagar">Excluir</button><span style="flex:1"></span><button type="button" class="btn sec" id="aCancelar">Cancelar</button><button type="submit" class="btn">Salvar pedido</button></div>
   </form>
 </dialog>
 
@@ -433,22 +480,28 @@ async function carregarEditaveis(){
     if(r.status!==404&&r.status!==405&&r.status!==501)throw new Error('API respondeu '+r.status);
   }catch(e){if(String(e.message).includes('sessão'))throw e;if(!(e instanceof TypeError)&&!String(e.message).includes('404'))throw e}
   const [p,c]=await Promise.all([carregar('produtos'),carregar('config')]);
-  return {produtos:p.produtos,config:c,movimentos:[],despesas:[],versao:null,api:false};
+  return {produtos:p.produtos,config:c,movimentos:[],despesas:[],atacado:[],versao:null,api:false};
 }
 let cfg,doc,vendas,desp,contas,cx;
+// Três partes: Acessórios e Roupas (vendas do site, separadas por produto) e Atacado (lançado à mão).
+const GRUPOS=['acessorios','roupas'], NOME_G={acessorios:'Acessórios',roupas:'Roupas',atacado:'Atacado'};
+const inferirGrupo=n=>/\b(regata|regatas|top|tops|cropped|blusa|body|camiseta|camisa|short|saia|vestido|roupa)\b/.test(norm(n))?'roupas':'acessorios';
+const bdg=g=>`<span class="badge p-${g}">${NOME_G[g]}</span>`;
 try{[doc,vendas,desp,contas,cx]=await Promise.all([carregarEditaveis(),...['vendas','despesas','contas','caixinhas'].map(carregar)])}
 catch(e){const el=$('#erro');el.style.display='block';el.textContent='Erro ao carregar os dados: '+e.message;return}
 const pedidos=vendas.pedidos||[], despesas=desp.despesas||[];
-let P,M,MD,D,PG,CX,reservaPct,fixos,totalFixos,versao=doc.versao,apiOk=doc.api,atualizadoEm=doc.atualizadoEm;
+let P,M,MD,AT,D,PG,CX,reservaPct,fixos,totalFixos,versao=doc.versao,apiOk=doc.api,atualizadoEm=doc.atualizadoEm;
 function aplicarModelo(d){
-  cfg=structuredClone(d.config); P=structuredClone(d.produtos); M=structuredClone(d.movimentos||[]); MD=structuredClone(d.despesas||[]);
+  cfg=structuredClone(d.config); P=structuredClone(d.produtos); M=structuredClone(d.movimentos||[]); MD=structuredClone(d.despesas||[]); AT=structuredClone(d.atacado||[]);
   D=cfg.deducoesPorVenda; PG=cfg.pagamento; CX=cfg.embalagem.caixas;
-  for(const p of P)if(p.embalagem==null)p.embalagem=CX.pequena.custo; // padrão: caixa pequena
+  for(const p of P){if(p.embalagem==null)p.embalagem=CX.pequena.custo; // padrão: caixa pequena
+    if(!GRUPOS.includes(p.grupo))p.grupo=inferirGrupo(p.nome)}
   reservaPct=(D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent)/100;
   fixos=cfg.custosFixosMensais||[]; totalFixos=fixos.reduce((s,f)=>s+f.valor,0);
 }
 aplicarModelo(doc);
-let salvo=JSON.stringify({p:P,c:cfg,m:M,d:MD}); // para saber se há alterações
+const estado=()=>JSON.stringify({p:P,c:cfg,m:M,d:MD,a:AT});
+let salvo=estado(); // para saber se há alterações
 const ymDe=iso=>(iso||'').slice(0,7);
 const controlado=ym=>ym>=cfg.inicioControle;
 const hoje=new Date(); const ymHoje=hoje.toISOString().slice(0,7);
@@ -481,13 +534,19 @@ function analisar(o){
   const receita=o.subtotal-o.desconto, taxas=(o.taxas||0)+(o.juros||0);
   const etqEst=o.custoEtiqueta==null; const etiqueta=etqEst?(cfg.frete.estimarEtiquetaIgualAoFreteCobrado?o.frete:0):o.custoEtiqueta;
   let custo=0,mo=0,faltando=[];
-  for(const it of o.itens){const m=acharProduto(it.nome);
-    if(!m||!m.tam||m.p.tamanhos[m.tam]?.custo==null){faltando.push(it.nome);const k=it.nome.replace(/\s*\(.*$/,'').trim();semCusto.set(k,(semCusto.get(k)||0)+it.qtd);continue}
-    const c=custoUnit(m.p,m.tam); custo+=c.custo*it.qtd; mo+=c.mo*it.qtd;}
+  const G=Object.fromEntries(GRUPOS.map(g=>[g,{peso:0,custo:0,mo:0,completo:true,itens:0}]));
+  const somaV=o.itens.reduce((s,i)=>s+(i.preco||0)*i.qtd,0), somaQ=o.itens.reduce((s,i)=>s+i.qtd,0)||1;
+  for(const it of o.itens){const m=acharProduto(it.nome);const g=G[m?m.p.grupo:inferirGrupo(it.nome)]||G.acessorios;
+    g.peso+=somaV>0?(it.preco||0)*it.qtd/somaV:it.qtd/somaQ; g.itens+=it.qtd;
+    if(!m||!m.tam||m.p.tamanhos[m.tam]?.custo==null){faltando.push(it.nome);g.completo=false;const k=it.nome.replace(/\s*\(.*$/,'').trim();semCusto.set(k,(semCusto.get(k)||0)+it.qtd);continue}
+    const c=custoUnit(m.p,m.tam); custo+=c.custo*it.qtd; mo+=c.mo*it.qtd; g.custo+=c.custo*it.qtd; g.mo+=c.mo*it.qtd;}
   const cxs=caixasDoPedido(o); const emb=Object.entries(cxs).reduce((s,[k,q])=>s+(CX[k]?.custo||0)*q,0);
   const res={perdas:receita*D.reservaPerdasPercent/100,proLabore:receita*D.proLaborePercent/100,trocas:receita*D.reservaTrocasPercent/100};
   const lucro=receita+o.frete-etiqueta-taxas-custo-mo-emb-res.perdas-res.proLabore-res.trocas;
-  return {receita,taxas,etiqueta,etqEst,custo,mo,emb,res,lucro,completo:faltando.length===0,faltando};
+  // divisão proporcional ao valor dos itens (custo e mão de obra são exatos por item)
+  for(const g of Object.values(G)){const w=g.peso;g.receita=receita*w;g.taxas=taxas*w;g.frete=o.frete*w;g.etiqueta=etiqueta*w;g.emb=emb*w;g.liquido=(o.liquido||0)*w;
+    g.reservas=(res.perdas+res.proLabore+res.trocas)*w;g.lucro=g.receita+g.frete-g.etiqueta-g.taxas-g.custo-g.mo-g.emb-g.reservas;if(!g.itens)g.completo=true}
+  return {receita,taxas,etiqueta,etqEst,custo,mo,emb,res,lucro,completo:faltando.length===0,faltando,G,grupos:GRUPOS.filter(g=>G[g].itens>0)};
 }
 const validos=pedidos.filter(o=>!o.cancelado);
 let A;
@@ -498,6 +557,7 @@ const LOGI='Logística (Uber)', MOTIVOS=['Bordado','Compra de tecido','Outros'];
 const CATS_FORM=[LOGI,'anúncios','frete','outros'];
 const todasDespesas=()=>[...despesas,...MD.map(d=>({...d,painel:true}))];
 const despDoMes=ym=>todasDespesas().filter(d=>ymDe(d.data)===ym);
+const atDoMes=ym=>AT.filter(a=>ymDe(a.data)===ym);
 // Caixinhas: cada venda (desde inicioControle) deposita; a retirada É a despesa (entra uma vez nas saídas do mês, nunca de novo no lucro).
 const fmtP=v=>String(v).replace('.',',')+'%';
 const CXR={
@@ -509,15 +569,27 @@ const CXR={
     explica:()=>`Recebe ${fmtP(D.reservaTrocasPercent)} do valor pago pelos produtos (sem frete) de cada venda desde ${nomeMes(cfg.inicioControle)}. Use para fretes de troca e devoluções.`},
   embalagens:{nome:'Embalagens',curto:'Embalagens',badge:()=>'caixa por pedido',cat:'embalagem',deposito:a=>a.emb,ph:'Ex.: 50 caixas pequenas e papel de seda',
     explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita a caixa do pedido: 1 peça = caixa pequena (${brl(CX.pequena.custo)}), ${cfg.embalagem.pecasParaCaixaGrande} ou mais peças = caixa grande (${brl(CX.grande.custo)}). Compras de caixas, papel de seda e afins são registradas como retirada daqui, não como despesa separada.`},
-  reinvestimento:{nome:'Reinvestimento (custo)',curto:'Reinvestimento',badge:()=>'custo das peças',cat:'material e produção',deposito:a=>a.custo,ph:'Ex.: tecido, aviamentos, costura das regatas',
-    lema:'Esse valor é para reinvestir em material e produção',
-    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o custo das peças vendidas, como está na tabela de produtos (materiais; nas regatas e tops, o custo já inclui a costura terceirizada). Sua mão de obra não entra aqui. Produto vendido sem custo cadastrado não deposita nada. Compras de tecido e aviamentos e a costura terceirizada são registradas como retirada daqui.`},
+  reinvAcessorios:{base:'reinvestimento',grupo:'acessorios',nome:'Reinvestimento Acessórios',curto:'Reinvestimento Acessórios',badge:()=>'custo das peças',cat:'material e produção',deposito:a=>a.G.acessorios.custo,ph:'Ex.: tecido, zíper, aviamentos',
+    lema:'Para reinvestir em material e produção dos acessórios',
+    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o custo dos acessórios vendidos (necessaires, headbands, bolsas, mini charms e outros), como está na tabela de produtos. Sua mão de obra não entra aqui. Produto sem custo cadastrado não deposita nada. Compras de tecido e aviamentos dos acessórios são registradas como retirada daqui. Retiradas feitas antes da divisão por parte ficaram nesta caixinha.`},
+  reinvRoupas:{base:'reinvestimento',grupo:'roupas',nome:'Reinvestimento Roupas',curto:'Reinvestimento Roupas',badge:()=>'custo das peças',cat:'material e produção',deposito:a=>a.G.roupas.custo,ph:'Ex.: tecido, costura das regatas',
+    lema:'Para reinvestir em material e produção das roupas',
+    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o custo das roupas vendidas (regatas e tops; o custo já inclui a costura terceirizada). Compras de tecido e a costura das roupas são registradas como retirada daqui.`},
   maoDeObra:{nome:'Mão de obra (Gi)',curto:'Mão de obra (Gi)',badge:()=>'feito por você',cat:'mão de obra',deposito:a=>a.mo,ph:'Ex.: minha mão de obra de outubro',
     lema:'Esse valor é o pagamento pela sua mão de obra',
     explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita a mão de obra das peças que você mesma faz (mão de obra não inclusa no custo: necessaires, bags, acessórios). Regatas e tops (costura terceirizada, já no custo) não depositam aqui. Quando se pagar, registre uma retirada.`},
+  lucroAcessorios:{base:'lucro',grupo:'acessorios',nome:'Lucro Acessórios',curto:'Lucro Acessórios',badge:()=>'o que sobra',cat:'retirada de lucro',deposito:a=>a.G.acessorios.completo?a.G.acessorios.lucro:0,ph:'Ex.: retirada do lucro de outubro',
+    lema:'O que sobra das vendas de acessórios',
+    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o lucro da parte de acessórios do pedido, depois de taxas, frete, custo, mão de obra, embalagem e das outras caixinhas. Pedido misto é dividido pelo valor de cada item. Pedido com acessório sem custo cadastrado não deposita. Despesas gerais (custos fixos, Uber) não saem daqui: aparecem no resumo do mês.`},
+  lucroRoupas:{base:'lucro',grupo:'roupas',nome:'Lucro Roupas',curto:'Lucro Roupas',badge:()=>'o que sobra',cat:'retirada de lucro',deposito:a=>a.G.roupas.completo?a.G.roupas.lucro:0,ph:'Ex.: retirada do lucro de outubro',
+    lema:'O que sobra das vendas de roupas',
+    explica:()=>`Cada venda desde ${nomeMes(cfg.inicioControle)} deposita o lucro da parte de roupas do pedido (regatas e tops), depois de taxas, frete, custo, embalagem e das outras caixinhas. Pedido misto é dividido pelo valor de cada item. Despesas gerais (custos fixos, Uber) não saem daqui: aparecem no resumo do mês.`},
 };
-const retiradas=k=>[...M.filter(m=>m.caixinha===k).map(m=>({...m,painel:true})),
-  ...(cx.movimentos||[]).filter(m=>m.caixinha===k&&m.valor<0).map(m=>({...m,valor:-m.valor,descricao:m.descricao||''}))];
+const ORDEM_CX=[['Compartilhadas',['perdas','proLabore','trocas','embalagens','maoDeObra']],['Acessórios',['lucroAcessorios','reinvAcessorios']],['Roupas',['lucroRoupas','reinvRoupas']]];
+// chave da caixinha de uma retirada salva ({caixinha, grupo})
+const chaveCx=m=>{const b=m.caixinha;if(b==='reinvestimento')return (m.grupo||'acessorios')==='roupas'?'reinvRoupas':'reinvAcessorios';if(b==='lucro')return m.grupo==='roupas'?'lucroRoupas':'lucroAcessorios';return b};
+const retiradas=k=>[...M.filter(m=>chaveCx(m)===k).map(m=>({...m,k,painel:true})),
+  ...(cx.movimentos||[]).filter(m=>chaveCx(m)===k&&m.valor<0).map(m=>({...m,k,valor:-m.valor,descricao:m.descricao||''}))];
 const todasRetiradas=()=>Object.keys(CXR).flatMap(k=>retiradas(k));
 const retDoMes=ym=>todasRetiradas().filter(m=>ymDe(m.data)===ym);
 function resumoMes(ym){
@@ -526,21 +598,27 @@ function resumoMes(ym){
   for(const o of ps){const a=A.get(o);r.bruto+=o.total;r.produtos+=a.receita;r.frete+=o.frete;r.taxas+=a.taxas;r.liquido+=o.liquido;r.etiquetas+=a.etiqueta;if(a.etqEst&&o.frete>0)r.etqEst++;
     r.reservas+=a.res.perdas+a.res.proLabore+a.res.trocas; if(o.taxasFonte!=='nuvemshop')r.estimadas++;
     if(a.completo){r.lucroC+=a.lucro;r.nC++}}
+  r.g=Object.fromEntries(GRUPOS.map(g=>[g,{n:0,pecas:0,receita:0,taxas:0,liquido:0,lucro:0,receitaC:0,nC:0,semCusto:0}]));
+  for(const o of ps){const a=A.get(o);for(const g of a.grupos){const x=a.G[g],t=r.g[g];t.n++;t.pecas+=x.itens;t.receita+=x.receita;t.taxas+=x.taxas;t.liquido+=x.liquido;
+    if(x.completo){t.lucro+=x.lucro;t.receitaC+=x.receita;t.nC++}else t.semCusto++}}
+  const ats=atDoMes(ym);r.at={lista:ats,n:ats.length,recebido:ats.reduce((s,a)=>s+a.valorRecebido,0),materiais:ats.reduce((s,a)=>s+a.materiais,0)};r.at.lucro=r.at.recebido-r.at.materiais;
   const dl=despDoMes(ym); r.despLanc=dl.reduce((s,d)=>s+d.valor,0);
   r.fixos=controlado(ym)?totalFixos:0;
   // retiradas das caixinhas Embalagens/Reinvestimento/Mão de obra: saem do caixa, não do lucro (caixa e custo já saem de cada pedido)
-  r.retCx={};for(const m of retDoMes(ym))r.retCx[m.caixinha]=(r.retCx[m.caixinha]||0)+m.valor;
+  r.retCx={};for(const m of retDoMes(ym))r.retCx[m.k]=(r.retCx[m.k]||0)+m.valor;
   r.retTotal=Object.values(r.retCx).reduce((a,b)=>a+b,0);
-  r.despesas=r.despLanc+r.fixos+r.etiquetas+r.retTotal;
-  r.saldo=r.liquido-r.despesas;
+  r.despesas=r.despLanc+r.fixos+r.etiquetas+r.retTotal+r.at.materiais;
+  r.entradas=r.liquido+r.at.recebido;
+  r.saldo=r.entradas-r.despesas;
   r.logistica=dl.filter(d=>d.categoria===LOGI).reduce((s,d)=>s+d.valor,0);
   const despLucro=dl.filter(d=>d.categoria===LOGI||(cfg.categoriasQueEntramNoLucro||[]).includes(d.categoria)).reduce((s,d)=>s+d.valor,0);
-  r.lucro=r.lucroC-r.fixos-despLucro;
+  r.gerais=r.fixos+despLucro;
+  r.lucro=r.lucroC-r.fixos-despLucro+r.at.lucro;
   r.ticket=r.n?r.bruto/r.n:null;
   return r;
 }
 /* ---------- meses ---------- */
-const meses=[...new Set([...validos.map(o=>ymDe(o.data)),...todasDespesas().map(d=>ymDe(d.data)),...todasRetiradas().map(m=>ymDe(m.data)),ymHoje])].filter(Boolean).sort();
+const meses=[...new Set([...validos.map(o=>ymDe(o.data)),...todasDespesas().map(d=>ymDe(d.data)),...todasRetiradas().map(m=>ymDe(m.data)),...AT.map(a=>ymDe(a.data)),ymHoje])].filter(Boolean).sort();
 const todos=[];{let[a,m]=meses[0].split('-').map(Number);const fim=meses[meses.length-1];while(true){const ym=`${a}-${String(m).padStart(2,'0')}`;todos.push(ym);if(ym>=fim)break;m++;if(m>12){m=1;a++}}}
 const sel=$('#mes'); sel.innerHTML=todos.slice().reverse().map(ym=>`<option value="${ym}">${nomeMes(ym)}</option>`).join('');
 sel.value=todos.includes(ymHoje)?ymHoje:todos[todos.length-1];
@@ -554,14 +632,15 @@ function renderInicio(ym){
   const semV=r.n===0;
   $('#inicioSub').textContent=ym===ymHoje?'Mês em andamento':'';
   $('#hero').innerHTML=`<div class="rot">Sobrou este mês</div><div class="num ${r.saldo<0?'neg':''}">${brl(r.saldo)}</div>`+
-    `<div class="def">Líquido recebido das vendas (já sem as taxas) menos todas as saídas do mês: despesas, custos fixos, etiquetas de frete e retiradas das caixinhas.</div>`+
-    `<div class="conta"><span>Entrou <b>${brl(r.liquido)}</b></span><span>Saiu <b>${brl(r.despesas)}</b></span><span>Separado nas caixinhas <b>${brl(depositosDoMes(ym))}</b></span></div>`;
-  const saidasDet=[r.fixos?`fixos ${brl(r.fixos)}`:'',r.etiquetas?`etiquetas ${brl(r.etiquetas)}${r.etqEst?' (est.)':''}`:'',r.despLanc?`lançadas ${brl(r.despLanc)}`:'',r.retTotal?`caixinhas ${brl(r.retTotal)}`:''].filter(Boolean).join(' · ');
+    `<div class="def">Líquido recebido das vendas do site (já sem as taxas) e do atacado, menos todas as saídas do mês: despesas, custos fixos, etiquetas de frete, materiais do atacado e retiradas das caixinhas.</div>`+
+    `<div class="conta"><span>Entrou <b>${brl(r.entradas)}</b></span><span>Saiu <b>${brl(r.despesas)}</b></span><span>Separado nas caixinhas <b>${brl(depositosDoMes(ym))}</b></span></div>`;
+  renderPorParte(r);
+  const saidasDet=[r.at.materiais?`materiais atacado ${brl(r.at.materiais)}`:'',r.fixos?`fixos ${brl(r.fixos)}`:'',r.etiquetas?`etiquetas ${brl(r.etiquetas)}${r.etqEst?' (est.)':''}`:'',r.despLanc?`lançadas ${brl(r.despLanc)}`:'',r.retTotal?`caixinhas ${brl(r.retTotal)}`:''].filter(Boolean).join(' · ');
   $('#kpis').innerHTML=[
     metrica('Faturamento bruto',semV?'—':brl(r.bruto),semV?'sem vendas':`produtos ${brl(r.produtos)} + frete ${brl(r.frete)}`),
-    metrica('Líquido recebido',semV?'—':brl(r.liquido),'já sem as taxas'),
+    metrica('Líquido recebido',semV&&!r.at.n?'—':brl(r.entradas),r.at.n?`site ${brl(r.liquido)} + atacado ${brl(r.at.recebido)}`:'já sem as taxas'),
     metrica('Saídas',brl(r.despesas),saidasDet||(controlado(ym)?'nenhuma lançada':'sem dados no período')),
-    metrica('Lucro estimado',r.nC||r.fixos?`<span class="${r.lucro<0?'neg':'pos'}">${brl(r.lucro)}</span>`:'—',r.n?`${r.nC} de ${r.n} pedidos com custo cadastrado`:''),
+    metrica('Lucro estimado',r.nC||r.fixos||r.at.n?`<span class="${r.lucro<0?'neg':'pos'}">${brl(r.lucro)}</span>`:'—',(r.n?`${r.nC} de ${r.n} pedidos com custo cadastrado`:'')+(r.at.n?` · inclui atacado ${brl(r.at.lucro)}`:'')),
     metrica('Pedidos',r.n,r.cancel?`${r.cancel} cancelado(s) fora da conta`:''),
     metrica('Ticket médio',r.ticket==null?'—':brl(r.ticket),'por pedido, com frete'),
     metrica('Taxas (cartão e Pix)',semV?'—':brl(r.taxas),semV?'':pct(r.taxas/r.bruto)+' do bruto'+(r.estimadas?` · ${r.estimadas} estimada(s)`:'')),
@@ -579,18 +658,34 @@ function renderInicio(ym){
   if(r.etqEst)av.push(`Etiqueta de frete: em ${r.etqEst} pedido(s) o valor real não está disponível; foi usado o frete cobrado da cliente (estimado).`);
   $('#alertas').innerHTML=al.join('')+av.map(t=>`<div class="alerta">${ic('alerta')}<div class="s" style="font-size:.82rem;color:var(--texto)">${t}</div></div>`).join('');
 }
+function renderPorParte(r){
+  const mg=(l,b)=>b>0?pct(l/b):'—';
+  const ln=(a,b)=>`<div class="ln"><span>${a}</span><span>${b}</span></div>`;
+  const card=g=>{const t=r.g[g];return `<div class="parte ${g}"><div class="pt"><b>${NOME_G[g]}</b><span class="muted" style="font-size:.74rem">${t.n} pedido${t.n===1?'':'s'} · ${t.pecas} peça${t.pecas===1?'':'s'}</span></div>`+
+    `<div class="lv ${t.lucro<0?'neg':''}">${t.n?brl(t.lucro):'—'}</div>`+
+    ln('Faturamento (produtos)',brl(t.receita))+ln('Taxas (cartão e Pix)','− '+brl(t.taxas))+ln('Líquido recebido',brl(t.liquido))+ln('Lucro',`<b class="${t.lucro<0?'neg':''}">${brl(t.lucro)}</b>`)+ln('Margem',mg(t.lucro,t.receitaC))+
+    (t.semCusto?`<div class="muted" style="font-size:.7rem;margin-top:.25rem">${t.semCusto} pedido(s) com produto sem custo fora do lucro</div>`:'')+`</div>`};
+  const at=r.at;
+  const cardAt=`<div class="parte atacado"><div class="pt"><b>Atacado</b><span class="muted" style="font-size:.74rem">${at.n} pedido${at.n===1?'':'s'}</span></div>`+
+    `<div class="lv ${at.lucro<0?'neg':''}">${at.n?brl(at.lucro):'—'}</div>`+ln('Valor recebido',brl(at.recebido))+ln('Materiais','− '+brl(at.materiais))+ln('Taxas','sem taxas')+ln('Lucro',`<b class="${at.lucro<0?'neg':''}">${brl(at.lucro)}</b>`)+ln('Margem',mg(at.lucro,at.recebido))+`</div>`;
+  const soma=r.g.acessorios.lucro+r.g.roupas.lucro+at.lucro;
+  $('#porParte').innerHTML=`<div class="card-cab" style="margin-bottom:.7rem"><h2>Por parte</h2><span class="muted" style="font-size:.76rem">pedido com acessórios e roupas é dividido pelo valor de cada item</span></div>`+
+    `<div class="partes">${card('acessorios')}${card('roupas')}${cardAt}</div>`+
+    `<div class="gerais"><span>Lucro das três partes <b>${brl(soma)}</b></span><span>Despesas gerais (custos fixos, Uber e outras) <b>− ${brl(r.gerais)}</b></span><span>Lucro do mês <b class="${r.lucro<0?'neg':'pos'}">${brl(r.lucro)}</b></span></div>`;
+}
 /* ---------- gráfico ---------- */
 let chart, modo='mes';
 function semanas(ym){const[a,m]=ym.split('-').map(Number);const ult=new Date(a,m,0).getDate();const s=[];for(let i=1;i<=ult;i+=7)s.push([i,Math.min(i+6,ult)]);return s}
 function renderGrafico(ym){
   let labels=[],ent=[],sai=[];
   if(modo==='mes'){const i=todos.indexOf(ym);const ms=todos.slice(Math.max(0,i-11),i+1);
-    for(const m of ms){const r=resumoMes(m);labels.push(curtoMes(m));ent.push(+r.liquido.toFixed(2));sai.push(+r.despesas.toFixed(2))}}
+    for(const m of ms){const r=resumoMes(m);labels.push(curtoMes(m));ent.push(+r.entradas.toFixed(2));sai.push(+r.despesas.toFixed(2))}}
   else{const r=resumoMes(ym);const dia=iso=>+iso.slice(8,10);
     for(const[i,f]of semanas(ym)){labels.push(`${i}–${f}`);
       const ps=r.ps.filter(o=>dia(o.data)>=i&&dia(o.data)<=f);
-      const e=ps.reduce((s,o)=>s+o.liquido,0);
-      let s=ps.reduce((s,o)=>s+A.get(o).etiqueta,0)+[...despDoMes(ym),...retDoMes(ym)].filter(d=>dia(d.data)>=i&&dia(d.data)<=f).reduce((s,d)=>s+d.valor,0);
+      const ats=r.at.lista.filter(a=>dia(a.data)>=i&&dia(a.data)<=f);
+      const e=ps.reduce((s,o)=>s+o.liquido,0)+ats.reduce((s,a)=>s+a.valorRecebido,0);
+      let s=ats.reduce((s,a)=>s+a.materiais,0)+ps.reduce((s,o)=>s+A.get(o).etiqueta,0)+[...despDoMes(ym),...retDoMes(ym)].filter(d=>dia(d.data)>=i&&dia(d.data)<=f).reduce((s,d)=>s+d.valor,0);
       if(controlado(ym))for(const fx of fixos){const dv=fx.diaVencimento||1;if(dv>=i&&dv<=f)s+=fx.valor}
       ent.push(+e.toFixed(2));sai.push(+s.toFixed(2))}}
   const css=getComputedStyle(document.documentElement);
@@ -605,7 +700,7 @@ function renderGrafico(ym){
 function caixinhaRet(k){
   const dep={},ret={},c=CXR[k];
   for(const o of validos){const ym=ymDe(o.data);if(controlado(ym))dep[ym]=(dep[ym]||0)+c.deposito(A.get(o))}
-  for(const m of cx.movimentos||[])if(m.caixinha===k&&m.valor>0){const ym=ymDe(m.data);dep[ym]=(dep[ym]||0)+m.valor}
+  for(const m of cx.movimentos||[])if(chaveCx(m)===k&&m.valor>0){const ym=ymDe(m.data);dep[ym]=(dep[ym]||0)+m.valor}
   for(const m of retiradas(k)){const ym=ymDe(m.data);ret[ym]=(ret[ym]||0)+m.valor}
   const ms=[...new Set([...Object.keys(dep),...Object.keys(ret),...(controlado(ymHoje)?[ymHoje]:[])])].sort();
   let acum=0;const linhas=ms.map(ym=>{acum+=(dep[ym]||0)-(ret[ym]||0);return {ym,dep:dep[ym]||0,ret:ret[ym]||0,saldo:acum}});
@@ -618,13 +713,13 @@ function renderCaixinhas(){
   const S=SALDOS=Object.fromEntries(Object.keys(CXR).map(k=>[k,caixinhaRet(k)]));
   const tot=x=>Object.values(S).reduce((s,e)=>s+e[x],0);
   $('#totalCx').innerHTML=`<div><div class="rot">Total guardado nas caixinhas</div><div class="num ${tot('saldo')<0?'neg':''}">${brl(tot('saldo'))}</div><div class="muted" style="font-size:.8rem">Depositado ${brl(tot('dep'))} · retirado ${brl(tot('ret'))} desde ${nomeMes(cfg.inicioControle)}</div></div>`+
-    `<p class="muted" style="font-size:.78rem;max-width:440px;margin:0">Cada venda separa automaticamente o valor de cada caixinha. Quando usar o dinheiro, registre uma retirada: ela entra uma vez nas saídas do mês.</p>`;
-  $('#cxs').innerHTML=Object.entries(CXR).map(([k,c])=>{const E=S[k],l=E.linhas.find(x=>x.ym===ym);
+    `<p class="muted" style="font-size:.78rem;max-width:440px;margin:0">Cada venda do site separa automaticamente o valor de cada caixinha. Lucro e Reinvestimento são separados entre Acessórios e Roupas; as demais são compartilhadas. O atacado não tem caixinhas. Quando usar o dinheiro, registre uma retirada: ela entra uma vez nas saídas do mês.</p>`;
+  $('#cxs').innerHTML=ORDEM_CX.map(([t,ks])=>`<div class="grupo-cx">${t}</div>`+ks.map(k=>{const c=CXR[k],E=S[k],l=E.linhas.find(x=>x.ym===ym);
     return `<div class="caixinha ${k}" data-cx="${k}"${c.lema?` title="${c.lema}"`:''}><div class="nome">${c.nome} <span class="badge">${c.badge()}</span></div>`+
       `<div class="saldo ${E.saldo<0?'neg':''}">${brl(E.saldo)}</div>${c.lema?`<div class="lema">${c.lema}</div>`:''}`+
       `<div class="det">depósitos ${brl(E.dep)} · retiradas ${brl(E.ret)}</div>`+
-      `<div class="rodape-cx"><span class="det">${curtoMes(ym)}: +${brl(l?.dep||0)}${l?.ret?` / −${brl(l.ret)}`:''}</span><button class="btn sec peq" data-retirar="${k}">${ic('retirar')}Retirar</button></div></div>`}).join('');
-  $('#cxRet').innerHTML=Object.entries(CXR).map(([k,c])=>blocoRet(k,c,S[k],ym)).join('');
+      `<div class="rodape-cx"><span class="det">${curtoMes(ym)}: +${brl(l?.dep||0)}${l?.ret?` / −${brl(l.ret)}`:''}</span><button class="btn sec peq" data-retirar="${k}">${ic('retirar')}Retirar</button></div></div>`}).join('')).join('');
+  $('#cxRet').innerHTML=ORDEM_CX.flatMap(([,ks])=>ks).map(k=>blocoRet(k,CXR[k],S[k],ym)).join('');
   const hist={perdas:0,proLabore:0,trocas:0};
   for(const o of validos)if(!controlado(ymDe(o.data))){const a=A.get(o);for(const k in hist)hist[k]+=a.res[k]}
   const h=hist.perdas+hist.proLabore+hist.trocas;
@@ -645,6 +740,7 @@ function blocoRet(k,c,E,ym){
 let retK=null;
 function abrirRetirada(k){const c=CXR[k];retK=k;
   $('#rTitulo').textContent='Retirada: '+c.nome; $('#rSaldo').textContent='Saldo atual: '+brl(SALDOS[k]?.saldo||0)+(c.lema?' · '+c.lema:'');
+  $('#rGrupoRot').style.display=c.grupo?'':'none'; if(c.grupo)$('#rGrupo').value=c.grupo;
   $('#rData').value=hoje.toLocaleDateString('sv-SE'); $('#rValor').value=''; $('#rDesc').value=''; $('#rDesc').placeholder=c.ph; $('#rErro').textContent='';
   $('#modalRet').showModal(); $('#rValor').focus()}
 mascaraDin($('#rValor'));
@@ -659,8 +755,10 @@ $('#rForm').addEventListener('submit',async e=>{e.preventDefault();const k=retK;
   const valor=lerDin($('#rValor').value),data=$('#rData').value,descricao=$('#rDesc').value.trim();
   if(!valor||!/^\d{4}-\d{2}-\d{2}$/.test(data)){$('#rErro').textContent='Preencha a data e o valor da retirada.';return}
   if(!apiOk){$('#rErro').textContent='Modo local: para salvar, use o site publicado.';return}
-  M.push({id:'r-'+data+'-'+Math.random().toString(36).slice(2,7),data,caixinha:k,tipo:'retirada',valor,descricao});
-  $('#modalRet').close();marcarSujo();if(!(await salvar(`Retirada de ${brl(valor)} registrada em ${CXR[k].curto}`))){M.pop();marcarSujo();recalcular()}});
+  const c=CXR[k],base=c.base||k,mov={id:'r-'+data+'-'+Math.random().toString(36).slice(2,7),data,caixinha:base,tipo:'retirada',valor,descricao};
+  if(c.grupo){const g=$('#rGrupo').value;if(!GRUPOS.includes(g)){$('#rErro').textContent='Escolha a parte: Acessórios ou Roupas.';return}mov.grupo=g}
+  M.push(mov);const kk=chaveCx(mov);
+  $('#modalRet').close();marcarSujo();if(!(await salvar(`Retirada de ${brl(valor)} registrada em ${CXR[kk].curto}`))){M.pop();marcarSujo();recalcular()}});
 /* ---------- contas ---------- */
 function contasPendentes(){
   const dia=864e5, h0=new Date(hoje.getFullYear(),hoje.getMonth(),hoje.getDate());
@@ -683,36 +781,46 @@ function renderContas(){
     `<h3 style="margin:1rem 0 .3rem">A receber</h3>`+(ar.length?`<ul class="lista">${ord(ar).map(item).join('')}</ul>`:vazio('Sem dados ainda','Nenhum valor a receber lançado.'));
 }
 /* ---------- movimentações (entradas + saídas do mês) ---------- */
-let filtroMov='todas';
+let filtroMov='todas',filtroParte='todas';
 function saidasDoMes(ym){
   const r=resumoMes(ym); const itens=despDoMes(ym).map(d=>({...d}));
   if(controlado(ym))for(const f of fixos)itens.push({descricao:f.nome,categoria:'fixo',valor:f.valor,data:`${ym}-${String(f.diaVencimento||1).padStart(2,'0')}`,auto:true,aConfirmar:f.aConfirmar});
-  for(const m of retDoMes(ym))itens.push({descricao:CXR[m.caixinha].curto+(m.descricao?': '+m.descricao:''),categoria:CXR[m.caixinha].cat,valor:m.valor,data:m.data,caixinha:true});
+  for(const m of retDoMes(ym))itens.push({descricao:CXR[m.k].curto+(m.descricao?': '+m.descricao:''),categoria:CXR[m.k].cat,valor:m.valor,data:m.data,caixinha:true,grupo:CXR[m.k].grupo});
+  for(const a of r.at.lista)if(a.materiais>0)itens.push({descricao:'Materiais do atacado: '+a.cliente,categoria:'materiais atacado',valor:a.materiais,data:a.data,grupo:'atacado',atacado:true});
   if(r.etiquetas>0)itens.push({descricao:`Etiquetas de frete (${r.ps.filter(o=>A.get(o).etiqueta>0).length} pedidos)`,categoria:'frete',valor:r.etiquetas,auto:true,estimado:r.etqEst>0,data:null});
   return {r,itens};
 }
 function renderMov(ym){
   const {r,itens}=saidasDoMes(ym);
-  const ents=pedidos.filter(o=>ymDe(o.data)===ym).map(o=>({tipo:'ent',o,data:o.data}));
-  const sais=itens.map(i=>({tipo:'sai',i,data:i.data}));
-  $('#resumoMov').innerHTML=`<div><div class="rot">Entradas (líquido)</div><div class="val">${brl(r.liquido)}</div></div><div><div class="rot">Saídas</div><div class="val">${brl(r.despesas)}</div></div><div><div class="rot">Sobrou</div><div class="val ${r.saldo<0?'neg':''}">${brl(r.saldo)}</div></div>`;
+  const fp=filtroParte;
+  let ents=[...pedidos.filter(o=>ymDe(o.data)===ym).map(o=>({tipo:'ent',o,data:o.data})),...r.at.lista.map(a=>({tipo:'at',a,data:a.data}))];
+  let sais=itens.map(i=>({tipo:'sai',i,data:i.data}));
+  if(fp!=='todas'){ents=ents.filter(x=>x.tipo==='at'?fp==='atacado':fp!=='atacado'&&A.get(x.o).grupos.includes(fp));sais=sais.filter(x=>x.i.grupo===fp)}
+  if(fp==='todas')$('#resumoMov').innerHTML=`<div><div class="rot">Entradas (líquido)</div><div class="val">${brl(r.entradas)}</div></div><div><div class="rot">Saídas</div><div class="val">${brl(r.despesas)}</div></div><div><div class="rot">Sobrou</div><div class="val ${r.saldo<0?'neg':''}">${brl(r.saldo)}</div></div>`;
+  else{const t=fp==='atacado'?{receita:r.at.recebido,taxas:0,lucro:r.at.lucro,rot:'Valor recebido'}:{...r.g[fp],rot:'Faturamento (produtos)'};
+    $('#resumoMov').innerHTML=`<div><div class="rot">${t.rot}</div><div class="val">${brl(t.receita)}</div></div><div><div class="rot">${fp==='atacado'?'Materiais':'Taxas'}</div><div class="val">${brl(fp==='atacado'?r.at.materiais:t.taxas)}</div></div><div><div class="rot">Lucro ${NOME_G[fp].toLowerCase()}</div><div class="val ${t.lucro<0?'neg':''}">${brl(t.lucro)}</div></div>`}
   const porCat={};for(const i of itens)porCat[i.categoria]=(porCat[i.categoria]||0)+i.valor;
+  if(fp!=='todas')for(const k in porCat)if(!sais.some(x=>x.i.categoria===k))delete porCat[k];
   $('#despChips').innerHTML=filtroMov==='entradas'?'':Object.entries(porCat).filter(([,v])=>v).map(([c,v])=>`<span class="badge">${esc(c)} ${brl(v)}</span>`).join('');
   let lista=[...(filtroMov!=='saidas'?ents:[]),...(filtroMov!=='entradas'?sais:[])];
   lista.sort((a,b)=>(b.data||'0').localeCompare(a.data||'0'));
   const sem=lista.filter(x=>!x.data);lista=[...lista.filter(x=>x.data),...sem];
   const li=x=>{
+    if(x.tipo==='at'){const a=x.a;
+      return `<li><span class="tipo ent">${ic('atacado')}</span><div class="meio"><div class="desc">Atacado: ${esc(a.cliente)} ${bdg('atacado')}</div><div class="sub">${fmtData(a.data)} · materiais ${brl(a.materiais)} · lucro <span class="${a.valorRecebido-a.materiais<0?'neg':''}">${brl(a.valorRecebido-a.materiais)}</span></div>`+
+        `<div class="itens">${a.itens.map(i=>esc(i.qtd+'× '+i.produto)).join(' · ')}</div></div><div class="valor pos">+ ${brl(a.valorRecebido)}</div></li>`}
     if(x.tipo==='ent'){const o=x.o,a=A.get(o);
-      return `<li class="${o.cancelado?'cancelado':''}"><span class="tipo ent">${ic('ent')}</span><div class="meio"><div class="desc">Pedido #${o.numero} ${o.cancelado?'<span class="badge vermelho">cancelado</span>':''}${o.verificadoNoPainel?' <span class="badge verde">conferido</span>':''}</div>`+
-        `<div class="sub">${fmtData(o.data)} · ${esc(o.meioPagamento||o.formaPagamento||'—')}${o.parcelas>1?` ${o.parcelas}x`:''}${o.cupom?` · cupom ${esc(o.cupom)}`:''} · bruto ${brl(o.total)} · taxas ${brl(a.taxas)}${o.taxasFonte!=='nuvemshop'?' (est.)':''} · lucro est. ${a.completo?`<span class="${a.lucro<0?'neg':''}">${brl(a.lucro)}</span>`:'sem custo'}</div>`+
+      const parteTxt=fp!=='todas'&&a.grupos.length>1?` · parte ${NOME_G[fp].toLowerCase()}: ${brl(a.G[fp].receita)}, lucro est. ${a.G[fp].completo?brl(a.G[fp].lucro):'sem custo'}`:'';
+      return `<li class="${o.cancelado?'cancelado':''}"><span class="tipo ent">${ic('ent')}</span><div class="meio"><div class="desc">Pedido #${o.numero} ${a.grupos.map(bdg).join(' ')} ${o.cancelado?'<span class="badge vermelho">cancelado</span>':''}${o.verificadoNoPainel?' <span class="badge verde">conferido</span>':''}</div>`+
+        `<div class="sub">${fmtData(o.data)} · ${esc(o.meioPagamento||o.formaPagamento||'—')}${o.parcelas>1?` ${o.parcelas}x`:''}${o.cupom?` · cupom ${esc(o.cupom)}`:''} · bruto ${brl(o.total)} · taxas ${brl(a.taxas)}${o.taxasFonte!=='nuvemshop'?' (est.)':''} · lucro est. ${a.completo?`<span class="${a.lucro<0?'neg':''}">${brl(a.lucro)}</span>`:'sem custo'}${parteTxt}</div>`+
         `<div class="itens">${o.itens.map(i=>esc(i.qtd+'× '+i.nome)).join(' · ')}</div></div><div class="valor ${o.cancelado?'':'pos'}">${o.cancelado?'':'+ '}${brl(o.liquido)}</div></li>`}
     const i=x.i;
-    return `<li><span class="tipo">${ic('sai')}</span><div class="meio"><div class="desc">${esc(i.descricao)} ${i.auto?'<span class="badge azul">automático</span>':''}${i.aConfirmar?' <span class="badge amarelo">a confirmar</span>':''}${i.estimado?' <span class="badge amarelo">estimado</span>':''}${i.caixinha?' <span class="badge rosa">retirada da caixinha</span>':''}</div>`+
+    return `<li><span class="tipo">${ic('sai')}</span><div class="meio"><div class="desc">${esc(i.descricao)} ${i.auto?'<span class="badge azul">automático</span>':''}${i.aConfirmar?' <span class="badge amarelo">a confirmar</span>':''}${i.estimado?' <span class="badge amarelo">estimado</span>':''}${i.caixinha?' <span class="badge rosa">retirada da caixinha</span>':''}${i.grupo?' '+bdg(i.grupo):''}</div>`+
       `<div class="sub">${i.data&&!i.estimado?fmtData(i.data)+' · ':'no mês · '}${esc(i.categoria)}${i.motivo?' · '+esc(i.motivo)+(i.nota?': '+esc(i.nota):''):''}</div></div>`+
       `<div class="valor">− ${brl(i.valor)}${i.painel?`<button class="ico" data-edit-desp="${esc(i.id)}" title="Editar saída" aria-label="Editar saída">${ic('lapis')}</button><button class="ico" data-del-desp="${esc(i.id)}" title="Excluir saída" aria-label="Excluir saída">${ic('lixo')}</button>`:''}</div></li>`};
-  $('#listaMov').innerHTML=lista.length?lista.map(li).join(''):`<li style="display:block">${vazio('Sem dados ainda',filtroMov==='entradas'?'Nenhuma venda neste mês.':controlado(ym)?'Nenhuma saída lançada neste mês.':'Despesas só são controladas a partir de '+nomeMes(cfg.inicioControle)+'.')}</li>`;
+  $('#listaMov').innerHTML=lista.length?lista.map(li).join(''):`<li style="display:block">${vazio('Sem dados ainda',fp!=='todas'?'Nada desta parte neste mês.':filtroMov==='entradas'?'Nenhuma venda neste mês.':controlado(ym)?'Nenhuma saída lançada neste mês.':'Despesas só são controladas a partir de '+nomeMes(cfg.inicioControle)+'.')}</li>`;
   renderLogistica(ym);
-  $('#movAvisos').innerHTML=`<p class="muted" style="font-size:.74rem;margin:.7rem 0 0">Compras de embalagem, material e produção, o pagamento da sua mão de obra e os usos das reservas são registrados como retirada da caixinha correspondente (aba Caixinhas), não como despesa separada: aparecem aqui e nas saídas do mês uma única vez.</p>`;
+  $('#movAvisos').innerHTML=(fp!=='todas'?`<p class="muted" style="font-size:.74rem;margin:.7rem 0 0">Despesas gerais (custos fixos, Uber, etiquetas, caixinhas compartilhadas) não pertencem a uma parte e só aparecem em “Todas as partes”.</p>`:'')+`<p class="muted" style="font-size:.74rem;margin:.7rem 0 0">Compras de embalagem, material e produção, o pagamento da sua mão de obra e os usos das reservas são registrados como retirada da caixinha correspondente (aba Caixinhas), não como despesa separada: aparecem aqui e nas saídas do mês uma única vez.</p>`;
 }
 function renderLogistica(ym){
   const ls=despDoMes(ym).filter(d=>d.categoria===LOGI), tot=ls.reduce((s,d)=>s+d.valor,0);
@@ -751,7 +859,62 @@ $('#dForm').addEventListener('submit',async e=>{e.preventDefault();
   $('#modalDesp').close();marcarSujo();if(!(await salvar(i>=0?'Saída atualizada':`Saída de ${brl(valor)} lançada`))){MD=ant;marcarSujo();recalcular()}});
 $('#listaMov').addEventListener('click',async e=>{const ed=e.target.closest('[data-edit-desp]');if(ed){abrirDesp(ed.dataset.editDesp);return}
   const dl=e.target.closest('[data-del-desp]');if(dl)await apagarDesp(dl.dataset.delDesp)});
+$('#filtroParte').addEventListener('click',e=>{const b=e.target.closest('[data-p]');if(!b)return;filtroParte=b.dataset.p;document.querySelectorAll('#filtroParte button').forEach(x=>x.classList.toggle('on',x===b));renderMov(sel.value)});
 $('#filtroMov').addEventListener('click',e=>{const b=e.target.closest('[data-f]');if(!b)return;filtroMov=b.dataset.f;document.querySelectorAll('#filtroMov button').forEach(x=>x.classList.toggle('on',x===b));renderMov(sel.value)});
+/* ---------- atacado (lançado à mão; sem caixinhas) ---------- */
+const AT_COMUNS=['Necessaire P','Necessaire M','Necessaire G','Mini charm'];
+function renderAtacado(ym){
+  const r=resumoMes(ym),at=r.at;
+  $('#atResumo').innerHTML=`<div class="metricas">`+
+    metrica('Lucro do atacado',at.n?`<span class="${at.lucro<0?'neg':'pos'}">${brl(at.lucro)}</span>`:'—',at.recebido>0?'margem '+pct(at.lucro/at.recebido):'valor recebido − materiais')+
+    metrica('Valor recebido',brl(at.recebido),`${at.n} pedido${at.n===1?'':'s'}`)+
+    metrica('Materiais',brl(at.materiais),'pagos pela cliente')+
+    metrica('Peças',at.lista.reduce((s,a)=>s+a.itens.reduce((t,i)=>t+i.qtd,0),0),'no mês')+`</div>`+
+    `<p class="muted" style="font-size:.76rem;margin:.6rem 0 0">O lucro do atacado entra no lucro do mês e no “Sobrou este mês” (valor recebido entra, materiais saem). Não deposita em nenhuma caixinha e não tem taxas.</p>`;
+  const lista=at.lista.slice().sort((a,b)=>b.data.localeCompare(a.data));
+  $('#listaAt').innerHTML=lista.length?lista.map(a=>{const l=a.valorRecebido-a.materiais;
+    return `<li><span class="tipo ent">${ic('atacado')}</span><div class="meio"><div class="desc">${esc(a.cliente)}</div><div class="sub">${fmtData(a.data)} · recebido ${brl(a.valorRecebido)} · materiais ${brl(a.materiais)}</div>`+
+      `<div class="itens">${a.itens.map(i=>esc(i.qtd+'× '+i.produto)).join(' · ')}${a.obs?' · '+esc(a.obs):''}</div></div>`+
+      `<div class="valor"><span class="${l<0?'neg':'pos'}">${brl(l)}</span><span class="acoes"><button class="ico" data-edit-at="${esc(a.id)}" title="Editar pedido" aria-label="Editar pedido">${ic('lapis')}</button><button class="ico" data-del-at="${esc(a.id)}" title="Excluir pedido" aria-label="Excluir pedido">${ic('lixo')}</button></span></div></li>`}).join('')
+    :`<li style="display:block">${vazio('Nenhum pedido de atacado neste mês','Use “Novo pedido de atacado” para lançar.')}</li>`;
+  const ms=[...new Set(AT.map(a=>ymDe(a.data)))].sort().reverse();
+  $('#atMeses').innerHTML=`<h2>Atacado por mês</h2>`+(ms.length?`<div class="rolar"><table class="tabela"><tr><th>Mês</th><th class="n">Pedidos</th><th class="n">Recebido</th><th class="n">Materiais</th><th class="n">Lucro</th></tr>`+
+    ms.map(m=>{const x=atDoMes(m),rec=x.reduce((s,a)=>s+a.valorRecebido,0),mat=x.reduce((s,a)=>s+a.materiais,0);return `<tr class="${m===ym?'atual':''}"><td>${curtoMes(m)}</td><td class="n">${x.length}</td><td class="n">${brl(rec)}</td><td class="n">${brl(mat)}</td><td class="n ${rec-mat<0?'neg':''}">${brl(rec-mat)}</td></tr>`}).join('')+`</table></div>`:vazio('Sem dados ainda'));
+}
+let editAt=null;
+function linhaItem(it={produto:'',qtd:1}){return `<div class="ait"><input list="aSugestoes" maxlength="120" data-a="produto" value="${esc(it.produto)}" placeholder="Produto" aria-label="Produto"><input type="number" min="1" step="1" inputmode="numeric" data-a="qtd" value="${it.qtd}" aria-label="Quantidade"><button type="button" class="ico" data-rm-item title="Remover produto" aria-label="Remover produto">${ic('lixo')}</button></div>`}
+function prevAt(){const rec=lerDin($('#aRecebido').value)||0,mat=lerDin($('#aMateriais').value)||0,l=rec-mat;
+  $('#aPrev').innerHTML=`<div class="linha"><span>Valor recebido</span><span>${brl(rec)}</span></div><div class="linha"><span>Materiais</span><span>− ${brl(mat)}</span></div><div class="linha total"><span>Lucro</span><span class="${l<0?'neg':'pos'}">${brl(l)}${rec>0?' · '+pct(l/rec):''}</span></div>`}
+function abrirAt(id=null){const a=id?AT.find(x=>x.id===id):null;editAt=a?a.id:null;
+  $('#aTitulo').textContent=a?'Editar pedido de atacado':'Novo pedido de atacado';
+  $('#aSugestoes').innerHTML=[...new Set([...AT_COMUNS,...AT.flatMap(x=>x.itens.map(i=>i.produto)),...P.map(p=>p.nome)])].map(n=>`<option value="${esc(n)}"></option>`).join('');
+  $('#aData').value=a?.data||hoje.toLocaleDateString('sv-SE');$('#aCliente').value=a?.cliente||'';
+  $('#aItens').innerHTML=`<div class="ait cab" style="font-size:.7rem;color:var(--suave);font-weight:600"><span>Produto</span><span>Qtd.</span><span></span></div>`+(a?a.itens:[{produto:'',qtd:1}]).map(linhaItem).join('');
+  $('#aRecebido').value=a?fmtDin(a.valorRecebido):'';$('#aMateriais').value=a?fmtDin(a.materiais):'';$('#aObs').value=a?.obs||'';$('#aErro').textContent='';
+  $('#aApagar').style.display=a?'':'none';prevAt();$('#modalAt').showModal();if(!a)$('#aCliente').focus()}
+mascaraDin($('#aRecebido'));mascaraDin($('#aMateriais'));
+['#aRecebido','#aMateriais'].forEach(i=>$(i).addEventListener('input',prevAt));
+$('#aAddItem').addEventListener('click',()=>{$('#aItens').insertAdjacentHTML('beforeend',linhaItem());$('#aItens .ait:last-child input').focus()});
+$('#aItens').addEventListener('click',e=>{const b=e.target.closest('[data-rm-item]');if(!b)return;if($('#aItens').querySelectorAll('.ait:not(.cab)').length>1)b.closest('.ait').remove();else b.closest('.ait').querySelector('[data-a="produto"]').value=''});
+$('#btnNovoAt').addEventListener('click',()=>abrirAt());
+$('#aFechar').addEventListener('click',()=>$('#modalAt').close());$('#aCancelar').addEventListener('click',()=>$('#modalAt').close());
+async function apagarAt(id){const i=AT.findIndex(x=>x.id===id);if(i<0)return;const a=AT[i];
+  if(!confirm(`Excluir o pedido de atacado de ${a.cliente} (${fmtData(a.data)}, ${brl(a.valorRecebido)})?\n\nDá para desfazer pelo Histórico de alterações.`))return;
+  const [rm]=AT.splice(i,1);marcarSujo();if(!(await salvar('Pedido de atacado excluído'))){AT.splice(i,0,rm);marcarSujo();recalcular()}}
+$('#aApagar').addEventListener('click',async()=>{const id=editAt;$('#modalAt').close();await apagarAt(id)});
+$('#listaAt').addEventListener('click',async e=>{const ed=e.target.closest('[data-edit-at]');if(ed){abrirAt(ed.dataset.editAt);return}const d=e.target.closest('[data-del-at]');if(d)await apagarAt(d.dataset.delAt)});
+$('#aForm').addEventListener('submit',async e=>{e.preventDefault();
+  const data=$('#aData').value,cliente=$('#aCliente').value.trim(),valorRecebido=lerDin($('#aRecebido').value),materiais=lerDin($('#aMateriais').value)||0,obs=$('#aObs').value.trim();
+  const itens=[...$('#aItens').querySelectorAll('.ait:not(.cab)')].map(l=>({produto:l.querySelector('[data-a="produto"]').value.trim(),qtd:Number(l.querySelector('[data-a="qtd"]').value)})).filter(i=>i.produto);
+  if(!/^\d{4}-\d{2}-\d{2}$/.test(data)||!cliente){$('#aErro').textContent='Preencha a data e a cliente.';return}
+  if(!itens.length){$('#aErro').textContent='Inclua pelo menos um produto.';return}
+  if(itens.some(i=>!Number.isInteger(i.qtd)||i.qtd<1)){$('#aErro').textContent='A quantidade precisa ser um número inteiro a partir de 1.';return}
+  if(valorRecebido==null){$('#aErro').textContent='Preencha o valor recebido.';return}
+  if(!apiOk){$('#aErro').textContent='Modo local: para salvar, use o site publicado.';return}
+  const a={id:editAt||('a-'+data+'-'+Math.random().toString(36).slice(2,7)),data,cliente,itens,valorRecebido,materiais};if(obs)a.obs=obs;
+  const ant=structuredClone(AT);const i=AT.findIndex(x=>x.id===a.id);if(i>=0)AT[i]=a;else AT.push(a);
+  if(!todos.includes(ymDe(data)))toast('Pedido em um mês fora da lista: recarregue a página para ver esse mês.');
+  $('#modalAt').close();marcarSujo();if(!(await salvar(i>=0?'Pedido de atacado atualizado':`Atacado de ${cliente} lançado`))){AT=ant;marcarSujo();recalcular()}});
 /* ---------- lucro de 1 peça (como na planilha: % sobre o preço de venda) ---------- */
 const pctPiorCaso=()=>D.cupomPadraoPercent+D.reservaPerdasPercent+D.proLaborePercent+D.reservaTrocasPercent+PG.cartao3x.parcelamentoPercent+PG.cartao3x.recebimentoPercent;
 function lucroPeca(p,tam,{cupom=D.cupomPadraoPercent,pag='cartao3x'}={}){
@@ -808,7 +971,7 @@ function renderEqSim(){
   const prod=pS?pS.nome+($('#sTam').value!=='U'?' '+$('#sTam').value:''):'—';
   $('#sEq').innerHTML=`<div class="aviso azul">Para cobrir ${brl(totalFixos)} de custos fixos só com <b>${esc(prod)}</b>: ${s&&s.lucro>0?`${Math.ceil(totalFixos/s.lucro)} peças por mês`:'não cobre; o lucro por peça é zero, negativo ou sem custo'}.</div>`;
 }
-function tudo(){const ym=sel.value;renderInicio(ym);renderMov(ym);renderGrafico(ym);renderCaixinhas();renderSimulador();renderEquilibrio(ym);renderEqSim()}
+function tudo(){const ym=sel.value;renderInicio(ym);renderMov(ym);renderAtacado(ym);renderGrafico(ym);renderCaixinhas();renderSimulador();renderEquilibrio(ym);renderEqSim()}
 function recalcular(){analisarTudo();tudo();renderSemCusto()}
 function renderSemCusto(){const semC=[...semCusto.entries()].sort((a,b)=>b[1]-a[1]);
   $('#semCusto').innerHTML=semC.length?`<details><summary>Produtos vendidos sem custo cadastrado (${semC.length})</summary><p style="font-size:.8rem">${semC.map(([n,q])=>esc(n)+' ('+q+')').join(' · ')}</p><p class="muted" style="font-size:.75rem">Para ligar uma venda a um produto, o nome do produto aqui precisa aparecer no nome da Nuvemshop.</p></details>`:''}
@@ -825,7 +988,7 @@ const lerNum=str=>{const t=String(str||'').replace(/[^\d,.-]/g,'').replace(',','
 function mascaraDin(el){el.addEventListener('input',()=>{const v=lerDin(el.value);el.value=v==null?'':fmtDin(v);});}
 const inDin=(attrs,v)=>`<input class="din" inputmode="numeric" autocomplete="off" placeholder="—" ${attrs} value="${fmtDin(v)}">`;
 let sujo=false;
-function marcarSujo(){sujo=JSON.stringify({p:P,c:cfg,m:M,d:MD})!==salvo;$('#barraSalvar').classList.toggle('on',sujo)}
+function marcarSujo(){sujo=estado()!==salvo;$('#barraSalvar').classList.toggle('on',sujo)}
 let tRecalc; const recalcDepois=()=>{clearTimeout(tRecalc);tRecalc=setTimeout(recalcular,350)};
 function toast(msg,tipo='ok'){const t=$('#toast');t.textContent=msg;t.className='on '+tipo;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3200)}
 const slugId=n=>norm(n).replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,50)||'produto';
@@ -834,12 +997,13 @@ function celLucro(p,t){const s=lucroPeca(p,t);if(!s)return '<span class="muted">
   return `<span class="${s.lucro<0||baixo(s)?'neg':''}"><b>${brl(s.lucro)}</b></span><br><small class="${baixo(s)?'neg':'muted'}">${pct(s.margem)}</small>`}
 function renderProdutos(){
   const pp=pctPiorCaso();
-  $('#prodNota').innerHTML=`<b>Custo</b> = custo da peça <b>sem embalagem</b> (ajuste os custos que ainda tiverem a caixa embutida). <b>Embalagem</b> = quanto custa embalar 1 peça desse produto (padrão: caixa pequena ${brl(CX.pequena.custo)}). Nos pedidos reais vale a regra por pedido: 1 peça = caixa pequena, ${cfg.embalagem.pecasParaCaixaGrande}+ peças = caixa grande ${brl(CX.grande.custo)}. `+
+  $('#prodNota').innerHTML=`<b>Parte</b> = Acessórios ou Roupas (separa faturamento, lucro e as caixinhas de Lucro e Reinvestimento). <b>Custo</b> = custo da peça <b>sem embalagem</b> (ajuste os custos que ainda tiverem a caixa embutida). <b>Embalagem</b> = quanto custa embalar 1 peça desse produto (padrão: caixa pequena ${brl(CX.pequena.custo)}). Nos pedidos reais vale a regra por pedido: 1 peça = caixa pequena, ${cfg.embalagem.pecasParaCaixaGrande}+ peças = caixa grande ${brl(CX.grande.custo)}. `+
     `<b>Lucro</b> = pedido de 1 peça no pior caso: ${fmtNum(pp)}% do preço (cupom ${fmtNum(D.cupomPadraoPercent)}% + perdas ${fmtNum(D.reservaPerdasPercent)}% + pró-labore ${fmtNum(D.proLaborePercent)}% + trocas ${fmtNum(D.reservaTrocasPercent)}% + cartão ${fmtNum(PG.cartao3x.parcelamentoPercent)}% + ${fmtNum(PG.cartao3x.recebimentoPercent)}%) + ${brl(PG.cartao3x.taxaFixa)} + mão de obra + embalagem do produto.`;
   // tabela (computador)
-  let h=`<thead><tr><th rowspan="2">Produto</th><th rowspan="2">Cores</th><th colspan="4" class="grp">Valor de venda</th><th colspan="4" class="grp">Custo da peça</th><th rowspan="2">Mão de obra</th><th rowspan="2">Embalagem</th><th colspan="4" class="grp">Lucro (1 peça, pior caso)</th><th rowspan="2"></th></tr><tr>${TAMS.map(t=>`<th class="n">${t}</th>`).join('').repeat(2)}${TAMS.map(t=>`<th class="n">${t}</th>`).join('')}</tr></thead><tbody>`;
+  let h=`<thead><tr><th rowspan="2">Produto</th><th rowspan="2">Parte</th><th rowspan="2">Cores</th><th colspan="4" class="grp">Valor de venda</th><th colspan="4" class="grp">Custo da peça</th><th rowspan="2">Mão de obra</th><th rowspan="2">Embalagem</th><th colspan="4" class="grp">Lucro (1 peça, pior caso)</th><th rowspan="2"></th></tr><tr>${TAMS.map(t=>`<th class="n">${t}</th>`).join('').repeat(2)}${TAMS.map(t=>`<th class="n">${t}</th>`).join('')}</tr></thead><tbody>`;
   P.forEach((p,i)=>{
     h+=`<tr data-i="${i}"><td><input class="txt nome" data-c="nome" value="${esc(p.nome)}" aria-label="Produto"></td>`+
+      `<td><select class="parte-sel" data-c="grupo" aria-label="Parte">${GRUPOS.map(g=>`<option value="${g}"${p.grupo===g?' selected':''}>${NOME_G[g]}</option>`).join('')}</select></td>`+
       `<td><input class="txt" data-c="cores" value="${esc(p.cores||'')}" aria-label="Cores"></td>`+
       TAMS.map(t=>`<td>${inDin(`data-c="preco" data-t="${t}" aria-label="Venda ${t}"`,p.tamanhos[t]?.preco)}</td>`).join('')+
       TAMS.map(t=>`<td>${inDin(`data-c="custo" data-t="${t}" aria-label="Custo ${t}"`,p.tamanhos[t]?.custo)}</td>`).join('')+
@@ -851,7 +1015,7 @@ function renderProdutos(){
   $('#tabProdutos').innerHTML=h+'</tbody>';
   // cartões (celular)
   $('#cardsProdutos').innerHTML=P.map((p,i)=>{const ts=TAMS.filter(t=>p.tamanhos[t]);
-    return `<div class="pcard" data-i="${i}"><div class="pcab"><div><div class="pnome">${esc(p.nome)}</div><div class="muted" style="font-size:.74rem">${esc(p.cores||'')}</div></div><button class="btn sec editar">Editar</button></div>`+
+    return `<div class="pcard" data-i="${i}"><div class="pcab"><div><div class="pnome">${esc(p.nome)} ${bdg(p.grupo)}</div><div class="muted" style="font-size:.74rem">${esc(p.cores||'')}</div></div><button class="btn sec editar">Editar</button></div>`+
       `<div class="ptams">${ts.map(t=>{const s=lucroPeca(p,t),tt=p.tamanhos[t];return `<div class="ptam ${baixo(s)?'baixa':''}"><b>${t}</b><span>venda ${fmtDin(tt.preco)||'—'}</span><span>custo ${fmtDin(tt.custo)||'—'}</span><span class="${s&&(s.lucro<0||baixo(s))?'neg':''}">lucro <b>${s?brl(s.lucro):'—'}</b>${s?' · '+pct(s.margem):''}</span></div>`}).join('')||'<span class="muted">sem tamanhos</span>'}</div>`+
       `<div class="muted" style="font-size:.74rem;margin-top:.3rem">Mão de obra: ${moInclusa(p)?'já inclusa no custo':fmtDin(p.maoDeObra)||'—'} · Embalagem: ${fmtDin(p.embalagem??CX.pequena.custo)}</div></div>`}).join('')||vazio('Nenhum produto','Toque em “Adicionar produto”.');
   const nb=P.reduce((n,p)=>n+TAMS.filter(t=>baixo(lucroPeca(p,t))).length,0);
@@ -861,10 +1025,12 @@ function atualizarLinha(i){const tr=$(`#tabProdutos tr[data-i="${i}"]`);if(!tr)r
   TAMS.forEach(t=>{tr.querySelector(`[data-l="${t}"]`).innerHTML=celLucro(p,t)});
   const mo=tr.querySelector('[data-c="maoDeObra"]');mo.disabled=moInclusa(p);if(moInclusa(p))mo.value='';else if(!mo.value&&p.maoDeObra!=null)mo.value=fmtDin(p.maoDeObra)}
 function setTam(p,t,campo,v){p.tamanhos[t]=p.tamanhos[t]||{preco:null,custo:null};p.tamanhos[t][campo]=v;if(p.tamanhos[t].preco==null&&p.tamanhos[t].custo==null)delete p.tamanhos[t]}
+$('#tabProdutos').addEventListener('change',e=>{if(e.target.dataset.c==='grupo')e.target.dispatchEvent(new Event('input',{bubbles:true}))});
 $('#tabProdutos').addEventListener('input',e=>{const el=e.target,tr=el.closest('tr[data-i]');if(!tr)return;const i=+tr.dataset.i,p=P[i],c=el.dataset.c;
   if(el.classList.contains('din')){const v=lerDin(el.value);el.value=v==null?'':fmtDin(v);
     if(c==='preco'||c==='custo')setTam(p,el.dataset.t,c,v);else if(c==='maoDeObra')p.maoDeObra=v;else if(c==='embalagem')p.embalagem=v;}
   else if(c==='inclusa')p.maoDeObraJaInclusaNoCusto=el.checked;
+  else if(c==='grupo')p.grupo=el.value;
   else if(c){p[c]=el.value}
   if(c==='nome'&&!p.apelidos?.length)p.apelidos=[norm(el.value)];
   atualizarLinha(i);marcarSujo();recalcDepois();});
@@ -879,9 +1045,9 @@ async function apagarProduto(i){const p=P[i];if(!p)return;
 /* ---- modal ---- */
 let editando=null;
 function abrirModal(i){
-  editando=i; const p=i==null?{nome:'',cores:'',tamanhos:{},maoDeObra:null,maoDeObraJaInclusaNoCusto:false,embalagem:CX.pequena.custo}:P[i];
+  editando=i; const p=i==null?{nome:'',cores:'',grupo:'acessorios',tamanhos:{},maoDeObra:null,maoDeObraJaInclusaNoCusto:false,embalagem:CX.pequena.custo}:P[i];
   $('#mTitulo').textContent=i==null?'Novo produto':'Editar produto';
-  $('#mNome').value=p.nome; $('#mCores').value=p.cores||'';
+  $('#mNome').value=p.nome; $('#mCores').value=p.cores||''; $('#mGrupo').value=p.grupo||inferirGrupo(p.nome||'');
   $('#mMo').value=fmtDin(p.maoDeObra); $('#mEmb').value=fmtDin(p.embalagem??CX.pequena.custo); $('#mInclusa').checked=!!p.maoDeObraJaInclusaNoCusto;
   $('#mTams').innerHTML=`<div class="mt cab"><span></span><span>Venda</span><span>Custo</span><span>Lucro</span></div>`+TAMS.map(t=>`<div class="mt"><b>${t}</b>${inDin(`data-t="${t}" data-c="preco" aria-label="Venda ${t}"`,p.tamanhos[t]?.preco)}${inDin(`data-t="${t}" data-c="custo" aria-label="Custo ${t}"`,p.tamanhos[t]?.custo)}<span class="ml" data-l="${t}"></span></div>`).join('');
   $('#mApagar').style.display=i==null?'none':''; $('#mErro').textContent='';
@@ -890,7 +1056,7 @@ function abrirModal(i){
 function lerModal(){
   const base=editando==null?{}:P[editando];
   const p={...structuredClone(base),nome:$('#mNome').value.trim(),cores:$('#mCores').value.trim(),
-    maoDeObra:lerDin($('#mMo').value),embalagem:lerDin($('#mEmb').value),maoDeObraJaInclusaNoCusto:$('#mInclusa').checked,tamanhos:{}};
+    maoDeObra:lerDin($('#mMo').value),embalagem:lerDin($('#mEmb').value),maoDeObraJaInclusaNoCusto:$('#mInclusa').checked,grupo:$('#mGrupo').value,tamanhos:{}};
   for(const t of TAMS){const pr=lerDin($(`#mTams [data-t="${t}"][data-c="preco"]`).value),cu=lerDin($(`#mTams [data-t="${t}"][data-c="custo"]`).value);if(pr!=null||cu!=null)p.tamanhos[t]={preco:pr,custo:cu}}
   if(editando==null){p.id=slugId(p.nome)+'-'+Math.random().toString(36).slice(2,6);p.apelidos=[norm(p.nome)];p.categoria=''}
   return p;
@@ -922,23 +1088,23 @@ function renderConfig(){
 function totalCfg(){$('#cfgTotal').innerHTML=`Pior caso por venda: <b>${fmtNum(pctPiorCaso())}%</b> do preço + ${brl(PG.cartao3x.taxaFixa)} · embalagem: 1 peça = ${brl(CX.pequena.custo)}, ${cfg.embalagem.pecasParaCaixaGrande}+ peças = ${brl(CX.grande.custo)} por pedido`}
 $('#cfgCampos').addEventListener('input',e=>{const el=e.target,c=el.dataset.cfg;if(!c)return;let v;
   if(el.dataset.tipo==='din'){v=lerDin(el.value);el.value=v==null?'':fmtDin(v)}else{v=lerNum(el.value);if(el.dataset.tipo==='int'&&v!=null)v=Math.max(1,Math.round(v))}
-  if(v==null)return; por(cfg,c,v); aplicarModelo({config:cfg,produtos:P}); totalCfg(); renderProdutos(); marcarSujo(); recalcDepois();});
+  if(v==null)return; por(cfg,c,v); aplicarModelo({config:cfg,produtos:P,movimentos:M,despesas:MD,atacado:AT}); totalCfg(); renderProdutos(); marcarSujo(); recalcDepois();});
 
 /* ---- salvar / histórico ---- */
 async function salvar(msgOk='Salvo!'){
   if(!apiOk){toast('Modo local: para salvar, use o site publicado.','erro');return false}
   $('#btnSalvar').disabled=true;$('#btnSalvar').textContent='Salvando…';
-  try{const r=await fetch('/api/dados',{method:'PUT',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({baseVersao:versao,produtos:P,config:cfg,movimentos:M,despesas:MD})});
+  try{const r=await fetch('/api/dados',{method:'PUT',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({baseVersao:versao,produtos:P,config:cfg,movimentos:M,despesas:MD,atacado:AT})});
     if(r.status===401){location.href='/login';return false}
     const d=await r.json().catch(()=>({}));
     if(!r.ok){toast(d.mensagem||'Não consegui salvar ('+r.status+').','erro');return false}
-    versao=d.versao;atualizadoEm=d.atualizadoEm;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg,m:M,d:MD});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();
+    versao=d.versao;atualizadoEm=d.atualizadoEm;aplicarModelo(d);salvo=estado();marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();
     toast(msgOk);carregarHistorico();return true;
   }catch(e){toast('Sem conexão. Tente de novo.','erro');return false}
   finally{$('#btnSalvar').disabled=false;$('#btnSalvar').textContent='Salvar'}
 }
 $('#btnSalvar').addEventListener('click',()=>salvar('Alterações salvas'));
-$('#btnDescartar').addEventListener('click',()=>{const o=JSON.parse(salvo);aplicarModelo({produtos:o.p,config:o.c,movimentos:o.m,despesas:o.d});marcarSujo();renderProdutos();renderConfig();recalcular();toast('Alterações descartadas')});
+$('#btnDescartar').addEventListener('click',()=>{const o=JSON.parse(salvo);aplicarModelo({produtos:o.p,config:o.c,movimentos:o.m,despesas:o.d,atacado:o.a});marcarSujo();renderProdutos();renderConfig();recalcular();toast('Alterações descartadas')});
 window.addEventListener('beforeunload',e=>{if(sujo){e.preventDefault();e.returnValue=''}});
 async function carregarHistorico(){
   if(!apiOk){$('#histLista').innerHTML='<p class="muted">Histórico disponível no site publicado.</p>';return}
@@ -948,15 +1114,15 @@ async function carregarHistorico(){
 }
 $('#histLista').addEventListener('click',async e=>{const b=e.target.closest('[data-v]');if(!b)return;
   if(sujo&&!confirm('Você tem alterações não salvas que serão perdidas. Continuar?'))return;
-  if(!confirm(`Voltar produtos e configurações para a versão ${b.dataset.v}?`))return;
+  if(!confirm(`Voltar produtos, configurações, saídas, retiradas e atacado para a versão ${b.dataset.v}?`))return;
   const r=await fetch('/api/historico',{method:'POST',headers:{'content-type':'application/json',accept:'application/json'},body:JSON.stringify({versao:+b.dataset.v})});
   const d=await r.json().catch(()=>({}));if(!r.ok){toast(d.mensagem||'Não consegui restaurar.','erro');return}
-  versao=d.versao;aplicarModelo(d);salvo=JSON.stringify({p:P,c:cfg,m:M,d:MD});marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();toast(`Versão ${b.dataset.v} restaurada`);carregarHistorico()});
+  versao=d.versao;aplicarModelo(d);salvo=estado();marcarSujo();renderProdutos();renderConfig();recalcular();renderRodape();toast(`Versão ${b.dataset.v} restaurada`);carregarHistorico()});
 
 function renderRodape(){$('#rodape').innerHTML=`Vendas atualizadas em ${fmtData(vendas.atualizadoEm)} · ${validos.length} pedidos · produtos e configurações ${apiOk?`versão ${versao}, salvos em ${new Date(atualizadoEm).toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})}`:'(modo local, só leitura)'}<br>Stargi · painel financeiro`}
 renderContas();renderProdutos();renderConfig();tudo();renderSemCusto();renderRodape();carregarHistorico();
 /* ---------- abas ---------- */
-const ABAS=['inicio','movimentacoes','caixinhas','produtos'];
+const ABAS=['inicio','movimentacoes','caixinhas','atacado','produtos'];
 const ANTIGAS={resumo:'inicio',equilibrio:'inicio',grafico:'movimentacoes',contas:'movimentacoes',despesas:'movimentacoes',simulador:'produtos',config:'produtos'};
 function mostrarAba(h,rolar=true){let a=h,alvo=null;if(ANTIGAS[h]){a=ANTIGAS[h];alvo=h}else if(!ABAS.includes(h))a='inicio';
   document.querySelectorAll('.aba').forEach(s=>s.classList.toggle('on',s.id==='aba-'+a));

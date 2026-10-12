@@ -101,7 +101,7 @@ test('embalagem por produto e retiradas das caixinhas Embalagens/Reinvestimento 
   assert.ok(d1.produtos.every((p) => p.embalagem === 5.69), 'semente: caixa pequena em todos');
   const prods = structuredClone(d1.produtos); prods[0].embalagem = 3.5;
   const mov = [{ id: 'r-1', data: '2026-10-15', caixinha: 'embalagens', tipo: 'retirada', valor: 120.5, descricao: 'Caixas + papel de seda' },
-    { id: 'r-2', data: '2026-10-16', caixinha: 'reinvestimento', tipo: 'retirada', valor: 300, descricao: 'tecido' },
+    { id: 'r-2', data: '2026-10-16', caixinha: 'reinvestimento', tipo: 'retirada', valor: 300, descricao: 'tecido', grupo: 'acessorios' },
     { id: 'r-3', data: '2026-10-17', caixinha: 'maoDeObra', tipo: 'retirada', valor: 150, descricao: 'meu pagamento' },
     { id: 'r-4', data: '2026-10-18', caixinha: 'proLabore', tipo: 'retirada', valor: 80, descricao: 'pró-labore' }];
   let r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: 1, produtos: prods, movimentos: mov } }), ctx(b));
@@ -150,4 +150,40 @@ test('despesas do painel: logística exige motivo; salva, edita, apaga e restaur
   r = await hist(req('/api/historico'), ctx(b)); assert.equal((await r.json()).versoes[0].despesas, 2);
   r = await hist(req('/api/historico', { method: 'POST', body: { versao: 1 } }), ctx(b));
   assert.deepEqual((await r.json()).despesas, []);
+});
+
+test('categorias: grupo do produto inferido pelo nome e editável', async () => {
+  const { validarProdutos: vp } = await import('../lib/validar.js');
+  const [a, b, c] = vp([{ nome: 'Regata Copa', tamanhos: {} }, { nome: 'Necessaire Mocha', tamanhos: {} }, { nome: 'Headband', grupo: 'roupas', tamanhos: {} }]);
+  assert.equal(a.grupo, 'roupas'); assert.equal(b.grupo, 'acessorios'); assert.equal(c.grupo, 'roupas');
+  assert.equal(vp([{ nome: 'Tube Top Júlia', grupo: 'xx', tamanhos: {} }])[0].grupo, 'roupas');
+});
+test('caixinhas por parte: lucro e reinvestimento exigem Acessórios/Roupas; antigas do reinvestimento viram Acessórios', async () => {
+  const { validarMovimentos: vm } = await import('../lib/validar.js');
+  const base = { data: '2026-10-10', tipo: 'retirada', valor: 10 };
+  assert.equal(vm([{ ...base, caixinha: 'reinvestimento' }])[0].grupo, 'acessorios');
+  assert.equal(vm([{ ...base, caixinha: 'lucro', grupo: 'roupas' }])[0].grupo, 'roupas');
+  assert.throws(() => vm([{ ...base, caixinha: 'lucro' }]), /parte/);
+  assert.equal(vm([{ ...base, caixinha: 'perdas', grupo: 'roupas' }])[0].grupo, undefined);
+});
+test('atacado: salva, valida, entra no histórico e respeita conflito', async () => {
+  const b = backendMemoria();
+  const v = (await (await dados(req('/api/dados'), ctx(b))).json()).versao;
+  const at = [{ data: '2026-10-11', cliente: 'Loja X', itens: [{ produto: 'Necessaire P', qtd: 10 }, { produto: 'Mini charm', qtd: '5' }], valorRecebido: 900, materiais: 350.5, obs: 'tecido rosa' }];
+  let r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: v, atacado: at } }), ctx(b));
+  const d = await r.json(); assert.equal(r.status, 200);
+  assert.equal(d.atacado.length, 1); assert.equal(d.atacado[0].itens[1].qtd, 5); assert.ok(d.atacado[0].id);
+  assert.equal(d.produtos.length, seed.produtos.length, 'não mexe nos produtos');
+  r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: v, atacado: [] } }), ctx(b));
+  assert.equal(r.status, 409);
+  for (const ruim of [[{ ...at[0], cliente: '' }], [{ ...at[0], itens: [] }], [{ ...at[0], valorRecebido: -1 }], [{ ...at[0], itens: [{ produto: 'x', qtd: 1.5 }] }]]) {
+    r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: d.versao, atacado: ruim } }), ctx(b));
+    assert.equal(r.status, 400);
+  }
+  r = await dados(req('/api/dados', { method: 'PUT', body: { baseVersao: d.versao, atacado: [] } }), ctx(b));
+  assert.equal((await r.json()).atacado.length, 0);
+  const h = await (await hist(req('/api/historico'), ctx(b))).json();
+  assert.equal(h.versoes[0].atacado, 1);
+  r = await hist(req('/api/historico', { method: 'POST', body: { versao: h.versoes[0].versao } }), ctx(b));
+  assert.equal((await r.json()).atacado.length, 1, 'restaurar traz o atacado de volta');
 });
