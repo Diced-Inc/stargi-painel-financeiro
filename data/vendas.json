@@ -410,7 +410,7 @@
      "nomeLoja": "Necessaire Bordada - P, Amarelo, rosa"
     }
    ],
-   "custoEtiqueta": 0.0,
+   "custoEtiqueta": null,
    "observacao": "Conferido no painel da Nuvemshop em 09/11/2026 (atualização semanal). Desconto inclui o desconto do Pix. Entrega local: custo real da entrega não informado.",
    "taxasFonte": "nuvemshop",
    "estorno": null,
@@ -500,7 +500,7 @@
      "nomeLoja": "Charm Mini Necessaire Polka Dots"
     }
    ],
-   "custoEtiqueta": 0.0,
+   "custoEtiqueta": null,
    "observacao": "Conferido no painel da Nuvemshop em 09/11/2026 (atualização semanal). Desconto inclui o desconto do Pix. Entrega local: custo real da entrega não informado.",
    "taxasFonte": "nuvemshop",
    "estorno": null,
